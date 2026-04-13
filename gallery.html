@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Haircut Styles - The Classic Fade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Proxima+Nova:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css?v=20260410p">
+    <style>
+        .gallery-page {
+            background: #fff7ef;
+            color: var(--bg-dark);
+            font-family: 'Proxima Nova', Arial, sans-serif;
+        }
+
+        .gallery-page #main-content {
+            padding-top: clamp(78px, 9.2vh, 104px);
+        }
+
+        /* Ensure headings/text on image-backed hero sections stay readable */
+        .barber-spotlight p,
+        .gallery-hero p,
+        .gallery-hero h1,
+        .barber-spotlight h2 {
+            text-shadow: 0 2px 18px rgba(0,0,0,0.25);
+        }
+
+        .gallery-hero {
+            margin-top: 0;
+            padding: 8vh 5vw 6vh;
+            background:
+                linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.55) 100%),
+                url('landing_images/gallery-hero-bg.png');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* Laptop fix: keep nav links visible and frame hero better */
+        @media (min-width: 900px) and (max-width: 991.98px) {
+            .gallery-page .navbar-brand {
+                font-size: 1.65rem;
+            }
+
+            .gallery-page .navbar .nav-book-cta {
+                display: none;
+            }
+
+            .gallery-page .navbar .navbar-toggler {
+                display: none;
+            }
+
+            .gallery-page .navbar .navbar-collapse {
+                display: flex !important;
+                flex-basis: auto;
+                justify-content: center;
+            }
+
+            .gallery-page .navbar .navbar-nav {
+                flex-direction: row;
+                align-items: center;
+                gap: 0.2rem;
+            }
+
+            .gallery-page .navbar .nav-link {
+                font-size: 0.86rem;
+                margin: 0 0.35rem;
+                white-space: nowrap;
+            }
+
+            .gallery-page .gallery-hero {
+                min-height: 300px;
+                padding: 5.2vh 4vw 4.2vh;
+                background-position: center 38%;
+                background:
+                    linear-gradient(180deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.58) 100%),
+                    url('landing_images/gallery-hero-bg.png');
+                background-size: cover;
+            }
+
+            .gallery-page .gallery-hero h1 {
+                font-size: clamp(2.1rem, 5.5vw, 3.2rem);
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1180px) {
+            .gallery-page .navbar-brand {
+                font-size: 1.75rem;
+            }
+
+            .gallery-page .navbar .nav-link {
+                margin: 0 0.42rem;
+            }
+        }
+
+        .gallery-hero h1 {
+            font-family: 'Bebas Neue', Arial, sans-serif;
+            font-size: clamp(2.6rem, 6vw, 5rem);
+            letter-spacing: 0.06em;
+            margin: 0;
+        }
+
+        .gallery-hero p {
+            max-width: 760px;
+            margin: 1.2rem auto 1.8rem;
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            color: rgba(255,255,255,0.92);
+        }
+
+        .gallery-book {
+            display: inline-block;
+            padding: 0.9rem 2.2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 2px solid transparent;
+            color: #fff;
+            background: var(--primary);
+            transition: all 0.25s ease;
+        }
+
+        .gallery-book:hover {
+            background: #fff;
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .barber-spotlight {
+            padding: 7vh 5vw 4vh;
+            background:
+                linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.55) 100%),
+                url('landing_images/barbershop-interior-new.png');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .barber-spotlight h2 {
+            text-align: center;
+            color: #fff;
+            font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+            margin-bottom: 4vh;
+            letter-spacing: 0.05em;
+        }
+
+        .bent-photo-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(220px, 1fr));
+            gap: 1.4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .bent-photo {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 18px 35px rgba(0,0,0,0.35);
+            padding: 0.6rem 0.6rem 1rem;
+            transform-origin: bottom center;
+        }
+
+        .bent-photo:nth-child(1) { transform: rotate(-8deg); }
+        .bent-photo:nth-child(2) { transform: rotate(-1deg) scale(1.03); }
+        .bent-photo:nth-child(3) { transform: rotate(8deg); }
+
+        .bent-photo img {
+            width: 100%;
+            height: 290px;
+            object-fit: cover;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .bent-photo p {
+            margin: 0.65rem 0 0;
+            font-weight: 700;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .full-gallery {
+            padding: 7vh 5vw 8vh;
+            background: #fff7ef;
+        }
+
+        .full-gallery h2 {
+            text-align: center;
+            font-size: clamp(1.8rem, 4.5vw, 3rem);
+            margin-bottom: 2vh;
+        }
+
+        .full-gallery .subtitle {
+            text-align: center;
+            color: #5f4a37;
+            margin: 0 auto 4vh;
+            max-width: 760px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .gallery-card {
+            border-radius: 10px;
+            overflow: hidden;
+            background: transparent;
+            box-shadow: none;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: none;
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-card .label {
+            display: none;
+        }
+
+        @media (max-width: 900px) {
+            .bent-photo-row {
+                grid-template-columns: 1fr;
+            }
+            .bent-photo:nth-child(1),
+            .bent-photo:nth-child(2),
+            .bent-photo:nth-child(3) {
+                transform: rotate(0deg);
+            }
+        }
+
+        /* Category rows */
+        .gallery-category {
+            padding: 6vh 0 0;
+        }
+
+        .gallery-category h3 {
+            text-align: center;
+            font-size: clamp(1.5rem, 3.6vw, 2.4rem);
+            margin: 0 0 1rem 0;
+            letter-spacing: 0.03em;
+        }
+
+        .gallery-category .category-sub {
+            text-align: center;
+            color: rgba(58,58,58,0.55);
+            max-width: 760px;
+            margin: 0 auto 2rem auto;
+            font-weight: 600;
+        }
+
+        .gallery-highlights {
+            max-width: 1260px;
+            margin: 2.2rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-highlight-card {
+            border-radius: 14px;
+            border: 1px solid rgba(232,132,32,0.28);
+            background: linear-gradient(180deg, #fffdf8 0%, #fff5e8 100%);
+            padding: 1rem 1.1rem;
+            box-shadow: 0 12px 26px rgba(58,58,58,0.09);
+        }
+
+        .gallery-highlight-card h4 {
+            margin: 0 0 0.35rem 0;
+            font-size: 1.02rem;
+            letter-spacing: 0.01em;
+        }
+
+        .gallery-highlight-card p {
+            margin: 0;
+            color: rgba(58,58,58,0.66);
+            font-size: 0.9rem;
+            line-height: 1.45;
+            font-weight: 600;
+        }
+
+        .gallery-quick-facts {
+            max-width: 1260px;
+            margin: 1.6rem auto 0;
+            border: 1px solid rgba(58,58,58,0.12);
+            border-radius: 14px;
+            background: #fffaf3;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            overflow: hidden;
+        }
+
+        .gallery-fact {
+            padding: 0.95rem 1rem;
+            text-align: center;
+            border-right: 1px solid rgba(58,58,58,0.12);
+        }
+
+        .gallery-fact:last-child {
+            border-right: none;
+        }
+
+        .gallery-fact strong {
+            display: block;
+            font-size: 1.08rem;
+            margin-bottom: 0.2rem;
+            color: #2b2b2b;
+        }
+
+        .gallery-fact span {
+            color: rgba(58,58,58,0.62);
+            font-weight: 700;
+            font-size: 0.86rem;
+            letter-spacing: 0.02em;
+        }
+
+        .gallery-row {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 0 0.3rem 1.2rem 0.3rem;
+            scroll-snap-type: x mandatory;
+        }
+
+        /* Hide horizontal gallery scrollbars (keep swipe/scroll behavior) */
+        .gallery-row {
+            scrollbar-width: none;
+        }
+
+        .gallery-row::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+
+        /* Hide scrollbar on tablet/phone (still scrolls) */
+        @media (max-width: 900px) {
+            .gallery-row {
+                scrollbar-width: none;
+            }
+
+            .gallery-row::-webkit-scrollbar {
+                width: 0;
+                height: 0;
+            }
+
+            .gallery-highlights,
+            .gallery-quick-facts {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-fact {
+                border-right: none;
+                border-bottom: 1px solid rgba(58,58,58,0.12);
+            }
+
+            .gallery-fact:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .gallery-row .gallery-card {
+            flex: 0 0 260px;
+            scroll-snap-align: start;
+        }
+
+        /* Extra breathing room so each photo reads as its own card (e.g. taper section) */
+        .gallery-row.gallery-row--spaced {
+            gap: 1.25rem;
+        }
+
+        .gallery-row.gallery-row--spaced .gallery-card {
+            flex: 0 0 280px;
+        }
+
+        /* Fixed 3-up gallery row (no scrollbar) */
+        .gallery-row.gallery-row--fixed-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            overflow: visible;
+            padding: 0;
+            scroll-snap-type: none;
+            scrollbar-width: none;
+        }
+
+        .gallery-row.gallery-row--fixed-3 .gallery-card {
+            width: 100%;
+            min-width: 0;
+            flex: none;
+        }
+
+        .gallery-row.gallery-row--fixed-3::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+
+        .gallery-row.gallery-row--shop {
+            justify-content: center;
+            gap: 1.1rem;
+        }
+
+        .gallery-row.gallery-row--shop .gallery-card {
+            flex: 0 0 420px;
+        }
+
+        .gallery-row.gallery-row--shop .gallery-card img {
+            height: 280px;
+            object-fit: cover;
+        }
+
+        @media (max-width: 900px) {
+            .gallery-row.gallery-row--fixed-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Taper fades: coverflow carousel (masterpiece) */
+        .taper-coverflow {
+            position: relative;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0.25rem 0 0.8rem;
+        }
+
+        .taper-stage {
+            position: relative;
+            height: clamp(280px, 44vw, 420px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1200px;
+        }
+
+        .taper-track {
+            position: relative;
+            width: min(980px, 100%);
+            height: 100%;
+        }
+
+        .taper-slide.gallery-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: clamp(220px, 34vw, 360px);
+            transform: translate(-50%, -50%);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+            transition:
+                transform 520ms cubic-bezier(0.22, 1.22, 0.36, 1),
+                opacity 420ms ease,
+                filter 420ms ease;
+            cursor: pointer;
+            will-change: transform, opacity;
+        }
+
+        .taper-slide.is-center {
+            z-index: 5;
+            opacity: 1;
+            filter: none;
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .taper-slide.gallery-card img {
+            height: clamp(260px, 40vw, 360px);
+        }
+
+        /* Images only: hide captions */
+        .taper-coverflow .taper-slide .label {
+            display: none;
+        }
+
+        /* Keep all images clear (no fade/blur), just positioned */
+        .taper-slide.is-left {
+            z-index: 3;
+            opacity: 1;
+            filter: none;
+            transform: translate(calc(-50% - 230px), -50%) scale(0.92) rotateY(16deg);
+        }
+
+        .taper-slide.is-right {
+            z-index: 3;
+            opacity: 1;
+            filter: none;
+            transform: translate(calc(-50% + 230px), -50%) scale(0.92) rotateY(-16deg);
+        }
+
+        .taper-slide.is-far-left {
+            z-index: 1;
+            opacity: 1;
+            filter: none;
+            transform: translate(calc(-50% - 420px), -50%) scale(0.82) rotateY(20deg);
+        }
+
+        .taper-slide.is-far-right {
+            z-index: 1;
+            opacity: 1;
+            filter: none;
+            transform: translate(calc(-50% + 420px), -50%) scale(0.82) rotateY(-20deg);
+        }
+
+        @media (max-width: 760px) {
+            .taper-stage { height: 360px; }
+            .taper-slide.is-left { transform: translate(calc(-50% - 150px), -50%) scale(0.9) rotateY(10deg); }
+            .taper-slide.is-right { transform: translate(calc(-50% + 150px), -50%) scale(0.9) rotateY(-10deg); }
+            .taper-slide.is-far-left,
+            .taper-slide.is-far-right { display: none; }
+        }
+
+        /* Make sure cards always use the full row height */
+        .gallery-card img {
+            height: 240px;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 247, 239, 0.76);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2500;
+            padding: 5vh 5vw;
+        }
+
+        .lightbox.is-open {
+            display: flex;
+        }
+
+        .lightbox-dialog {
+            width: 100%;
+            max-width: 1280px;
+            background: #fffaf4;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(58,58,58,0.12);
+            box-shadow: 0 24px 60px rgba(58,58,58,0.2);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            border: 1px solid rgba(58,58,58,0.2);
+            background: rgba(255,255,255,0.95);
+            color: var(--bg-dark);
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 900;
+            z-index: 2;
+        }
+
+        .lightbox-body {
+            position: relative;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff7ef;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 82vh;
+            transform: scale(1);
+            transition: transform 0.2s ease;
+            user-select: none;
+            border-radius: 12px;
+            cursor: zoom-in;
+        }
+
+        .lightbox-img.is-zoomed {
+            cursor: zoom-out;
+        }
+
+        /* Social follow */
+        .social-follow {
+            margin-top: 6vh;
+            padding: 4.5vh 5vw 8vh;
+            text-align: center;
+        }
+
+        .social-follow h2 {
+            font-size: clamp(1.6rem, 4vw, 2.6rem);
+            margin-bottom: 1rem;
+        }
+
+        .social-follow .social-sub {
+            margin: 0 auto 2rem auto;
+            max-width: 740px;
+            color: rgba(58,58,58,0.55);
+            font-weight: 600;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* (Icon-only styles removed) */
+    </style>
+</head>
+<body class="gallery-page">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html#home">
+                    <span class="logo-top">THE</span>
+                    <span class="logo-bottom">CLASSIC FADE</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#services">Book Online</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="gallery.html">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#testimonials">Testimonies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#services" class="nav-book-cta" aria-label="Book an appointment">Book appointment</a>
+                        </li>
+                    </ul>
+                    <a href="login.html" class="login-icon" aria-label="Log In">
+                        <img src="Images/icon6-clean.png" alt="Login" class="login-icon-img">
+                        <span class="login-icon-text">Log In</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <section class="gallery-hero">
+            <h1>Haircut Styles in London</h1>
+            <p>Fresh Looks, Sharp Fades and Signature Barber Craft.</p>
+        </section>
+
+        <section class="barber-spotlight">
+            <h2>Our Main Barbers</h2>
+            <div class="bent-photo-row">
+                <article class="bent-photo">
+                    <img src="Images/main-barber-1.png" alt="Main barber performing haircut">
+                    <p>Jordan Blake</p>
+                </article>
+                <article class="bent-photo">
+                    <img src="Images/main-barber-2.png" alt="Barber station and signature setup">
+                    <p>David Wright</p>
+                </article>
+                <article class="bent-photo">
+                    <img src="Images/main-barber-3.png" alt="Barber handling clipper cut">
+                    <p>Simon Cesay</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="full-gallery">
+            <div class="gallery-category" id="taper-fades">
+                <h3>Taper Fades</h3>
+                <p class="category-sub">Clean blends, smooth transitions, and fresh finishing for a sharp everyday look.</p>
+                <div class="taper-coverflow" id="taperCoverflow">
+                    <div class="taper-stage">
+                        <div class="taper-track" aria-label="Taper fades carousel">
+                            <figure class="gallery-card taper-slide" data-lightbox="gallery_images/taper6.png">
+                                <img src="gallery_images/taper6.png" alt="Taper fade look 6">
+                                <figcaption class="label">Taper fade 6</figcaption>
+                            </figure>
+                            <figure class="gallery-card taper-slide" data-lightbox="gallery_images/taper7.png">
+                                <img src="gallery_images/taper7.png" alt="Taper fade look 7">
+                                <figcaption class="label">Taper fade 7</figcaption>
+                            </figure>
+                            <figure class="gallery-card taper-slide" data-lightbox="gallery_images/taper8.png">
+                                <img src="gallery_images/taper8.png" alt="Taper fade look 8">
+                                <figcaption class="label">Taper fade 8</figcaption>
+                            </figure>
+                            <figure class="gallery-card taper-slide" data-lightbox="gallery_images/taper9.png">
+                                <img src="gallery_images/taper9.png" alt="Taper fade look 9">
+                                <figcaption class="label">Taper fade 9</figcaption>
+                            </figure>
+                            <figure class="gallery-card taper-slide" data-lightbox="gallery_images/taper2.png">
+                                <img src="gallery_images/taper2.png" alt="Taper fade look 2">
+                                <figcaption class="label">Taper fade 2</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-highlights" aria-label="Style highlights">
+                <article class="gallery-highlight-card">
+                    <h4>Face-shape matched cuts</h4>
+                    <p>Every style is adapted to head shape and hair texture, so the result feels personal and lasts longer.</p>
+                </article>
+                <article class="gallery-highlight-card">
+                    <h4>Sharp details, clean finish</h4>
+                    <p>Temple lines, neckline cleanup and beard blend are refined as one final look instead of separate steps.</p>
+                </article>
+                <article class="gallery-highlight-card">
+                    <h4>Book by style, not guesswork</h4>
+                    <p>Use this gallery to pick the closest look, then jump to booking with confidence about the final result.</p>
+                </article>
+            </div>
+
+            <div class="gallery-quick-facts" aria-label="Classic Fade quick facts">
+                <div class="gallery-fact"><strong>20-40 min</strong><span>Most appointments</span></div>
+                <div class="gallery-fact"><strong>7+ signature looks</strong><span>Taper, clipper, beard and more</span></div>
+                <div class="gallery-fact"><strong>Central London</strong><span>27 Union Street, EC1V 9LJ</span></div>
+            </div>
+
+            <div class="gallery-category" id="clipper-cuts">
+                <h3>Clipper Cuts</h3>
+                <p class="category-sub">Crisp edges, tidy necklines and a solid finish that lasts.</p>
+                <div class="gallery-row gallery-row--fixed-3">
+                    <figure class="gallery-card" data-lightbox="landing_images/istockphoto-937443868-612x612.jpg">
+                        <img src="landing_images/istockphoto-937443868-612x612.jpg" alt="Clipper cut close-up">
+                        <figcaption class="label">Clipper cut finish</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-lightbox="landing_images/istockphoto-1441549387-612x612.jpg">
+                        <img src="landing_images/istockphoto-1441549387-612x612.jpg" alt="Clipper cut detail">
+                        <figcaption class="label">Crisp blend</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-lightbox="Images/testimonial-profile-3.png">
+                        <img src="Images/testimonial-profile-3.png" alt="Textured crop result">
+                        <figcaption class="label">Textured crop</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="gallery-category" id="beard-lineup">
+                <h3>Beards</h3>
+                <p class="category-sub">Shape, detail and balance for a clean beard finish.</p>
+                <div class="gallery-row gallery-row--shop">
+                    <figure class="gallery-card" data-lightbox="gallery_images/beard.png">
+                        <img src="gallery_images/beard.png" alt="Beard trim style one">
+                        <figcaption class="label">Beard shaping</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-lightbox="gallery_images/beard10.png">
+                        <img src="gallery_images/beard10.png" alt="Beard trim style two">
+                        <figcaption class="label">Beard blend</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-lightbox="gallery_images/beard1.png">
+                        <img src="gallery_images/beard1.png" alt="Beard grooming session">
+                        <figcaption class="label">Beard grooming</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="gallery-category" id="shop-interior">
+                <h3>Shop Looks</h3>
+                <p class="category-sub">Interior shots, tools and atmosphere from The Classic Fade.</p>
+                <div class="gallery-row gallery-row--shop">
+                    <figure class="gallery-card" data-lightbox="gallery_images/barbershop.png">
+                        <img src="gallery_images/barbershop.png" alt="Barbershop interior">
+                        <figcaption class="label">Shop atmosphere</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-lightbox="gallery_images/barbs3erhsop.png">
+                        <img src="gallery_images/barbs3erhsop.png" alt="Barbershop styling room">
+                        <figcaption class="label">Barber styling room</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="social-follow">
+                <h2>See More on Instagram</h2>
+                <p class="social-sub">Follow The Classic Fade for fresh results and behind-the-scenes barber craft.</p>
+                <div class="social-buttons">
+                    <a class="gallery-book" href="https://www.instagram.com/mblendss/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a class="gallery-book" href="https://www.facebook.com/people/Mblendss/61574529107486/#" target="_blank" rel="noopener noreferrer">Facebook</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="contact-info-strip" aria-label="Classic Fade contact details">
+                <div class="contact-info-grid">
+                    <div class="c-box">
+                        <h3 class="c-title">Say hello</h3>
+                        <p class="c-text">WhatsApp: 07472 840 128</p>
+                        <p class="c-text">Email: team@classicfadebarbers.co.uk</p>
+                        <div class="c-social" aria-label="Social links">
+                            <a class="c-social-link" href="https://www.instagram.com/mblendss/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                    <path fill="currentColor" d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7Zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7c0-2.757 2.243-5 5-5h10Zm-5 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm5.5-.9a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2Z"/>
+                                </svg>
+                            </a>
+                            <a class="c-social-link" href="https://www.facebook.com/people/Mblendss/61574529107486/#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                    <path fill="currentColor" d="M13 2h-1a7 7 0 0 0-7 7v4H2v4h3v9h5v-9h3l1-4h-4V9a2 2 0 0 1 2-2h2V2Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="c-box">
+                        <h3 class="c-title">Our address</h3>
+                        <p class="c-text">27 Union Street</p>
+                        <p class="c-text">London</p>
+                        <p class="c-text">EC1V 9LJ</p>
+                    </div>
+
+                    <div class="c-box">
+                        <h3 class="c-title">Opening hours</h3>
+                        <p class="c-text">Mon - Sat: 9am - 8pm</p>
+                        <p class="c-text">Sunday: 10am - 6pm</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-map" aria-label="Map">
+                <iframe
+                    title="Classic Fade location map"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=27%20Union%20Street%2C%20London%20EC1V%209LJ&output=embed">
+                </iframe>
+            </div>
+        </section>
+
+        <footer class="site-footer" aria-label="Footer">
+            <p class="site-footer-copy">© 2026 The Classic Fade. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="lightbox" id="galleryLightbox" aria-hidden="true">
+        <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Image preview">
+            <div class="lightbox-body">
+                <button class="lightbox-close" type="button" id="lightboxClose" aria-label="Close">×</button>
+                <img class="lightbox-img" id="lightboxImg" alt="Preview image">
+            </div>
+        </div>
+    </div>
+    <script>
+        (function () {
+            const lightbox = document.getElementById('galleryLightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const closeBtn = document.getElementById('lightboxClose');
+            if (!lightbox || !lightboxImg || !closeBtn) return;
+
+            let scale = 1;
+            const minScale = 1;
+            const maxScale = 3;
+
+            function setScale(next) {
+                scale = Math.max(minScale, Math.min(maxScale, next));
+                lightboxImg.style.transform = 'scale(' + scale + ')';
+                lightboxImg.classList.toggle('is-zoomed', scale > 1);
+            }
+
+            function openLightbox(src, alt) {
+                if (!src) return;
+                lightboxImg.src = src;
+                lightboxImg.alt = alt || 'Image preview';
+                scale = 1;
+                setScale(1);
+                lightbox.classList.add('is-open');
+                lightbox.setAttribute('aria-hidden', 'false');
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('is-open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                lightboxImg.src = '';
+            }
+
+            document.querySelectorAll('[data-lightbox]').forEach(function (el) {
+                el.addEventListener('click', function () {
+                    const src = this.getAttribute('data-lightbox');
+                    const img = this.querySelector('img');
+                    openLightbox(src, img ? img.alt : '');
+                });
+            });
+
+            closeBtn.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', function (e) {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+            });
+
+            lightboxImg.addEventListener('click', function (e) {
+                e.stopPropagation();
+                setScale(scale > 1 ? 1 : 1.6);
+            });
+
+        })();
+    </script>
+
+    <script>
+        (function () {
+            const root = document.getElementById('taperCoverflow');
+            if (!root) return;
+
+            const slides = Array.from(root.querySelectorAll('.taper-slide'));
+            if (!slides.length) return;
+
+            let index = 1;
+
+            function mod(n, m) {
+                return ((n % m) + m) % m;
+            }
+
+            function update() {
+                slides.forEach(function (s) {
+                    s.classList.remove('is-far-left', 'is-left', 'is-center', 'is-right', 'is-far-right');
+                });
+
+                const count = slides.length;
+                const center = slides[index];
+                const left = slides[mod(index - 1, count)];
+                const right = slides[mod(index + 1, count)];
+                const farLeft = slides[mod(index - 2, count)];
+                const farRight = slides[mod(index + 2, count)];
+
+                if (farLeft) farLeft.classList.add('is-far-left');
+                if (left) left.classList.add('is-left');
+                if (center) center.classList.add('is-center');
+                if (right) right.classList.add('is-right');
+                if (farRight) farRight.classList.add('is-far-right');
+            }
+
+            function goTo(i) {
+                index = mod(i, slides.length);
+                update();
+            }
+
+            slides.forEach(function (s, i) {
+                s.addEventListener('click', function (e) {
+                    if (i === index) return; // center opens lightbox via existing handler
+                    e.preventDefault();
+                    e.stopPropagation();
+                    goTo(i);
+                }, true);
+            });
+
+            root.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowLeft') goTo(index - 1);
+                if (e.key === 'ArrowRight') goTo(index + 1);
+            });
+            root.setAttribute('tabindex', '0');
+
+            update();
+        })();
+    </script>
+
+    <script>
+        (function () {
+            document.body && document.body.classList.remove('page-leaving');
+
+            function shouldFade(linkEl) {
+                if (!linkEl || !linkEl.getAttribute) return false;
+                const href = linkEl.getAttribute('href');
+                if (!href || typeof href !== 'string') return false;
+                if (href.startsWith('#')) return false;
+                if (!href.includes('.html')) return false;
+
+                try {
+                    const url = new URL(href, window.location.href);
+                    return url.pathname !== window.location.pathname;
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            document.addEventListener('click', function (e) {
+                const a = e.target && e.target.closest ? e.target.closest('a') : null;
+                if (!a || !shouldFade(a)) return;
+
+                e.preventDefault();
+                const url = new URL(a.getAttribute('href'), window.location.href).toString();
+                document.body.classList.add('page-leaving');
+                window.setTimeout(function () { window.location.href = url; }, 220);
+            }, true);
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+
+{
+  "name": "advanced_project",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "sass scss/main.scss css/main.css --no-source-map && node server.js",
+    "dev": "sass scss/main.scss css/main.css --no-source-map && node server.js",
+    "sass": "sass scss:css --watch --no-source-map",
+    "sass:build": "sass scss/main.scss css/main.css --style compressed --no-source-map"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.101.1",
+    "bootstrap": "^5.3.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "sass": "^1.69.5"
+  }
+}

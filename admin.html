@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Admin Dashboard - The Classic Fade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Proxima+Nova:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css?v=20260410p">
+    <style>
+        .admin-page {
+            font-family: 'Proxima Nova', Arial, sans-serif;
+            background: #f7f3ee;
+            color: var(--bg-dark);
+            min-height: 100vh;
+        }
+
+        .admin-shell {
+            display: grid;
+            grid-template-columns: 240px 1fr 320px;
+            min-height: 100vh;
+        }
+
+        .admin-side {
+            background: #fff;
+            border-right: 1px solid rgba(58,58,58,0.12);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .admin-brand {
+            font-weight: 900;
+            font-size: 1.05rem;
+        }
+
+        .admin-menu {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .admin-menu button {
+            border: 1px solid rgba(58,58,58,0.14);
+            background: #fff;
+            border-radius: 10px;
+            padding: 0.6rem;
+            text-align: left;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .admin-menu button.is-active {
+            border-color: rgba(224,132,32,0.55);
+            background: rgba(224,132,32,0.11);
+        }
+
+        .admin-main {
+            padding: 1rem 1.1rem;
+        }
+
+        .admin-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.9rem;
+        }
+
+        .admin-title {
+            margin: 0;
+            font-size: 1.35rem;
+        }
+
+        .admin-badge {
+            padding: 0.25rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(46,159,87,0.14);
+            color: #1f7d46;
+            font-weight: 700;
+            font-size: 0.78rem;
+        }
+
+        .admin-msg {
+            min-height: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .admin-msg.ok {
+            color: #1f7d46;
+        }
+
+        .admin-msg.err {
+            color: #b42318;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid rgba(58,58,58,0.12);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-head {
+            padding: 0.7rem 0.9rem;
+            border-bottom: 1px solid rgba(58,58,58,0.1);
+            font-weight: 800;
+        }
+
+        .table-wrap {
+            overflow: auto;
+        }
+
+        .booking-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 980px;
+        }
+
+        .booking-table th,
+        .booking-table td {
+            padding: 0.55rem;
+            border-bottom: 1px solid rgba(58,58,58,0.08);
+            font-size: 0.88rem;
+            vertical-align: top;
+        }
+
+        .booking-table th {
+            background: #faf7f3;
+            text-align: left;
+        }
+
+        .small-input {
+            width: 100%;
+            border: 1px solid rgba(58,58,58,0.2);
+            border-radius: 8px;
+            padding: 0.4rem 0.45rem;
+        }
+
+        .btn {
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 0.45rem 0.6rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-save {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-delete {
+            background: #fff;
+            color: #b42318;
+            border-color: rgba(180,35,24,0.4);
+        }
+
+        .admin-right {
+            border-left: 1px solid rgba(58,58,58,0.12);
+            background: #fff;
+            padding: 1rem;
+        }
+
+        .admin-right h3 {
+            margin: 0 0 0.7rem;
+            font-size: 1rem;
+        }
+
+        .detail {
+            display: grid;
+            gap: 0.6rem;
+        }
+
+        .detail label {
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: rgba(58,58,58,0.66);
+        }
+
+        .detail .box {
+            border: 1px solid rgba(58,58,58,0.15);
+            border-radius: 8px;
+            padding: 0.55rem;
+            background: #fff;
+            min-height: 34px;
+        }
+
+        .logout {
+            margin-top: auto;
+            border: 1px solid rgba(58,58,58,0.2);
+            background: #fff;
+            border-radius: 10px;
+            padding: 0.6rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1200px) {
+            .admin-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-right {
+                border-left: none;
+                border-top: 1px solid rgba(58,58,58,0.12);
+            }
+
+            .admin-side {
+                border-right: none;
+                border-bottom: 1px solid rgba(58,58,58,0.12);
+            }
+        }
+    </style>
+</head>
+<body class="admin-page">
+    <main class="admin-shell">
+        <aside class="admin-side">
+            <div class="admin-brand">BOOKING CRM<br><span style="font-size:0.7rem; color:rgba(58,58,58,0.6);">ADMIN MANAGER</span></div>
+            <div class="admin-menu">
+                <button class="is-active" type="button">Availability</button>
+                <button type="button">Services</button>
+                <button type="button">Settings</button>
+            </div>
+            <button id="adminLogout" class="logout" type="button">Sign out</button>
+        </aside>
+        <section class="admin-main">
+            <div class="admin-top">
+                <h1 class="admin-title">Availability Manager</h1>
+                <span class="admin-badge">Site Live</span>
+            </div>
+            <div id="adminMsg" class="admin-msg"></div>
+            <div class="admin-grid">
+                <div class="card">
+                    <div class="card-head">Bookings</div>
+                    <div class="table-wrap">
+                        <table class="booking-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th><th>Client</th><th>Service</th><th>Date</th><th>Time</th><th>Barber</th><th>Status</th><th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookingRows"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <aside class="admin-right">
+            <h3>Service Details</h3>
+            <div class="detail">
+                <div><label>Service Name</label><div class="box" id="dService">Haircut</div></div>
+                <div><label>Description</label><div class="box" id="dDesc">Select a booking row to preview details.</div></div>
+                <div><label>Price</label><div class="box" id="dPrice">-</div></div>
+                <div><label>Status</label><div class="box" id="dStatus">pending</div></div>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        (function () {
+            const KEY_ADMIN_SESSION = 'classicfade_admin_session';
+            const msgEl = document.getElementById('adminMsg');
+            const rowsEl = document.getElementById('bookingRows');
+            const dService = document.getElementById('dService');
+            const dDesc = document.getElementById('dDesc');
+            const dPrice = document.getElementById('dPrice');
+            const dStatus = document.getElementById('dStatus');
+
+            function msg(text, type) {
+                msgEl.textContent = text || '';
+                msgEl.className = 'admin-msg' + (type ? ' ' + type : '');
+            }
+
+            function session() {
+                try { return JSON.parse(localStorage.getItem(KEY_ADMIN_SESSION) || 'null'); } catch (e) { return null; }
+            }
+
+            const API_BASE = (window.location.protocol === 'file:') ? 'http://localhost:3000/api' : '/api';
+
+            async function api(path, options) {
+                const s = session();
+                if (!s || !s.token) {
+                    window.location.href = 'login.html';
+                    throw new Error('Session missing');
+                }
+                const opts = options || {};
+                opts.headers = Object.assign({}, opts.headers || {}, { Authorization: 'Bearer ' + s.token });
+                const resp = await fetch(API_BASE + path, opts);
+                const data = await resp.json();
+                if (!resp.ok || !data || data.ok === false) throw new Error((data && data.error) || 'Request failed');
+                return data;
+            }
+
+            function renderPreview(b) {
+                dService.textContent = b.service || '-';
+                dDesc.textContent = (b.client_message && String(b.client_message).trim()) || 'No client note.';
+                dPrice.textContent = (b.price != null && b.price !== '') ? String(b.price) : '-';
+                dStatus.textContent = b.status || 'pending';
+            }
+
+            async function loadBookings() {
+                let rows = [];
+                try {
+                    const data = await api('/admin/bookings');
+                    rows = Array.isArray(data.bookings) ? data.bookings : [];
+                } catch (e) {
+                    msg(e.message || 'Could not load bookings.', 'err');
+                    return;
+                }
+                rowsEl.innerHTML = '';
+                if (!rows.length) {
+                    rowsEl.innerHTML = '<tr><td colspan="8" style="text-align:center; color:rgba(58,58,58,0.65);">No bookings yet.</td></tr>';
+                    msg('0 bookings loaded.', '');
+                    return;
+                }
+                rows.forEach(function (b) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML =
+                        '<td>' + (b.booking_id || '-') + '</td>' +
+                        '<td><div><strong>' + (b.client_name || '-') + '</strong></div><div style="color:rgba(58,58,58,0.64)">' + (b.client_email || '-') + '</div></td>' +
+                        '<td>' + (b.service || '-') + '</td>' +
+                        '<td><input class="small-input" data-k="date" value="' + (b.date || '') + '"></td>' +
+                        '<td><input class="small-input" data-k="time" value="' + (b.time || '') + '"></td>' +
+                        '<td><input class="small-input" data-k="barber" value="' + (b.barber || '') + '"></td>' +
+                        '<td><select class="small-input" data-k="status"><option>pending</option><option>confirmed</option><option>completed</option><option>cancelled</option></select></td>' +
+                        '<td><button class="btn btn-save" data-act="save">Save</button> <button class="btn btn-delete" data-act="delete">Delete</button></td>';
+                    tr.querySelector('select[data-k="status"]').value = b.status || 'pending';
+                    tr.addEventListener('click', function () { renderPreview(b); });
+                    tr.querySelector('[data-act="save"]').addEventListener('click', async function (e) {
+                        e.stopPropagation();
+                        try {
+                            await api('/admin/bookings/' + encodeURIComponent(String(b.booking_id || '')), {
+                                method: 'PATCH',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    date: tr.querySelector('input[data-k="date"]').value.trim(),
+                                    time: tr.querySelector('input[data-k="time"]').value.trim(),
+                                    barber: tr.querySelector('input[data-k="barber"]').value.trim(),
+                                    status: tr.querySelector('select[data-k="status"]').value
+                                })
+                            });
+                            msg('Booking ' + (b.booking_id || '') + ' updated.', 'ok');
+                            loadBookings();
+                        } catch (err) { msg(err.message || 'Update failed.', 'err'); }
+                    });
+                    tr.querySelector('[data-act="delete"]').addEventListener('click', async function (e) {
+                        e.stopPropagation();
+                        if (!window.confirm('Delete booking ' + (b.booking_id || '') + '?')) return;
+                        try {
+                            await api('/admin/bookings/' + encodeURIComponent(String(b.booking_id || '')), { method: 'DELETE' });
+                            msg('Booking ' + (b.booking_id || '') + ' deleted.', 'ok');
+                            loadBookings();
+                        } catch (err) { msg(err.message || 'Delete failed.', 'err'); }
+                    });
+                    rowsEl.appendChild(tr);
+                });
+                renderPreview(rows[0]);
+                msg(rows.length + ' bookings loaded.', '');
+            }
+
+            document.getElementById('adminLogout').addEventListener('click', function () {
+                localStorage.removeItem(KEY_ADMIN_SESSION);
+                window.location.href = 'login.html';
+            });
+
+            if (!session() || !session().token) {
+                window.location.href = 'login.html';
+                return;
+            }
+            loadBookings();
+        })();
+    </script>
+</body>
+</html>

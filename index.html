@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Classic Fade - Barbershop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Proxima+Nova:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css?v=20260410p">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#home">
+                    <span class="logo-top">THE</span>
+                    <span class="logo-bottom">CLASSIC FADE</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#booking">Book Online</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="gallery.html">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#testimonials">Testimonies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#booking" class="nav-book-cta" aria-label="Book an appointment">Book appointment</a>
+                        </li>
+                    </ul>
+                    <a href="login.html" class="login-icon" aria-label="Log In">
+                        <img src="Images/icon6-clean.png" alt="Login" class="login-icon-img">
+                        <span class="login-icon-text">Log In</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <section id="home" class="hero-section">
+            <div class="carousel-container">
+                <div class="carousel-side-image left">
+                    <img src="landing_images/istockphoto-1441549387-612x612.jpg" alt="Barbershop interior">
+                </div>
+                <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500" data-bs-pause="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="landing_images/istockphoto-2255053068-612x612.jpeg" alt="Barber styling hair">
+                            <div class="service-name-animation">
+                                <span class="letter-large">W</span><span class="letter-rest">ash and Cut</span>
+                            </div>
+                            <div class="new-badge">New</div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="landing_images/istockphoto-1441549387-612x612.jpg" alt="Haircut">
+                            <div class="service-name-animation">
+                                <span class="letter-large">H</span><span class="letter-rest">aircut</span>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="landing_images/istockphoto-937443868-612x612.jpg" alt="Clipper Cut">
+                            <div class="service-name-animation">
+                                <span class="letter-large">C</span><span class="letter-rest">lipper Cut</span>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="landing_images/barbershop-interior-new.png" alt="Barbershop interior chairs and mirrors">
+                        </div>
+                    </div>
+                    <div class="carousel-indicators carousel-indicators-custom" role="tablist">
+                        <button type="button" class="indicator active" data-bs-target="#heroCarousel" data-bs-slide-to="0" aria-label="Slide 1" aria-current="true"></button>
+                        <button type="button" class="indicator" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" class="indicator" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" class="indicator" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    </div>
+                </div>
+                <div class="carousel-side-image right">
+                    <img src="landing_images/istockphoto-937443868-612x612.jpg" alt="Barbershop service">
+                </div>
+            </div>
+        </section>
+
+        <section class="welcome-section reveal-on-scroll">
+            <h2 class="welcome-headline">
+                <span class="welcome-headline__line">Welcome to The Classic Fade — where sharp cuts</span>
+                <span class="welcome-headline__line">and fair prices meet, right in London.</span>
+            </h2>
+            <a href="#booking" class="cta-button">Book an Appointment</a>
+            <p class="welcome-services-label">Services</p>
+        </section>
+
+        <section class="haircut-styles reveal-on-scroll" id="services">
+            <div id="booking" aria-hidden="true"></div>
+            <div class="container">
+                <div class="services-grid">
+                    <div class="service-card popular">
+                        <div class="service-card-top service-card-top--badged">
+                            <div class="service-icon-wrap">
+                                <div class="service-icon">
+                                    <img src="Images/haircut.png" alt="Haircut icon">
+                                </div>
+                                <span class="popular-badge">Most Popular</span>
+                            </div>
+                        </div>
+                        <h3 class="service-name">Haircut</h3>
+                        <p class="service-desc">Tailored haircut with clean neck finish, careful shaping and quick styling to suit you.</p>
+                        <p class="service-price">£23 <span>(skin fade +£4)</span></p>
+                        <div class="service-actions">
+                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#videoModal" data-service="Haircut" data-desc="Tailored haircut with clean neck finish, careful shaping and quick styling to suit you." data-price="£23 (skin fade +£4)" data-image="gallery_images/taper8.png">View</a>
+                            <a href="booking.html?service=Haircut" class="book-btn">Book Now</a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <img src="Images/wash-and-cut.png" alt="Wash and Cut icon">
+                        </div>
+                        <h3 class="service-name">Wash and Cut</h3>
+                        <p class="service-desc">Relaxing wash, precise cut, hot towel finish and a light massage with styled finish.</p>
+                        <p class="service-price">£28 <span>(skin fade +£4)</span></p>
+                        <div class="service-actions">
+                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#videoModal" data-service="Wash and Cut" data-desc="Relaxing wash, precise cut, hot towel finish and a light massage with styled finish." data-price="£28 (skin fade +£4)" data-image="gallery_images/taper7.png">View</a>
+                            <a href="booking.html?service=Wash%20and%20Cut" class="book-btn">Book Now</a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <img src="Images/clipper.png" alt="Clipper cut icon">
+                        </div>
+                        <h3 class="service-name">Clipper Cut</h3>
+                        <p class="service-desc">Single-grade clipper cut with sharp edges, tidy neckline and a quick clean-up finish.</p>
+                        <p class="service-price">£18 <span>(Hair Wash +£5)</span></p>
+                        <div class="service-actions">
+                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#videoModal" data-service="Clipper Cut" data-desc="Single-grade clipper cut with sharp edges, tidy neckline and a quick clean-up finish." data-price="£18 (Hair Wash +£5)" data-image="gallery_images/taper6.png">View</a>
+                            <a href="booking.html?service=Clipper%20Cut" class="book-btn">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="other-services-wrap" aria-labelledby="otherServicesTitle">
+                <div class="container">
+                    <div class="other-services-card">
+                    <h3 id="otherServicesTitle" class="other-services-title">Other Services</h3>
+                    <div class="other-services-list">
+                        <article class="other-service-item">
+                            <div class="other-service-icon">
+                                <img src="Images/b1.png" alt="Beard shape icon">
+                            </div>
+                            <div class="other-service-copy">
+                                <h4>Beard Shape & Lineup</h4>
+                                <p>Sharp beard contour, cheek cleanup and precise lineup finish.</p>
+                                <div class="other-service-price">£14</div>
+                            </div>
+                            <a href="booking.html?service=Beard%20Shape%20%26%20Lineup" class="other-service-book">Book Now</a>
+                        </article>
+
+                        <article class="other-service-item">
+                            <div class="other-service-icon">
+                                <img src="Images/b2.png" alt="Kids haircut icon">
+                            </div>
+                            <div class="other-service-copy">
+                                <h4>Kids Haircut</h4>
+                                <p>Clean taper and shape-up for children under 12.</p>
+                                <div class="other-service-price">£18</div>
+                            </div>
+                            <a href="booking.html?service=Kids%20Haircut" class="other-service-book">Book Now</a>
+                        </article>
+
+                        <article class="other-service-item">
+                            <div class="other-service-icon">
+                                <img src="Images/b3.png" alt="Line up icon">
+                            </div>
+                            <div class="other-service-copy">
+                                <h4>Line Up Only</h4>
+                                <p>Front line, temple detailing and quick freshen-up.</p>
+                                <div class="other-service-price">£10</div>
+                            </div>
+                            <a href="booking.html?service=Line%20Up%20Only" class="other-service-book">Book Now</a>
+                        </article>
+
+                        <article class="other-service-item">
+                            <div class="other-service-icon">
+                                <img src="Images/b4.png" alt="Hot towel shave icon">
+                            </div>
+                            <div class="other-service-copy">
+                                <h4>Hot Towel Shave</h4>
+                                <p>Traditional shave, steam towel finish and soothing balm.</p>
+                                <div class="other-service-price">£22</div>
+                            </div>
+                            <a href="booking.html?service=Hot%20Towel%20Shave" class="other-service-book">Book Now</a>
+                        </article>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section reveal-on-scroll" id="about">
+            <div class="our-story-video-wrap our-story-video-wrap--hero overlay-hidden">
+                <video id="ourStoryVideo" muted playsinline preload="metadata" aria-label="Classic Fade introduction video">
+                    <source src="Images/Barbershop_Video_Classic_Fade_Haircut.mov" type="video/quicktime">
+                    <source src="Images/Barber_Shop_Video_Request.mp4" type="video/mp4">
+                </video>
+                <button type="button" class="our-story-play-btn" id="ourStoryPlayBtn" aria-label="Play introduction video">
+                    <svg class="our-story-play-icon our-story-play-icon--play" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+                    <svg class="our-story-play-icon our-story-play-icon--pause" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="our-story-overlay" id="ourStoryOverlay">
+                    <p class="our-story-kicker" id="ourStoryKicker">Our Story</p>
+                    <h2 id="ourStoryTitle">Sharp Clean Cuts</h2>
+                    <p class="our-story-brand" id="ourStoryBrand">The Classic Fade</p>
+                    <p class="our-story-text" id="ourStoryText">The Classic Fade is a London barbershop where skilled barbers deliver sharp cuts and a welcoming atmosphere. We blend tradition with modern style to give every client a look they love.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials-section reveal-on-scroll" id="testimonials">
+            <h2>What clients say</h2>
+            <div class="horizontal-line"></div>
+            <p class="testimonials-hero-quote">"The barbers here don't just cut hair; they craft styles that truly reflect your personality"</p>
+            <div class="testimonials-grid">
+                <article class="testimonial-card testimonial-card--white testimonial-card--border-thick">
+                    <div class="testimonial-profile">
+                        <h3 class="testimonial-name">Jordan Blake</h3>
+                        <p class="testimonial-role">Computing Student at City</p>
+                    </div>
+                    <div class="testimonial-stars" aria-label="5 out of 5 stars">
+                        <span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span>
+                    </div>
+                    <p class="testimonial-quote">"Came in for a trim and left feeling really sharp. The team knows what they're doing and the shop has a proper vibe. No wait, good chat and a cut that lasted weeks. Will definitely be back."</p>
+                    <div class="testimonial-video-wrap">
+                        <video class="testimonial-video" src="Images/Barber_Shop_Review_Video_Generated.mp4" playsinline preload="metadata" aria-label="Client review video in barber shop"></video>
+                        <button type="button" class="testimonial-play-toggle" aria-label="Play review video">
+                            <svg class="testimonial-play-icon testimonial-play-icon--play" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+                            <svg class="testimonial-play-icon testimonial-play-icon--pause" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                        </button>
+                    </div>
+                </article>
+                <article class="testimonial-card testimonial-card--white">
+                    <div class="testimonial-profile">
+                        <h3 class="testimonial-name">David Wright</h3>
+                        <p class="testimonial-role">CEO at OMD</p>
+                    </div>
+                    <div class="testimonial-stars" aria-label="5 out of 5 stars">
+                        <span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span>
+                    </div>
+                    <p class="testimonial-quote">"On my way to my wife's anniversary and I needed a quick barber to do my son's birthday hairstyle. I was honestly just passing by and popped in — this has to be his best cut yet. Really professional, on time, and my boy was chuffed. We'll book again."</p>
+                    <div class="testimonial-video-wrap">
+                        <video class="testimonial-video" src="Images/Barber_Shop_Review_Video_Generated_2.mp4" playsinline preload="metadata" aria-label="Barber shop review video"></video>
+                        <button type="button" class="testimonial-play-toggle" aria-label="Play review video">
+                            <svg class="testimonial-play-icon testimonial-play-icon--play" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+                            <svg class="testimonial-play-icon testimonial-play-icon--pause" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                        </button>
+                    </div>
+                </article>
+                <article class="testimonial-card testimonial-card--orange testimonial-card--border-thick">
+                    <div class="testimonial-image-wrap">
+                        <img src="Images/testimonial-profile-3.png" alt="Simon Cesay" class="testimonial-image" width="400" height="220">
+                    </div>
+                    <p class="testimonial-quote testimonial-quote--large">"The barbers here don't just cut hair; they craft styles that truly reflect your personality. Great atmosphere and fair prices right in London."</p>
+                    <div class="testimonial-stars testimonial-stars--on-dark" aria-label="5 out of 5 stars">
+                        <span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span>
+                    </div>
+                    <div class="testimonial-profile testimonial-profile--no-avatar">
+                        <h3 class="testimonial-name">Simon Cesay</h3>
+                        <p class="testimonial-role">Undergraduate</p>
+                    </div>
+                </article>
+                <article class="testimonial-card testimonial-card--light-orange testimonial-card--text-only">
+                    <div class="testimonial-image-wrap">
+                        <img src="Images/testimonial-profile-4.png" alt="Sam Jones" class="testimonial-image" width="400" height="220">
+                    </div>
+                    <p class="testimonial-quote">"Really nice people and a relaxed vibe. I enjoyed the service from start to finish — clean cut, no rush, and the price is fair for Central London. I'll be back and have already told a few mates."</p>
+                    <div class="testimonial-stars" aria-label="5 out of 5 stars">
+                        <span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span><span class="testimonial-star" aria-hidden="true">★</span>
+                    </div>
+                    <div class="testimonial-profile testimonial-profile--no-avatar">
+                        <h3 class="testimonial-name">Sam Jones</h3>
+                        <p class="testimonial-role">Software Developer</p>
+                    </div>
+                </article>
+            </div>
+            <p class="testimonials-review-cta">
+                <button type="button" class="review-trigger-inline" id="revOpen" aria-label="Write a review">Write a review</button>
+            </p>
+        </section>
+
+        <section class="contact-section reveal-on-scroll" id="contact">
+            <div class="contact-content">
+                <h2>Contact</h2>
+                <p class="contact-subtitle">Questions about booking? Send us a message and we will get back to you.</p>
+
+                <div class="contact-form-and-invite">
+                    <form id="cForm" class="contact-form" novalidate>
+                        <div class="contact-grid">
+                            <div class="contact-field">
+                                <label for="cName">Name</label>
+                                <input id="cName" name="name" type="text" class="contact-input" placeholder="Your name" autocomplete="name" required>
+                                <span class="contact-error" id="cErrName" aria-live="polite"></span>
+                            </div>
+
+                            <div class="contact-field">
+                                <label for="cEmail">Email</label>
+                                <input id="cEmail" name="email" type="email" class="contact-input" placeholder="you@example.com" autocomplete="email" required>
+                                <span class="contact-error" id="cErrEmail" aria-live="polite"></span>
+                            </div>
+
+                            <div class="contact-field contact-field--full">
+                                <label for="cTopic">Subject</label>
+                                <select id="cTopic" name="subject" class="contact-input" required>
+                                    <option value="" selected disabled>Select a topic</option>
+                                    <option value="Booking">Booking question</option>
+                                    <option value="Prices">Prices & promotions</option>
+                                    <option value="Services">Services</option>
+                                    <option value="Feedback">Feedback</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span class="contact-error" id="cErrTopic" aria-live="polite"></span>
+                            </div>
+
+                            <div class="contact-field contact-field--full">
+                                <label for="cMsg">Message</label>
+                                <textarea id="cMsg" name="message" class="contact-input contact-textarea" rows="6" placeholder="Write your message..." required></textarea>
+                                <span class="contact-error" id="cErrMsg" aria-live="polite"></span>
+                            </div>
+                        </div>
+
+                        <div class="contact-actions">
+                            <button type="submit" class="contact-submit" id="cSend">Submit</button>
+                            <p class="contact-success" id="cOk" role="status" aria-live="polite" hidden>Thanks! Your message has been saved. We will reply soon.</p>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="contact-info-strip" aria-label="Classic Fade contact details">
+                    <div class="contact-info-grid">
+                        <div class="c-box">
+                            <h3 class="c-title">Say hello</h3>
+                            <p class="c-text">WhatsApp: 07472 840 128</p>
+                            <p class="c-text">Email: team@classicfadebarbers.co.uk</p>
+                            <div class="c-social" aria-label="Social links">
+                                <a class="c-social-link" href="https://www.instagram.com/mblendss/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                        <path fill="currentColor" d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7Zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7c0-2.757 2.243-5 5-5h10Zm-5 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm5.5-.9a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2Z"/>
+                                    </svg>
+                                </a>
+                                <a class="c-social-link" href="https://www.facebook.com/people/Mblendss/61574529107486/#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                        <path fill="currentColor" d="M13 2h-1a7 7 0 0 0-7 7v4H2v4h3v9h5v-9h3l1-4h-4V9a2 2 0 0 1 2-2h2V2Z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="c-box">
+                            <h3 class="c-title">Our address</h3>
+                            <p class="c-text">27 Union Street</p>
+                            <p class="c-text">London</p>
+                            <p class="c-text">EC1V 9LJ</p>
+                        </div>
+
+                        <div class="c-box">
+                            <h3 class="c-title">Opening hours</h3>
+                            <p class="c-text">Mon - Sat: 9am - 8pm</p>
+                            <p class="c-text">Sunday: 10am - 6pm</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-map" aria-label="Map">
+                    <iframe
+                        title="Classic Fade location map"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps?q=27%20Union%20Street%2C%20London%20EC1V%209LJ&output=embed">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer" aria-label="Footer">
+            <p class="site-footer-copy">© 2026 The Classic Fade. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <div class="modal fade video-modal-apple" id="videoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered video-modal-dialog">
+            <div class="modal-content video-modal-content">
+                <button type="button" class="video-modal-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                <div class="video-modal-body">
+                    <div class="video-modal-left">
+                        <div class="promo-video-wrap">
+                            <img id="promoPreviewImage" src="" alt="Service preview image" loading="lazy">
+                            <div class="promo-video-loading" id="promoVideoLoading" aria-live="polite">
+                                <div class="promo-video-spinner" aria-hidden="true"></div>
+                                <div class="promo-video-loading-text">Loading image…</div>
+                            </div>
+                            <p class="promo-video-error" id="promoVideoError" hidden>Image could not be loaded. Please try again.</p>
+                        </div>
+                    </div>
+                    <div class="video-modal-right">
+                        <h3 id="videoModalService" class="video-modal-title">Haircut</h3>
+                        <p id="videoModalDesc" class="video-modal-desc">Tailored haircut with clean neck finish, careful shaping and quick styling to suit you.</p>
+                        <p id="videoModalPrice" class="video-modal-price">£23 <span>(skin fade +£4)</span></p>
+                        <a href="booking.html" class="video-modal-book" data-bs-dismiss="modal" id="videoModalBookLink">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="review-backdrop" id="rBack" aria-hidden="true"></div>
+    <aside class="review-panel" id="rPanel" aria-label="Review form">
+        <div class="review-panel-inner">
+            <button type="button" class="review-panel-close" id="rClose" aria-label="Close review">×</button>
+            <h3 class="review-panel-title">How was your experience?</h3>
+            <p class="review-panel-subtitle">Your feedback helps us improve.</p>
+            <div class="review-stars" id="rStars" role="group" aria-label="Rate your experience">
+                <button type="button" class="review-star" data-rating="1" aria-label="1 star">★</button>
+                <button type="button" class="review-star" data-rating="2" aria-label="2 stars">★</button>
+                <button type="button" class="review-star" data-rating="3" aria-label="3 stars">★</button>
+                <button type="button" class="review-star" data-rating="4" aria-label="4 stars">★</button>
+                <button type="button" class="review-star" data-rating="5" aria-label="5 stars">★</button>
+            </div>
+            <label for="rText" class="review-label">Comment (optional)</label>
+            <textarea id="rText" class="review-comment" rows="3" placeholder="Tell us more..."></textarea>
+            <button type="button" class="review-submit" id="rSend">Submit</button>
+            <p class="review-thanks" id="rThanks" hidden>Thanks for your feedback!</p>
+        </div>
+    </aside>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        (function () {
+            const wrap = document.querySelector('.our-story-video-wrap');
+            const ourStoryVideo = document.getElementById('ourStoryVideo');
+            const playBtn = document.getElementById('ourStoryPlayBtn');
+            const storyOverlay = document.getElementById('ourStoryOverlay');
+            const storyKicker = document.getElementById('ourStoryKicker');
+            const storyTitle = document.getElementById('ourStoryTitle');
+            const storyBrand = document.getElementById('ourStoryBrand');
+            const storyText = document.getElementById('ourStoryText');
+            if (!wrap || !ourStoryVideo || !playBtn || !storyKicker || !storyTitle || !storyBrand || !storyText) return;
+
+            let revealTimer = null;
+            let hideTimer = null;
+            let isFlipping = false;
+            let activeVideoIndex = 0;
+            let hasCompletedCycle = false;
+            const heroSlides = [
+                {
+                    src: 'Images/Barber_Shop_Video_Request.mp4',
+                    kicker: 'Our Story',
+                    title: 'Sharp Clean Cuts',
+                    brand: 'The Classic Fade',
+                    text: 'The Classic Fade is a London barbershop where skilled barbers deliver sharp cuts and a welcoming atmosphere. We blend tradition with modern style to give every client a look they love.'
+                },
+                {
+                    src: 'Images/hero-pageflip-3.mp4',
+                    kicker: 'Location & History',
+                    title: 'London Roots, Modern Craft',
+                    brand: 'The Classic Fade',
+                    text: 'Located on Union Street in London, The Classic Fade grew from a local vision to deliver consistent, premium grooming. Every cut reflects our barbershop heritage and city energy.'
+                },
+                {
+                    src: 'Images/hero-pageflip-2.mp4',
+                    kicker: 'Website Benefits',
+                    title: 'Book Faster Online',
+                    brand: 'The Classic Fade',
+                    text: 'Use the Classic Fade website to choose your service, pick your barber, and secure your slot in minutes. Quick online booking means less waiting and a smoother client experience.'
+                }
+            ];
+            setHeroVideoSource(heroSlides[activeVideoIndex].src, false);
+            setStoryCopy(activeVideoIndex);
+            const preloader = document.createElement('video');
+            preloader.preload = 'metadata';
+            preloader.muted = true;
+            preloader.setAttribute('playsinline', '');
+
+            function setStoryCopy(index) {
+                const slide = heroSlides[index];
+                if (!slide) return;
+                storyKicker.textContent = slide.kicker;
+                storyTitle.textContent = slide.title;
+                storyBrand.textContent = slide.brand;
+                storyText.textContent = slide.text;
+            }
+
+            function clearOverlayTimers() {
+                if (revealTimer) window.clearTimeout(revealTimer);
+                if (hideTimer) window.clearTimeout(hideTimer);
+                revealTimer = null;
+                hideTimer = null;
+            }
+
+            function setHeroVideoSource(src, keepPlaying) {
+                if (!src) return;
+                const wasMuted = ourStoryVideo.muted;
+                const volume = ourStoryVideo.volume;
+                ourStoryVideo.src = src;
+                ourStoryVideo.load();
+                ourStoryVideo.muted = wasMuted;
+                ourStoryVideo.volume = volume;
+                if (keepPlaying) {
+                    ourStoryVideo.play().catch(function () {});
+                }
+            }
+
+            function flipToNextVideo() {
+                if (isFlipping || !heroSlides.length) return;
+                isFlipping = true;
+                const nextIndex = (activeVideoIndex + 1) % heroSlides.length;
+                const keepPlaying = !ourStoryVideo.paused;
+                preloader.src = heroSlides[nextIndex].src;
+                preloader.load();
+                wrap.classList.add('is-page-flipping');
+                storyOverlay.classList.add('is-switching');
+
+                window.setTimeout(function () {
+                    activeVideoIndex = nextIndex;
+                    setHeroVideoSource(heroSlides[activeVideoIndex].src, keepPlaying);
+                    setStoryCopy(activeVideoIndex);
+                }, 540);
+
+                window.setTimeout(function () {
+                    wrap.classList.remove('is-page-flipping');
+                    storyOverlay.classList.remove('is-switching');
+                    isFlipping = false;
+                }, 1200);
+            }
+
+            function stopHeroPlaybackWithButton() {
+                clearOverlayTimers();
+                wrap.classList.remove('playing');
+                wrap.classList.remove('overlay-reveal');
+                wrap.classList.add('overlay-hidden');
+                setPlayButtonLabel(false);
+                try { ourStoryVideo.pause(); } catch (e) {}
+                try { ourStoryVideo.currentTime = 0; } catch (e) {}
+            }
+
+            function resetCycleToFirstSlide() {
+                activeVideoIndex = 0;
+                setStoryCopy(activeVideoIndex);
+                setHeroVideoSource(heroSlides[activeVideoIndex].src, false);
+                hasCompletedCycle = false;
+            }
+
+            function setPlayButtonLabel(isPlaying) {
+                playBtn.setAttribute('aria-label', isPlaying ? 'Pause introduction video' : 'Play introduction video');
+            }
+
+            function startOverlaySequence() {
+                clearOverlayTimers();
+                wrap.classList.add('overlay-hidden');
+                wrap.classList.remove('overlay-reveal');
+
+                revealTimer = window.setTimeout(function () {
+                    wrap.classList.remove('overlay-hidden');
+                    wrap.classList.add('overlay-reveal');
+                }, 650);
+
+                hideTimer = window.setTimeout(function () {
+                    wrap.classList.add('overlay-hidden');
+                    wrap.classList.remove('overlay-reveal');
+                }, 4600);
+            }
+
+            function shouldShowStoryOverlay() {
+                if (ourStoryVideo.ended) return true;
+                return Number(ourStoryVideo.currentTime || 0) < 0.5;
+            }
+
+            function startWithSound() {
+                wrap.classList.add('has-started');
+                wrap.classList.add('playing');
+                setPlayButtonLabel(true);
+                try {
+                    if (ourStoryVideo.ended) ourStoryVideo.currentTime = 0;
+                } catch (e) {}
+                ourStoryVideo.muted = false;
+                ourStoryVideo.volume = 1;
+                ourStoryVideo.loop = false;
+                if (shouldShowStoryOverlay()) startOverlaySequence();
+                ourStoryVideo.play().catch(function () {
+                    clearOverlayTimers();
+                    wrap.classList.remove('playing');
+                    wrap.classList.add('overlay-hidden');
+                    wrap.classList.remove('overlay-reveal');
+                    setPlayButtonLabel(false);
+                });
+            }
+
+            playBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (hasCompletedCycle) resetCycleToFirstSlide();
+                if (ourStoryVideo.paused || ourStoryVideo.ended) startWithSound();
+                else ourStoryVideo.pause();
+            });
+
+            wrap.addEventListener('click', function (e) {
+                if (e.target.closest( '#ourStoryPlayBtn')) return;
+                if (hasCompletedCycle) {
+                    resetCycleToFirstSlide();
+                }
+                if (ourStoryVideo.paused || ourStoryVideo.ended) {
+                    startWithSound();
+                } else {
+                    ourStoryVideo.pause();
+                }
+            });
+
+            ourStoryVideo.addEventListener('play', function () {
+                wrap.classList.add('playing');
+                setPlayButtonLabel(true);
+            });
+
+            ourStoryVideo.addEventListener('pause', function () {
+                if (ourStoryVideo.ended) return;
+                clearOverlayTimers();
+                wrap.classList.add('overlay-hidden');
+                wrap.classList.remove('overlay-reveal');
+                wrap.classList.remove('playing');
+                setPlayButtonLabel(false);
+            });
+
+            ourStoryVideo.addEventListener('ended', function () {
+                clearOverlayTimers();
+                if (activeVideoIndex < heroSlides.length - 1) {
+                    flipToNextVideo();
+                    window.setTimeout(function () {
+                        startWithSound();
+                    }, 720);
+                    return;
+                }
+
+                hasCompletedCycle = true;
+                stopHeroPlaybackWithButton();
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            const heroCarousel = document.getElementById('heroCarousel');
+            if (!heroCarousel) return;
+
+            const slideItems = Array.from(heroCarousel.querySelectorAll('.carousel-item'));
+            const leftImg = document.querySelector('.carousel-side-image.left img');
+            const rightImg = document.querySelector('.carousel-side-image.right img');
+            if (!slideItems.length || !leftImg || !rightImg) return;
+
+            function getSlideImage(idx) {
+                const item = slideItems[idx];
+                return item ? item.querySelector('img') : null;
+            }
+
+            function setSidePreviews(activeIdx) {
+                const count = slideItems.length;
+                const prevIdx = (activeIdx - 1 + count) % count;
+                const nextIdx = (activeIdx + 1) % count;
+                const prevImg = getSlideImage(prevIdx);
+                const nextImg = getSlideImage(nextIdx);
+
+                if (prevImg) {
+                    leftImg.src = prevImg.src;
+                    leftImg.alt = prevImg.alt || 'Previous slide preview';
+                }
+                if (nextImg) {
+                    rightImg.src = nextImg.src;
+                    rightImg.alt = nextImg.alt || 'Next slide preview';
+                }
+            }
+
+            function getActiveIndex() {
+                const active = heroCarousel.querySelector('.carousel-item.active');
+                const idx = slideItems.indexOf(active);
+                return idx >= 0 ? idx : 0;
+            }
+
+            setSidePreviews(getActiveIndex());
+
+            heroCarousel.addEventListener('slide.bs.carousel', function (event) {
+                const targetIdx = typeof event.to === 'number' ? event.to : getActiveIndex();
+                setSidePreviews(targetIdx);
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            const modal = document.getElementById('videoModal');
+            const previewImage = document.getElementById('promoPreviewImage');
+            const serviceEl = document.getElementById('videoModalService');
+            const descEl = document.getElementById('videoModalDesc');
+            const priceEl = document.getElementById('videoModalPrice');
+            const loadingEl = document.getElementById('promoVideoLoading');
+            const errorEl = document.getElementById('promoVideoError');
+
+            function showLoading() {
+                if (loadingEl) loadingEl.classList.add('is-visible');
+                if (errorEl) errorEl.hidden = true;
+            }
+
+            function hideLoading() {
+                if (loadingEl) loadingEl.classList.remove('is-visible');
+            }
+
+            function setPreviewImage(url) {
+                if (!previewImage || !url) return;
+                showLoading();
+                previewImage.src = '';
+                previewImage.alt = serviceEl ? serviceEl.textContent + ' preview image' : 'Service preview image';
+                previewImage.src = url;
+            }
+
+            document.querySelectorAll('.view-btn[data-bs-target="#videoModal"]').forEach(function (btn) {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (this.dataset.service) {
+                        serviceEl.textContent = this.dataset.service;
+                        descEl.textContent = this.dataset.desc;
+                        priceEl.innerHTML = this.dataset.price.replace(/\(([^)]+)\)/, '<span>($1)</span>');
+                    }
+                    if (this.dataset.image) {
+                        setPreviewImage(this.dataset.image);
+                    }
+                    const bookLink = document.getElementById('videoModalBookLink');
+                    if (bookLink && this.dataset.service) {
+                        bookLink.href = 'booking.html?service=' + encodeURIComponent(this.dataset.service);
+                    }
+                });
+            });
+
+            modal?.addEventListener('show.bs.modal', function () {
+                hideLoading();
+                if (errorEl) errorEl.hidden = true;
+                if (previewImage && previewImage.src) {
+                    showLoading();
+                }
+            });
+
+            modal?.addEventListener('hidden.bs.modal', function () {
+                if (previewImage) {
+                    previewImage.src = '';
+                }
+                hideLoading();
+                if (errorEl) errorEl.hidden = true;
+            });
+
+            if (previewImage) {
+                previewImage.addEventListener('load', hideLoading);
+                previewImage.addEventListener('error', function () {
+                    hideLoading();
+                    if (errorEl) errorEl.hidden = false;
+                });
+            }
+        })();
+    </script>
+
+    <script>
+        (function () {
+            const form = document.getElementById('cForm');
+            if (!form) return;
+
+            const nameEl = document.getElementById('cName');
+            const emailEl = document.getElementById('cEmail');
+            const subjectEl = document.getElementById('cTopic');
+            const messageEl = document.getElementById('cMsg');
+
+            const errorName = document.getElementById('cErrName');
+            const errorEmail = document.getElementById('cErrEmail');
+            const errorSubject = document.getElementById('cErrTopic');
+            const errorMessage = document.getElementById('cErrMsg');
+
+            const submitBtn = document.getElementById('cSend');
+            const successEl = document.getElementById('cOk');
+
+            const nameRegex = /^[A-Za-z][A-Za-z\s'-]{1,48}$/;
+
+            function setError(inputEl, errorEl, message) {
+                if (inputEl) inputEl.classList.add('is-invalid');
+                if (errorEl) errorEl.textContent = message;
+            }
+
+            function clearError(inputEl, errorEl) {
+                if (inputEl) inputEl.classList.remove('is-invalid');
+                if (errorEl) errorEl.textContent = '';
+            }
+
+            function validateAll() {
+                let ok = true;
+
+                const name = nameEl ? nameEl.value.trim() : '';
+                if (!nameEl || !nameRegex.test(name)) {
+                    ok = false;
+                    setError(nameEl, errorName, 'Please enter a valid name (2–50 characters, starting with a letter).');
+                } else {
+                    clearError(nameEl, errorName);
+                }
+
+                const email = emailEl.value.trim();
+                if (email.length === 0 || !email.includes('@')) {
+                    ok = false;
+                    setError(emailEl, errorEmail, 'Please enter a valid email address (must include @).');
+                } else {
+                    clearError(emailEl, errorEmail);
+                }
+
+                const subject = subjectEl.value;
+                if (!subject || !subject.trim()) {
+                    ok = false;
+                    setError(subjectEl, errorSubject, 'Please choose a topic from the dropdown.');
+                } else {
+                    clearError(subjectEl, errorSubject);
+                }
+
+                const message = messageEl.value.trim();
+                if (message.length < 10 || message.length > 500) {
+                    ok = false;
+                    setError(messageEl, errorMessage, 'Message must be between 10 and 500 characters.');
+                } else {
+                    clearError(messageEl, errorMessage);
+                }
+
+                return ok;
+            }
+
+            function validateField(inputEl) {
+                if (!inputEl) return;
+                const id = inputEl.id;
+
+                if (id === 'cName') {
+                    const value = nameEl ? nameEl.value.trim() : '';
+                    if (!nameRegex.test(value)) {
+                        setError(nameEl, errorName, 'Please enter a valid name (2–50 characters, starting with a letter).');
+                    } else {
+                        clearError(nameEl, errorName);
+                    }
+                } else if (id === 'cEmail') {
+                    const value = emailEl.value.trim();
+                    if (value.length === 0 || !value.includes('@')) {
+                        setError(emailEl, errorEmail, 'Please enter a valid email address (must include @).');
+                    } else {
+                        clearError(emailEl, errorEmail);
+                    }
+                } else if (id === 'cTopic') {
+                    const value = subjectEl.value;
+                    if (!value || !value.trim()) {
+                        setError(subjectEl, errorSubject, 'Please choose a topic from the dropdown.');
+                    } else {
+                        clearError(subjectEl, errorSubject);
+                    }
+                } else if (id === 'cMsg') {
+                    const value = messageEl.value.trim();
+                    if (value.length < 10 || value.length > 500) setError(messageEl, errorMessage, 'Message must be 10-500 characters.');
+                    else clearError(messageEl, errorMessage);
+                }
+            }
+
+            [nameEl, emailEl, messageEl].forEach(function (el) {
+                if (!el) return;
+                el.addEventListener('input', function () {
+                    if (successEl) successEl.hidden = true;
+                    validateField(el);
+                });
+            });
+
+            if (subjectEl) {
+                subjectEl.addEventListener('change', function () {
+                    if (successEl) successEl.hidden = true;
+                    validateField(subjectEl);
+                });
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (successEl) successEl.hidden = true;
+
+                const ok = validateAll();
+                if (!ok) return;
+
+                const prevText = submitBtn ? submitBtn.textContent : 'Submit';
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                }
+
+                window.setTimeout(function () {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = prevText;
+                    }
+
+                    if (successEl) {
+                        successEl.hidden = false;
+                    }
+                    form.reset();
+
+                    clearError(nameEl, errorName);
+                    clearError(emailEl, errorEmail);
+                    clearError(subjectEl, errorSubject);
+                    clearError(messageEl, errorMessage);
+                }, 800);
+            });
+        })();
+    </script>
+
+    <script>
+        (function () {
+            const trigger = document.getElementById('revOpen');
+            const panel = document.getElementById('rPanel');
+            const backdrop = document.getElementById('rBack');
+            const closeBtn = document.getElementById('rClose');
+            const starsEl = document.getElementById('rStars');
+            const stars = panel ? panel.querySelectorAll('.review-star') : [];
+            const commentEl = document.getElementById('rText');
+            const submitBtn = document.getElementById('rSend');
+            const thanksEl = document.getElementById('rThanks');
+
+            if (!trigger || !panel) return;
+
+            let selectedRating = 0;
+
+            function setFilledStars(n) {
+                stars.forEach(function (star) {
+                    const rating = parseInt(star.getAttribute('data-rating'), 10);
+                    star.classList.toggle('is-filled', rating <= n);
+                });
+            }
+
+            function openPanel() {
+                panel.classList.add('is-open');
+                if (backdrop) backdrop.classList.add('is-open');
+                trigger.setAttribute('aria-expanded', 'true');
+                thanksEl && (thanksEl.hidden = true);
+            }
+
+            function closePanel() {
+                panel.classList.remove('is-open');
+                if (backdrop) backdrop.classList.remove('is-open');
+                trigger.setAttribute('aria-expanded', 'false');
+            }
+
+            trigger.addEventListener('click', openPanel);
+            if (closeBtn) closeBtn.addEventListener('click', closePanel);
+            if (backdrop) backdrop.addEventListener('click', closePanel);
+
+            if (stars && stars.length) {
+                stars.forEach(function (star) {
+                    star.addEventListener('click', function () {
+                        selectedRating = parseInt(star.getAttribute('data-rating'), 10) || 0;
+                        setFilledStars(selectedRating);
+                    });
+                });
+            }
+
+            if (submitBtn) {
+                submitBtn.addEventListener('click', function () {
+                    if (!selectedRating) selectedRating = 5;
+                    setFilledStars(selectedRating);
+
+                    const payload = {
+                        rating: selectedRating,
+                        comment: commentEl ? commentEl.value.trim() : '',
+                        date: new Date().toISOString()
+                    };
+
+                    try {
+                        const existing = JSON.parse(localStorage.getItem('barberReviews') || '[]');
+                        if (Array.isArray(existing)) existing.push(payload);
+                        else localStorage.setItem('barberReviews', JSON.stringify([payload]));
+                        if (Array.isArray(existing)) localStorage.setItem('barberReviews', JSON.stringify(existing));
+                    } catch (e) {}
+
+                    thanksEl && (thanksEl.hidden = false);
+                    submitBtn.disabled = true;
+
+                    window.setTimeout(function () {
+                        submitBtn.disabled = false;
+                        closePanel();
+                        selectedRating = 0;
+                        setFilledStars(0);
+                        if (commentEl) commentEl.value = '';
+                        if (thanksEl) thanksEl.hidden = true;
+                    }, 1500);
+                });
+            }
+        })();
+    </script>
+
+    <script>
+        (function () {
+            function setUiState(wrap, video, playing) {
+                wrap.classList.toggle('playing', playing);
+                var btn = wrap.querySelector('.testimonial-play-toggle');
+                if (btn) {
+                    btn.setAttribute('aria-label', playing ? 'Pause review video' : 'Play review video');
+                }
+            }
+
+            function pauseOtherTestimonialVideos(currentWrap) {
+                document.querySelectorAll('.testimonial-video-wrap').forEach(function (w) {
+                    if (w === currentWrap) return;
+                    var v = w.querySelector('video.testimonial-video');
+                    if (v && !v.paused) {
+                        v.pause();
+                        setUiState(w, v, false);
+                    }
+                });
+            }
+
+            document.querySelectorAll('.testimonial-video-wrap').forEach(function (wrap) {
+                var video = wrap.querySelector('video.testimonial-video');
+                var btn = wrap.querySelector('.testimonial-play-toggle');
+                var controlsTimer = null;
+                if (!video) return;
+
+                video.muted = false;
+                video.volume = 1;
+                video.setAttribute('playsinline', '');
+                video.playsInline = true;
+                setUiState(wrap, video, false);
+                wrap.classList.add('show-controls');
+
+                function clearControlsTimer() {
+                    if (controlsTimer) window.clearTimeout(controlsTimer);
+                    controlsTimer = null;
+                }
+
+                function showControlsTemporarily() {
+                    clearControlsTimer();
+                    wrap.classList.add('show-controls');
+                    controlsTimer = window.setTimeout(function () {
+                        if (!video.paused) wrap.classList.remove('show-controls');
+                    }, 1200);
+                }
+
+                function toggle() {
+                    if (video.paused || video.ended) {
+                        pauseOtherTestimonialVideos(wrap);
+                        video.muted = false;
+                        video.volume = 1;
+                        var p = video.play();
+                        if (p && typeof p.catch === 'function') {
+                            p.catch(function () {
+                                setUiState(wrap, video, false);
+                            });
+                        }
+                    } else {
+                        video.pause();
+                    }
+                }
+
+                wrap.addEventListener('click', function (e) {
+                    if (e.target.closest('a')) return;
+                    e.preventDefault();
+                    toggle();
+                });
+
+                wrap.addEventListener('mousemove', function () {
+                    if (!video.paused) showControlsTemporarily();
+                });
+
+                wrap.addEventListener('touchstart', function () {
+                    if (!video.paused) showControlsTemporarily();
+                }, { passive: true });
+
+                if (btn) {
+                    btn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        toggle();
+                    });
+                }
+
+                video.addEventListener('play', function () {
+                    setUiState(wrap, video, true);
+                    showControlsTemporarily();
+                });
+                video.addEventListener('pause', function () {
+                    clearControlsTimer();
+                    wrap.classList.add('show-controls');
+                    setUiState(wrap, video, false);
+                });
+                video.addEventListener('ended', function () {
+                    try { video.currentTime = 0; } catch (err) {}
+                    clearControlsTimer();
+                    wrap.classList.add('show-controls');
+                    setUiState(wrap, video, false);
+                });
+            });
+        })();
+    </script>
+
+    <script>
+        (function () {
+            const items = Array.from(document.querySelectorAll('.reveal-on-scroll'));
+            if (!items.length) return;
+
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                items.forEach(function (el) { el.classList.add('is-visible'); });
+                return;
+            }
+
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+
+            items.forEach(function (el) { observer.observe(el); });
+        })();
+    </script>
+
+    <script>
+        (function () {
+            document.body && document.body.classList.remove('page-leaving');
+
+            function shouldFade(linkEl) {
+                if (!linkEl || !linkEl.getAttribute) return false;
+                const href = linkEl.getAttribute('href');
+                if (!href || typeof href !== 'string') return false;
+                if (href.startsWith('#')) return false;
+                if (!href.includes('.html')) return false;
+
+                try {
+                    const url = new URL(href, window.location.href);
+                    return url.pathname !== window.location.pathname;
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            document.addEventListener('click', function (e) {
+                const a = e.target && e.target.closest ? e.target.closest('a') : null;
+                if (!a || !shouldFade(a)) return;
+
+                e.preventDefault();
+                const url = new URL(a.getAttribute('href'), window.location.href).toString();
+                document.body.classList.add('page-leaving');
+                window.setTimeout(function () { window.location.href = url; }, 220);
+            }, true);
+        })();
+    </script>
+</body>
+</html>

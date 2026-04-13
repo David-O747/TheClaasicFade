@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Booking Form - The Classic Fade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Proxima+Nova:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css?v=20260410p">
+    <style>
+        .booking2-page { background: #ffffff; color: var(--bg-dark); font-family: 'Proxima Nova', Arial, sans-serif; }
+        .booking2-main { margin-top: 11vh; padding: 3.2vh 3vw 5.2vh; }
+        .booking2-container { max-width: 1150px; margin: 0 auto; }
+        .booking2-title { font-size: clamp(1.6rem, 3.6vw, 2.4rem); font-weight: 900; margin: 0 0 2.0rem 0; }
+
+        .booking2-grid { display: grid; grid-template-columns: 1.25fr 0.85fr; gap: 1.8rem; align-items: start; }
+        .box { border-radius: 12px; background: rgba(0,0,0,0.03); padding: 1.1rem; }
+        .box-inner { background: #fff; border-radius: 10px; padding: 1rem; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 10px 24px rgba(0,0,0,0.06); }
+
+        .section-h { font-size: 0.95rem; font-weight: 900; margin: 0 0 0.8rem 0; color: rgba(58,58,58,0.75); }
+
+        .field { display: grid; gap: 0.35rem; margin-bottom: 1rem; }
+        .field label { font-weight: 900; font-size: 0.92rem; color: rgba(58,58,58,0.65); }
+        .field input, .field textarea {
+            border-radius: 10px; border: 1px solid rgba(0,0,0,0.14);
+            padding: 0.75rem 0.9rem; background: #fff; outline: none; font-family: inherit;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .field input:focus, .field textarea:focus {
+            border-color: rgba(232, 132, 32, 0.8);
+            box-shadow: 0 0 0 4px rgba(232, 132, 32, 0.14);
+        }
+        .field input.is-valid, .field textarea.is-valid {
+            border-color: #2e9f57;
+            box-shadow: inset 4px 0 0 #2e9f57;
+            background: #f5fcf8;
+        }
+        .field input.is-invalid, .field textarea.is-invalid {
+            border-color: #b42318;
+            box-shadow: inset 4px 0 0 #b42318;
+            background: #fff7f6;
+        }
+        .error { color: #b42318; font-weight: 800; font-size: 0.86rem; min-height: 1.1em; }
+
+        .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .summary-line { padding: 0.75rem 0; border-bottom: 1px solid rgba(0,0,0,0.12); font-weight: 800; color: rgba(58,58,58,0.75); }
+        .muted { font-weight: 700; color: rgba(58,58,58,0.55); }
+
+        .book-submit {
+            width: 100%;
+            margin-top: 1.2rem;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0.9rem 1.2rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: transform 0.15s ease, background 0.2s ease;
+        }
+        .book-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+        .book-submit:hover:not(:disabled) { transform: translateY(-1px); background: #C9731A; }
+        .terms { margin-top: 0.85rem; font-size: 0.85rem; color: rgba(58,58,58,0.55); line-height: 1.4; }
+        .success { display:none; margin-top: 1.6rem; border: 1px solid rgba(232,132,32,0.35); background: rgba(232,132,32,0.10); border-radius: 12px; padding: 1.25rem; }
+        .success.is-visible { display:block; }
+
+        @media (max-width: 980px) { .booking2-grid { grid-template-columns: 1fr; gap: 1.5rem; } .two { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body class="booking2-page">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html#home">
+                    <span class="logo-top">THE</span>
+                    <span class="logo-bottom">CLASSIC FADE</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.html#booking">Book Online</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.html#testimonials">Testimonies</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a href="index.html#booking" class="nav-book-cta" aria-label="Book an appointment">Book appointment</a></li>
+                    </ul>
+                    <a href="login.html" class="login-icon" aria-label="Log In">
+                        <img src="Images/icon6-clean.png" alt="Login icon" class="login-icon-img">
+                        <span class="login-icon-text">Log In</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1" class="booking2-main">
+        <div class="booking2-container">
+            <h1 class="booking2-title">Booking Form</h1>
+
+            <div class="booking2-grid">
+                <section>
+                    <h2 class="section-h">Client Details</h2>
+                    <div class="box"><div class="box-inner">
+                        <div class="two">
+                            <div class="field">
+                                <label for="b2Name">Name *</label>
+                                <input id="b2Name" type="text" required>
+                                <div class="error" id="b2ErrName" aria-live="polite"></div>
+                            </div>
+                            <div class="field">
+                                <label for="b2Email">Email *</label>
+                                <input id="b2Email" type="email" required>
+                                <div class="error" id="b2ErrEmail" aria-live="polite"></div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="b2Phone">Phone Number *</label>
+                            <input id="b2Phone" type="tel" required>
+                            <div class="error" id="b2ErrPhone" aria-live="polite"></div>
+                        </div>
+                        <div class="field">
+                            <label for="b2Msg">Add Your Message</label>
+                            <textarea id="b2Msg" rows="4"></textarea>
+                        </div>
+                        <div class="field">
+                            <label for="b2Voucher">Voucher Code</label>
+                            <input id="b2Voucher" type="text" placeholder="Optional" maxlength="8" inputmode="latin" autocomplete="off">
+                            <div class="error" id="b2ErrVoucher" aria-live="polite"></div>
+                        </div>
+                        <label style="display:flex; gap:0.6rem; align-items:flex-start; cursor:pointer; user-select:none;">
+                            <input id="b2Agree" type="checkbox" required style="margin-top:0.2rem;">
+                            <span style="font-weight:800; color: rgba(58,58,58,0.65); font-size:0.92rem; line-height:1.35;">
+                                I agree to be contacted about my booking.
+                            </span>
+                        </label>
+                        <div class="error" id="b2ErrAgree" aria-live="polite"></div>
+                    </div></div>
+                </section>
+
+                <aside>
+                    <h2 class="section-h">Booking Details</h2>
+                    <div class="box"><div class="box-inner">
+                        <div class="summary-line" id="b2Service">Haircut</div>
+                        <div class="summary-line">
+                            <div class="muted">When</div>
+                            <div id="b2When" style="margin-top:0.25rem;">Select a slot</div>
+                        </div>
+                        <div class="summary-line">
+                            <div class="muted">Barber</div>
+                            <div id="b2Barber" style="margin-top:0.25rem;">Jordan Blake</div>
+                        </div>
+                        <div class="summary-line" style="border-bottom:none;">
+                            <div class="muted">Total</div>
+                            <div id="b2Total" style="margin-top:0.25rem;">£0</div>
+                        </div>
+                        <div class="terms">By completing your booking, you agree to receive related phone notifications.</div>
+                        <button id="b2BookNow" class="book-submit" type="button" disabled>Book Now</button>
+                    </div></div>
+                    <div class="success" id="b2Success" role="status" aria-live="polite"></div>
+                </aside>
+            </div>
+        </div>
+
+        <section id="contact" class="contact-section">
+            <div class="contact-info-strip" aria-label="Classic Fade contact details">
+                <div class="contact-info-grid">
+                    <div class="c-box">
+                        <h3 class="c-title">Say hello</h3>
+                        <p class="c-text">WhatsApp: 07472 840 128</p>
+                        <p class="c-text">Email: team@classicfadebarbers.co.uk</p>
+                        <div class="c-social" aria-label="Social links">
+                            <a class="c-social-link" href="https://www.instagram.com/mblendss/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                    <path fill="currentColor" d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7Zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7c0-2.757 2.243-5 5-5h10Zm-5 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm5.5-.9a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2Z"/>
+                                </svg>
+                            </a>
+                            <a class="c-social-link" href="https://www.facebook.com/people/Mblendss/61574529107486/#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                    <path fill="currentColor" d="M13 2h-1a7 7 0 0 0-7 7v4H2v4h3v9h5v-9h3l1-4h-4V9a2 2 0 0 1 2-2h2V2Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="c-box">
+                        <h3 class="c-title">Our address</h3>
+                        <p class="c-text">27 Union Street</p>
+                        <p class="c-text">London</p>
+                        <p class="c-text">EC1V 9LJ</p>
+                    </div>
+
+                    <div class="c-box">
+                        <h3 class="c-title">Opening hours</h3>
+                        <p class="c-text">Mon - Sat: 9am - 8pm</p>
+                        <p class="c-text">Sunday: 10am - 6pm</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-map" aria-label="Map">
+                <iframe
+                    title="Classic Fade location map"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=27%20Union%20Street%2C%20London%20EC1V%209LJ&output=embed">
+                </iframe>
+            </div>
+        </section>
+
+        <footer class="site-footer" aria-label="Footer">
+            <p class="site-footer-copy">© 2026 The Classic Fade. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function () {
+            const API_BASE = (window.location.protocol === 'file:') ? 'http://localhost:3000/api' : '/api';
+            const params = new URLSearchParams(window.location.search);
+            const service = (params.get('service') || 'Haircut').trim();
+            const date = (params.get('date') || '').trim();
+            const time = (params.get('time') || '').trim();
+            const barber = (params.get('barber') || 'Jordan Blake').trim();
+
+            const serviceData = {
+                'Haircut': { price: 23 },
+                'Wash and Cut': { price: 28 },
+                'Clipper Cut': { price: 18 },
+                'Beard Shape & Lineup': { price: 14 },
+                'Kids Haircut': { price: 18 },
+                'Line Up Only': { price: 10 },
+                'Hot Towel Shave': { price: 22 }
+            };
+            const svc = serviceData[service] || serviceData['Haircut'];
+
+            const serviceEl = document.getElementById('b2Service');
+            const whenEl = document.getElementById('b2When');
+            const barberEl = document.getElementById('b2Barber');
+            const totalEl = document.getElementById('b2Total');
+            const bookBtn = document.getElementById('b2BookNow');
+            const successEl = document.getElementById('b2Success');
+
+            const nameEl = document.getElementById('b2Name');
+            const emailEl = document.getElementById('b2Email');
+            const phoneEl = document.getElementById('b2Phone');
+            const msgEl = document.getElementById('b2Msg');
+            const voucherEl = document.getElementById('b2Voucher');
+            const agreeEl = document.getElementById('b2Agree');
+
+            const errName = document.getElementById('b2ErrName');
+            const errEmail = document.getElementById('b2ErrEmail');
+            const errPhone = document.getElementById('b2ErrPhone');
+            const errVoucher = document.getElementById('b2ErrVoucher');
+            const errAgree = document.getElementById('b2ErrAgree');
+
+            function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+
+            function setError(errEl, msg) { if (errEl) errEl.textContent = msg || ''; }
+            function setFieldState(el, state) {
+                if (!el) return;
+                el.classList.remove('is-valid', 'is-invalid');
+                if (state === 'valid') el.classList.add('is-valid');
+                if (state === 'invalid') el.classList.add('is-invalid');
+            }
+            function clearErrors() {
+                setError(errName, ''); setError(errEmail, ''); setError(errPhone, '');
+                setError(errVoucher, ''); setError(errAgree, '');
+            }
+
+            function bindLiveValidation() {
+                if (nameEl) nameEl.addEventListener('input', function () {
+                    const v = String(nameEl.value || '').trim();
+                    setFieldState(nameEl, v ? (v.length >= 2 ? 'valid' : 'invalid') : '');
+                });
+                if (emailEl) emailEl.addEventListener('input', function () {
+                    const v = String(emailEl.value || '').trim();
+                    setFieldState(emailEl, v ? (isValidEmail(v) ? 'valid' : 'invalid') : '');
+                });
+                if (phoneEl) phoneEl.addEventListener('input', function () {
+                    const v = String(phoneEl.value || '').trim();
+                    setFieldState(phoneEl, v ? (v.length >= 8 ? 'valid' : 'invalid') : '');
+                });
+                if (voucherEl) voucherEl.addEventListener('input', function () {
+                    const v = String(voucherEl.value || '').trim();
+                    if (!v) {
+                        setFieldState(voucherEl, '');
+                        return;
+                    }
+                    setFieldState(voucherEl, (/^[A-Za-z0-9]{8}$/.test(v) ? 'valid' : 'invalid'));
+                });
+            }
+
+            function updateSummary() {
+                serviceEl.textContent = service;
+                totalEl.textContent = '£' + svc.price;
+                whenEl.textContent = (date && time) ? (date + ' at ' + time) : 'Select a slot';
+                if (barberEl) barberEl.textContent = barber;
+                bookBtn.disabled = !(date && time);
+            }
+
+            function validate() {
+                clearErrors();
+                let ok = true;
+                const name = (nameEl.value || '').trim();
+                const email = (emailEl.value || '').trim();
+                const phone = (phoneEl.value || '').trim();
+                const voucher = (voucherEl.value || '').trim();
+
+                if (name.length < 2) { ok = false; setError(errName, 'Please enter your name.'); }
+                setFieldState(nameEl, name.length >= 2 ? 'valid' : 'invalid');
+                if (!isValidEmail(email)) { ok = false; setError(errEmail, 'Please enter a valid email address.'); }
+                setFieldState(emailEl, isValidEmail(email) ? 'valid' : 'invalid');
+                if (phone.length < 8) { ok = false; setError(errPhone, 'Please enter a valid phone number.'); }
+                setFieldState(phoneEl, phone.length >= 8 ? 'valid' : 'invalid');
+                if (agreeEl && !agreeEl.checked) { ok = false; setError(errAgree, 'Please confirm you agree to be contacted.'); }
+
+                if (voucher) {
+                    const isVoucherValid = /^[A-Za-z0-9]{8}$/.test(voucher);
+                    if (!isVoucherValid) {
+                        ok = false;
+                        setError(errVoucher, 'Voucher code must be exactly 8 letters/numbers.');
+                    }
+                    setFieldState(voucherEl, isVoucherValid ? 'valid' : 'invalid');
+                } else {
+                    setFieldState(voucherEl, '');
+                }
+                return ok;
+            }
+
+            bookBtn.addEventListener('click', async function () {
+                if (!(date && time)) return;
+                if (!validate()) return;
+
+                const booking = {
+                    service,
+                    date,
+                    time,
+                    barber,
+                    price: svc.price,
+                    voucher: (voucherEl.value || '').trim(),
+                    client: {
+                        name: (nameEl.value || '').trim(),
+                        email: (emailEl.value || '').trim(),
+                        phone: (phoneEl.value || '').trim(),
+                        message: (msgEl.value || '').trim()
+                    }
+                };
+
+                try {
+                    const resp = await fetch(API_BASE + '/bookings', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(booking)
+                    });
+                    const data = await resp.json();
+                    if (!resp.ok || !data || !data.ok) {
+                        const message = (data && data.error) ? data.error : 'Could not create booking. Please try again.';
+                        successEl.classList.add('is-visible');
+                        successEl.innerHTML = '<div style="font-weight:900; color:#b42318;">' + message + '</div>';
+                        return;
+                    }
+                    booking.id = data.bookingId;
+                    booking.createdAt = new Date().toISOString();
+                } catch (e) {
+                    successEl.classList.add('is-visible');
+                    successEl.innerHTML = '<div style="font-weight:900; color:#b42318;">Network error. Start the Node server and try again.</div>';
+                    return;
+                }
+
+                successEl.classList.add('is-visible');
+                successEl.innerHTML =
+                    '<div style="font-weight:900; font-size:1.15rem; margin-bottom:0.5rem;">Booked!</div>' +
+                    '<div class="muted" style="font-weight:800;">Booking ID</div>' +
+                    '<div style="font-weight:900; margin-top:0.2rem;">' + booking.id + '</div>' +
+                    '<div class="terms" style="margin-top:0.8rem;">Service: ' + booking.service + '<br>Barber: ' + booking.barber + '<br>When: ' + booking.date + ' at ' + booking.time + '</div>';
+                bookBtn.disabled = true;
+            });
+
+            updateSummary();
+            bindLiveValidation();
+        })();
+    </script>
+
+    <script>
+        (function () {
+            document.body && document.body.classList.remove('page-leaving');
+
+            function shouldFade(linkEl) {
+                if (!linkEl || !linkEl.getAttribute) return false;
+                const href = linkEl.getAttribute('href');
+                if (!href || typeof href !== 'string') return false;
+                if (href.startsWith('#')) return false;
+                if (!href.includes('.html')) return false;
+
+                try {
+                    const url = new URL(href, window.location.href);
+                    return url.pathname !== window.location.pathname;
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            document.addEventListener('click', function (e) {
+                const a = e.target && e.target.closest ? e.target.closest('a') : null;
+                if (!a || !shouldFade(a)) return;
+
+                e.preventDefault();
+                const url = new URL(a.getAttribute('href'), window.location.href).toString();
+                document.body.classList.add('page-leaving');
+                window.setTimeout(function () { window.location.href = url; }, 220);
+            }, true);
+        })();
+    </script>
+</body>
+</html>
+
