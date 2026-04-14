@@ -144,6 +144,13 @@
             opacity: 0.35;
         }
 
+        .day-btn.is-fully-booked {
+            opacity: 0.4;
+            cursor: not-allowed;
+            text-decoration: line-through;
+            color: rgba(58, 58, 58, 0.45);
+        }
+
         .day-btn.is-selected {
             border-color: rgba(0,0,0,0.18);
             background: rgba(232, 132, 32, 0.14);
@@ -177,6 +184,13 @@
         .time-btn.is-disabled {
             cursor: not-allowed;
             opacity: 0.35;
+        }
+
+        .time-btn.is-booked {
+            cursor: not-allowed;
+            opacity: 0.42;
+            background: rgba(0, 0, 0, 0.04);
+            border-style: dashed;
         }
 
         .time-btn.is-selected {
@@ -549,8 +563,12 @@
                 btn.addEventListener('click', function () {
                     const name = normaliseBarber(btn.getAttribute('data-barber'));
                     selectedBarber = name;
+                    selectedTime = null;
+                    monthFetchGen++;
+                    timesFetchGen++;
                     setBarberSelectionUI(selectedBarber);
-                    renderTimes();
+                    renderCalendar();
+                    void renderTimes();
                     updateSummary();
                 });
             });
@@ -558,6 +576,63 @@
             const timeCandidates = [
                 '09:00', '10:30', '12:00', '13:30', '15:00', '16:30', '18:00', '19:30'
             ];
+
+            let monthAvailByDate = {};
+            let monthFetchGen = 0;
+            let timesFetchGen = 0;
+
+            function apiBases() {
+                if (window.location.protocol === 'file:') {
+                    return ['http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+                }
+                const o = (window.location.origin || '').replace(/\/$/, '');
+                const localApi = ['http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+                let onDevPort = false;
+                try {
+                    const u = new URL(o);
+                    const def = u.protocol === 'https:' ? '443' : '80';
+                    onDevPort = String(u.port || def) === '3000';
+                } catch (e) {}
+                if (!onDevPort) return localApi.concat([o + '/api', '/api']);
+                return [o + '/api', '/api'].concat(localApi);
+            }
+
+            async function fetchFromApi(path) {
+                let lastErr = 'Could not reach the booking server.';
+                for (const base of apiBases()) {
+                    try {
+                        const resp = await fetch(base + path);
+                        let data = null;
+                        try {
+                            const text = await resp.text();
+                            data = text ? JSON.parse(text) : null;
+                        } catch (e) {
+                            continue;
+                        }
+                        if (resp.ok && data && data.ok !== false) return data;
+                        lastErr = (data && data.error) ? data.error : lastErr;
+                    } catch (e) {
+                        lastErr = (e && e.message) ? e.message : lastErr;
+                    }
+                }
+                throw new Error(lastErr);
+            }
+
+            function fetchAvailabilityDay(dateStr, barber) {
+                const q = '?date=' + encodeURIComponent(dateStr) + '&barber=' + encodeURIComponent(barber);
+                return fetchFromApi('/availability' + q);
+            }
+
+            function fetchAvailabilityMonth(year, month, barber) {
+                const q =
+                    '?year=' +
+                    encodeURIComponent(String(year)) +
+                    '&month=' +
+                    encodeURIComponent(String(month)) +
+                    '&barber=' +
+                    encodeURIComponent(barber);
+                return fetchFromApi('/availability-month' + q);
+            }
 
             let activeServiceKey = initialService || 'Haircut';
             function normaliseServiceKey(key) {
@@ -573,26 +648,6 @@
                 serviceDescRow.textContent = currentService.desc;
                 servicePriceRow.textContent = '£' + currentService.price;
                 summaryPrice.textContent = '£' + currentService.price;
-            }
-
-            function hashToBool(str) {
-                // Deterministic availability: hash string into 0..1.
-                let h = 0;
-                for (let i = 0; i < str.length; i++) {
-                    h = (h * 31 + str.charCodeAt(i)) >>> 0;
-                }
-                return (h % 100) / 100 > 0.35; // ~65% slots available
-            }
-
-            function availabilityFor(dateStr, timeStr) {
-                // Disable some weekends for realism.
-                const d = new Date(dateStr + 'T00:00:00');
-                const day = d.getDay(); // Sun=0..Sat=6
-                const isWeekend = day === 0 || day === 6;
-                if (isWeekend) {
-                    return hashToBool(dateStr + timeStr + 'weekend');
-                }
-                return hashToBool(dateStr + timeStr + 'weekday');
             }
 
             function formatDateHuman(dateStr) {
@@ -658,17 +713,20 @@
                     btnEl.className = 'day-btn';
                     btnEl.textContent = dayNum;
 
-                    // Disable days in the past
                     const today = new Date();
-                    today.setHours(0,0,0,0);
+                    today.setHours(0, 0, 0, 0);
                     const dateObj = new Date(dateStr + 'T00:00:00');
                     if (dateObj < today) {
                         btnEl.classList.add('is-disabled');
                         btnEl.disabled = true;
+                        btnEl.setAttribute('data-past', '1');
                     } else if (dateObj.getDay() === 0) {
-                        // Optionally disable Sundays for realism.
                         btnEl.classList.add('is-disabled');
                         btnEl.disabled = true;
+                        btnEl.setAttribute('data-closed', '1');
+                        btnEl.title = 'Closed on Sundays';
+                    } else {
+                        btnEl.setAttribute('data-d', dateStr);
                     }
 
                     if (selectedDate === dateStr) {
@@ -676,33 +734,98 @@
                     }
 
                     btnEl.addEventListener('click', function () {
+                        if (btnEl.disabled) return;
                         selectedDate = dateStr;
                         selectedTime = null;
-                        renderTimes();
+                        void renderTimes();
                         updateSummary();
                         renderCalendar();
                     });
 
                     calendarDays.appendChild(btnEl);
                 }
+
+                void applyMonthAvailability();
             }
 
-            function renderTimes() {
-                timeSlots.innerHTML = '';
-                if (!selectedDate) return;
-
-                const bookings = getClassicFadeBookings();
-                const currentServiceName = currentService?.name || 'Haircut';
-
-                if (selectedTime) {
-                    const selectedBooked = Array.isArray(bookings) && bookings.some(function (b) {
-                        const barberOk = !b.barber || b.barber === selectedBarber;
-                        return b && barberOk && b.date === selectedDate && b.time === selectedTime && b.service === currentServiceName;
+            async function applyMonthAvailability() {
+                const myGen = ++monthFetchGen;
+                const year = viewDate.getFullYear();
+                const month = viewDate.getMonth() + 1;
+                try {
+                    const data = await fetchAvailabilityMonth(year, month, selectedBarber);
+                    if (myGen !== monthFetchGen) return;
+                    const map = {};
+                    (data.days || []).forEach(function (x) {
+                        map[x.date] = x.anyAvailable;
                     });
-                    if (selectedBooked) {
+                    monthAvailByDate = map;
+
+                    if (selectedDate && monthAvailByDate[selectedDate] === false) {
+                        selectedDate = null;
                         selectedTime = null;
                         updateSummary();
                     }
+
+                    calendarDays.querySelectorAll('.day-btn[data-d]').forEach(function (btn) {
+                        const ds = btn.getAttribute('data-d');
+                        if (!ds) return;
+                        btn.classList.remove('is-fully-booked');
+                        const has = monthAvailByDate[ds];
+                        if (has === false) {
+                            btn.classList.add('is-disabled', 'is-fully-booked');
+                            btn.disabled = true;
+                            btn.title = 'Fully booked with ' + selectedBarber + ' — try another day or barber';
+                        } else {
+                            btn.classList.remove('is-disabled');
+                            btn.disabled = false;
+                            btn.title = '';
+                        }
+                        btn.classList.toggle('is-selected', selectedDate === ds);
+                    });
+                } catch (e) {
+                    if (myGen !== monthFetchGen) return;
+                    if (availabilityLabel) {
+                        availabilityLabel.textContent =
+                            'Could not load live availability. Is the server running (npm run dev)?';
+                    }
+                }
+            }
+
+            async function renderTimes() {
+                const myGen = ++timesFetchGen;
+                timeSlots.innerHTML = '';
+                if (!selectedDate) {
+                    if (availabilityLabel) availabilityLabel.textContent = 'Availability';
+                    return;
+                }
+
+                if (availabilityLabel) {
+                    availabilityLabel.textContent = 'Loading times…';
+                }
+
+                let payload = null;
+                try {
+                    payload = await fetchAvailabilityDay(selectedDate, selectedBarber);
+                } catch (e) {
+                    if (myGen !== timesFetchGen) return;
+                    if (availabilityLabel) {
+                        availabilityLabel.textContent =
+                            'Could not load times. Start the server and refresh, or try again.';
+                    }
+                    return;
+                }
+                if (myGen !== timesFetchGen) return;
+
+                const slotList = Array.isArray(payload.slots) ? payload.slots : [];
+                const byTime = {};
+                slotList.forEach(function (s) {
+                    byTime[s.time] = !!s.available;
+                });
+
+                if (selectedTime && byTime[selectedTime] === false) {
+                    selectedTime = null;
+                    updateSummary();
                 }
 
                 if (availabilityLabel) {
@@ -710,49 +833,58 @@
                 }
 
                 timeCandidates.forEach(function (t) {
-                    const canBase = availabilityFor(selectedDate, t);
-                    const isBooked = Array.isArray(bookings) && bookings.some(function (b) {
-                        const barberOk = !b.barber || b.barber === selectedBarber;
-                        return b && barberOk && b.date === selectedDate && b.time === t && b.service === currentServiceName;
-                    });
-                    // If already booked, hide the slot entirely.
-                    if (isBooked) return;
-
-                    const can = canBase;
+                    const available = byTime[t] === true;
                     const isSelected = selectedTime === t;
 
                     const btnEl = document.createElement('button');
                     btnEl.type = 'button';
-                    btnEl.className = 'time-btn' + (can ? '' : ' is-disabled') + (isSelected ? ' is-selected' : '');
+                    btnEl.className =
+                        'time-btn' +
+                        (available ? '' : ' is-disabled is-booked') +
+                        (isSelected && available ? ' is-selected' : '');
                     btnEl.textContent = t;
-                    if (!can) btnEl.disabled = true;
-
-                    btnEl.addEventListener('click', function () {
-                        selectedTime = t;
-                        updateSummary();
-                        renderTimes();
-                    });
+                    btnEl.title = available ? 'Available' : 'Booked — not available';
+                    if (!available) {
+                        btnEl.disabled = true;
+                    } else {
+                        btnEl.addEventListener('click', function () {
+                            selectedTime = t;
+                            updateSummary();
+                            void renderTimes();
+                        });
+                    }
 
                     timeSlots.appendChild(btnEl);
                 });
             }
 
-            function getClassicFadeBookings() {
-                try {
-                    const existing = JSON.parse(localStorage.getItem('classicfade_bookings') || '[]');
-                    return Array.isArray(existing) ? existing : [];
-                } catch (e) {
-                    return [];
-                }
+            function selectedDateInCurrentMonth() {
+                if (!selectedDate) return false;
+                const d = new Date(selectedDate + 'T12:00:00');
+                return d.getFullYear() === viewDate.getFullYear() && d.getMonth() === viewDate.getMonth();
             }
 
             prevMonthBtn.addEventListener('click', function () {
                 viewDate.setMonth(viewDate.getMonth() - 1);
+                monthFetchGen++;
+                if (!selectedDateInCurrentMonth()) {
+                    selectedDate = null;
+                    selectedTime = null;
+                    updateSummary();
+                }
                 renderCalendar();
+                void renderTimes();
             });
             nextMonthBtn.addEventListener('click', function () {
                 viewDate.setMonth(viewDate.getMonth() + 1);
+                monthFetchGen++;
+                if (!selectedDateInCurrentMonth()) {
+                    selectedDate = null;
+                    selectedTime = null;
+                    updateSummary();
+                }
                 renderCalendar();
+                void renderTimes();
             });
 
             nextBtn.addEventListener('click', function () {
@@ -772,6 +904,7 @@
             setServiceUI();
             setBarberSelectionUI(selectedBarber);
             renderCalendar();
+            void renderTimes();
             updateSummary();
 
             // If service is missing in URL, we keep default.

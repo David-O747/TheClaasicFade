@@ -142,6 +142,26 @@
             padding: 0.4rem 0.45rem;
         }
 
+        .booking-table input.small-input[type="date"] {
+            min-width: 10.5rem;
+            max-width: 100%;
+        }
+
+        .booking-table select.small-input[data-k="time"] {
+            min-width: 5.75rem;
+            max-width: 100%;
+        }
+
+        .booking-table select.small-input[data-k="status"] {
+            min-width: 9.25rem;
+            max-width: 100%;
+        }
+
+        .booking-table select.small-input[data-k="barber"] {
+            min-width: 10.5rem;
+            max-width: 100%;
+        }
+
         .btn {
             border: 1px solid transparent;
             border-radius: 8px;
@@ -225,15 +245,17 @@
         <aside class="admin-side">
             <div class="admin-brand">BOOKING CRM<br><span style="font-size:0.7rem; color:rgba(58,58,58,0.6);">ADMIN MANAGER</span></div>
             <div class="admin-menu">
-                <button class="is-active" type="button">Availability</button>
-                <button type="button">Services</button>
-                <button type="button">Settings</button>
+                <button class="is-active" type="button" data-admin-tab="bookings">Bookings</button>
+                <button type="button" data-admin-tab="services">Services</button>
+                <button type="button" data-admin-tab="barbers">Barbers</button>
+                <button type="button" data-admin-tab="blocked">Block slots</button>
+                <button type="button" data-admin-tab="vouchers">Vouchers</button>
             </div>
             <button id="adminLogout" class="logout" type="button">Sign out</button>
         </aside>
         <section class="admin-main">
             <div class="admin-top">
-                <h1 class="admin-title">Availability Manager</h1>
+                <h1 class="admin-title" id="adminPageTitle">Bookings</h1>
                 <div style="display:flex; align-items:center; gap:0.5rem;">
                     <span id="adminPendingBadge" class="admin-badge" style="display:none; background:rgba(224,132,32,0.2); color:#a65a0f;">New</span>
                     <span class="admin-badge">Site Live</span>
@@ -241,7 +263,7 @@
             </div>
             <div id="adminMsg" class="admin-msg"></div>
             <div class="admin-grid">
-                <div class="card">
+                <div class="card" id="adminPaneBookings" data-admin-pane="bookings">
                     <div class="card-head">Bookings</div>
                     <div class="table-wrap">
                         <table class="booking-table">
@@ -251,6 +273,66 @@
                                 </tr>
                             </thead>
                             <tbody id="bookingRows"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card" id="adminPaneServices" data-admin-pane="services" hidden>
+                    <div class="card-head">Services</div>
+                    <div style="padding:0.75rem 0.9rem; border-bottom:1px solid rgba(58,58,58,0.1);">
+                        <div style="display:grid; gap:0.4rem; max-width:420px;">
+                            <input class="small-input" id="svcName" placeholder="Name">
+                            <input class="small-input" id="svcDesc" placeholder="Description">
+                            <input class="small-input" id="svcPrice" placeholder="Price (£)" type="number" step="0.01">
+                            <input class="small-input" id="svcDur" placeholder="Duration (mins)" type="number">
+                            <button type="button" class="btn btn-save" id="svcAdd">Add Service</button>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="booking-table">
+                            <thead><tr><th>Name</th><th>Description</th><th>Price</th><th>Mins</th><th>Actions</th></tr></thead>
+                            <tbody id="svcRows"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card" id="adminPaneBarbers" data-admin-pane="barbers" hidden>
+                    <div class="card-head">Barbers</div>
+                    <div style="padding:0.75rem 0.9rem; border-bottom:1px solid rgba(58,58,58,0.1);">
+                        <input class="small-input" id="brName" placeholder="Barber name" style="max-width:280px;">
+                        <button type="button" class="btn btn-save" id="brAdd" style="margin-left:0.5rem;">Add Barber</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="booking-table">
+                            <thead><tr><th>Name</th><th>Active</th><th>Actions</th></tr></thead>
+                            <tbody id="brRows"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card" id="adminPaneBlocked" data-admin-pane="blocked" hidden>
+                    <div class="card-head">Block time slots</div>
+                    <div style="padding:0.75rem 0.9rem; border-bottom:1px solid rgba(58,58,58,0.1); display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+                        <select class="small-input" id="blkBarber" style="width:auto; min-width:160px;"></select>
+                        <input class="small-input" id="blkDate" type="date" style="width:auto;">
+                        <select class="small-input" id="blkTime" style="width:auto;"></select>
+                        <button type="button" class="btn btn-save" id="blkAdd">Block slot</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="booking-table">
+                            <thead><tr><th>Barber</th><th>Date</th><th>Time</th><th></th></tr></thead>
+                            <tbody id="blkRows"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card" id="adminPaneVouchers" data-admin-pane="vouchers" hidden>
+                    <div class="card-head">Vouchers</div>
+                    <div style="padding:0.75rem 0.9rem; border-bottom:1px solid rgba(58,58,58,0.1);">
+                        <input class="small-input" id="vCode" placeholder="Code" style="max-width:140px;">
+                        <input class="small-input" id="vPct" placeholder="Discount %" type="number" style="max-width:120px;">
+                        <button type="button" class="btn btn-save" id="vAdd">Add voucher</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="booking-table">
+                            <thead><tr><th>Code</th><th>Discount %</th><th>Active</th><th>Actions</th></tr></thead>
+                            <tbody id="vRows"></tbody>
                         </table>
                     </div>
                 </div>
@@ -277,6 +359,72 @@
             const dPrice = document.getElementById('dPrice');
             const dStatus = document.getElementById('dStatus');
             const pendingBadge = document.getElementById('adminPendingBadge');
+
+            const SLOT_TIMES = ['09:00', '10:30', '12:00', '13:30', '15:00', '16:30', '18:00', '19:30'];
+            const BOOKING_STATUS_OPTS = [
+                ['pending', 'Pending'],
+                ['confirmed', 'Confirmed'],
+                ['completed', 'Completed'],
+                ['cancelled', 'Cancelled']
+            ];
+
+            function escHtml(s) {
+                return String(s == null ? '' : s)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;');
+            }
+
+            function escAttr(s) {
+                return String(s == null ? '' : s)
+                    .replace(/&/g, '&amp;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/</g, '&lt;');
+            }
+
+            function normalizeDateInput(d) {
+                const s = String(d || '').trim();
+                if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+                const t = Date.parse(s);
+                if (!isNaN(t)) return new Date(t).toISOString().slice(0, 10);
+                return '';
+            }
+
+            function normalizeBookingStatus(s) {
+                const k = String(s || 'pending').toLowerCase().trim();
+                if (['pending', 'confirmed', 'completed', 'cancelled'].indexOf(k) >= 0) return k;
+                return 'pending';
+            }
+
+            function timeSelectHtml(current) {
+                const t0 = String(current || '').trim();
+                let inner = SLOT_TIMES.map(function (t) {
+                    return '<option value="' + t + '"' + (t === t0 ? ' selected' : '') + '>' + t + '</option>';
+                }).join('');
+                if (t0 && SLOT_TIMES.indexOf(t0) < 0) {
+                    inner = '<option value="' + escAttr(t0) + '" selected>' + escHtml(t0) + ' (custom)</option>' + inner;
+                }
+                return '<select class="small-input" data-k="time">' + inner + '</select>';
+            }
+
+            function barberSelectHtml(current, names) {
+                const t0 = String(current || '').trim();
+                const list = names.slice();
+                if (t0 && list.indexOf(t0) < 0) list.unshift(t0);
+                const inner = list.map(function (n) {
+                    return '<option value="' + escAttr(n) + '"' + (n === t0 ? ' selected' : '') + '>' + escHtml(n) + '</option>';
+                }).join('');
+                return '<select class="small-input" data-k="barber">' + inner + '</select>';
+            }
+
+            function statusSelectHtml(selected) {
+                const sv = normalizeBookingStatus(selected);
+                const inner = BOOKING_STATUS_OPTS.map(function (x) {
+                    return '<option value="' + x[0] + '"' + (x[0] === sv ? ' selected' : '') + '>' + x[1] + '</option>';
+                }).join('');
+                return '<select class="small-input" data-k="status">' + inner + '</select>';
+            }
 
             function msg(text, type) {
                 msgEl.textContent = text || '';
@@ -331,7 +479,15 @@
                 dService.textContent = b.service || '-';
                 dDesc.textContent = (b.client_message && String(b.client_message).trim()) || 'No client note.';
                 dPrice.textContent = (b.price != null && b.price !== '') ? String(b.price) : '-';
-                dStatus.textContent = b.status || 'pending';
+                const sn = normalizeBookingStatus(b.status);
+                var sl = '';
+                for (var si = 0; si < BOOKING_STATUS_OPTS.length; si++) {
+                    if (BOOKING_STATUS_OPTS[si][0] === sn) {
+                        sl = BOOKING_STATUS_OPTS[si][1];
+                        break;
+                    }
+                }
+                dStatus.textContent = sl || sn;
             }
 
             async function loadBookings() {
@@ -358,18 +514,26 @@
                     msg('0 bookings loaded.', '');
                     return;
                 }
+                var barberNames = ['Jordan Blake', 'David Wright', 'Simon Cesay'];
+                try {
+                    const pub = await publicGet('/barbers');
+                    if (pub && Array.isArray(pub.barbers) && pub.barbers.length) {
+                        barberNames = pub.barbers.map(function (x) {
+                            return String(x.name || '').trim();
+                        }).filter(Boolean);
+                    }
+                } catch (eBr) {}
                 rows.forEach(function (b) {
                     const tr = document.createElement('tr');
                     tr.innerHTML =
                         '<td>' + (b.booking_id || '-') + '</td>' +
                         '<td><div><strong>' + (b.client_name || '-') + '</strong></div><div style="color:rgba(58,58,58,0.64)">' + (b.client_email || '-') + '</div></td>' +
                         '<td>' + (b.service || '-') + '</td>' +
-                        '<td><input class="small-input" data-k="date" value="' + (b.date || '') + '"></td>' +
-                        '<td><input class="small-input" data-k="time" value="' + (b.time || '') + '"></td>' +
-                        '<td><input class="small-input" data-k="barber" value="' + (b.barber || '') + '"></td>' +
-                        '<td><select class="small-input" data-k="status"><option>pending</option><option>confirmed</option><option>completed</option><option>cancelled</option></select></td>' +
+                        '<td><input class="small-input" type="date" data-k="date" value="' + escAttr(normalizeDateInput(b.date)) + '"></td>' +
+                        '<td>' + timeSelectHtml(b.time) + '</td>' +
+                        '<td>' + barberSelectHtml(b.barber, barberNames) + '</td>' +
+                        '<td>' + statusSelectHtml(b.status) + '</td>' +
                         '<td><button class="btn btn-save" data-act="save">Save</button> <button class="btn btn-delete" data-act="delete">Delete</button></td>';
-                    tr.querySelector('select[data-k="status"]').value = b.status || 'pending';
                     tr.addEventListener('click', function () { renderPreview(b); });
                     tr.querySelector('[data-act="save"]').addEventListener('click', async function (e) {
                         e.stopPropagation();
@@ -379,8 +543,8 @@
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
                                     date: tr.querySelector('input[data-k="date"]').value.trim(),
-                                    time: tr.querySelector('input[data-k="time"]').value.trim(),
-                                    barber: tr.querySelector('input[data-k="barber"]').value.trim(),
+                                    time: tr.querySelector('select[data-k="time"]').value.trim(),
+                                    barber: tr.querySelector('select[data-k="barber"]').value.trim(),
                                     status: tr.querySelector('select[data-k="status"]').value
                                 })
                             });
@@ -403,6 +567,277 @@
                 msg(rows.length + ' bookings loaded.', '');
             }
 
+            const adminTitle = document.getElementById('adminPageTitle');
+
+            function setActiveTab(tab) {
+                document.querySelectorAll('[data-admin-tab]').forEach(function (btn) {
+                    btn.classList.toggle('is-active', btn.getAttribute('data-admin-tab') === tab);
+                });
+                document.querySelectorAll('[data-admin-pane]').forEach(function (pane) {
+                    pane.hidden = pane.getAttribute('data-admin-pane') !== tab;
+                });
+                if (adminTitle) {
+                    adminTitle.textContent =
+                        tab === 'bookings' ? 'Bookings' :
+                        tab === 'services' ? 'Services' :
+                        tab === 'barbers' ? 'Barbers' :
+                        tab === 'blocked' ? 'Block time slots' : 'Vouchers';
+                }
+                if (tab === 'services') loadServicesAdmin();
+                if (tab === 'barbers') loadBarbersAdmin();
+                if (tab === 'blocked') { refreshBlockBarberSelect(); loadBlockedAdmin(); }
+                if (tab === 'vouchers') loadVouchersAdmin();
+            }
+
+            document.querySelectorAll('[data-admin-tab]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    setActiveTab(btn.getAttribute('data-admin-tab') || 'bookings');
+                });
+            });
+
+            async function publicGet(path) {
+                for (const base of apiBases()) {
+                    try {
+                        const resp = await fetch(base + path);
+                        const text = await resp.text();
+                        const data = text ? JSON.parse(text) : null;
+                        if (resp.ok && data && data.ok !== false) return data;
+                    } catch (e) {}
+                }
+                return null;
+            }
+
+            async function loadServicesAdmin() {
+                const tbody = document.getElementById('svcRows');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                try {
+                    const data = await api('/admin/services');
+                    const rows = Array.isArray(data.services) ? data.services : [];
+                    rows.forEach(function (s) {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML =
+                            '<td>' + (s.name || '') + '</td>' +
+                            '<td>' + (s.description || '') + '</td>' +
+                            '<td>' + (s.price != null ? s.price : '') + '</td>' +
+                            '<td>' + (s.duration_minutes != null ? s.duration_minutes : '') + '</td>' +
+                            '<td><button class="btn btn-delete" type="button">Delete</button></td>';
+                        tr.querySelector('button').addEventListener('click', async function () {
+                            if (!window.confirm('Delete service?')) return;
+                            try {
+                                await api('/admin/services/' + encodeURIComponent(String(s.id)), { method: 'DELETE' });
+                                loadServicesAdmin();
+                            } catch (e) { msg(e.message || 'Delete failed', 'err'); }
+                        });
+                        tbody.appendChild(tr);
+                    });
+                    if (!rows.length) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:rgba(58,58,58,0.6)">No services.</td></tr>';
+                } catch (e) { msg(e.message || 'Load services failed', 'err'); }
+            }
+
+            document.getElementById('svcAdd') && document.getElementById('svcAdd').addEventListener('click', async function () {
+                const name = document.getElementById('svcName').value.trim();
+                const description = document.getElementById('svcDesc').value.trim();
+                const price = Number(document.getElementById('svcPrice').value);
+                const duration_minutes = Number(document.getElementById('svcDur').value);
+                if (!name) return msg('Enter service name', 'err');
+                try {
+                    await api('/admin/services', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, description, price, duration_minutes })
+                    });
+                    document.getElementById('svcName').value = '';
+                    document.getElementById('svcDesc').value = '';
+                    document.getElementById('svcPrice').value = '';
+                    document.getElementById('svcDur').value = '';
+                    loadServicesAdmin();
+                    msg('Service added.', 'ok');
+                } catch (e) { msg(e.message || 'Add failed', 'err'); }
+            });
+
+            async function loadBarbersAdmin() {
+                const tbody = document.getElementById('brRows');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                try {
+                    const data = await api('/admin/barbers');
+                    const rows = Array.isArray(data.barbers) ? data.barbers : [];
+                    rows.forEach(function (b) {
+                        const tr = document.createElement('tr');
+                        const active = b.active !== false;
+                        tr.dataset.barberActive = active ? '1' : '0';
+                        tr.innerHTML =
+                            '<td>' + (b.name || '') + '</td>' +
+                            '<td><button type="button" class="btn btn-save br-toggle">' + (active ? 'Active' : 'Inactive') + '</button></td>' +
+                            '<td><button class="btn btn-delete" type="button">Delete</button></td>';
+                        tr.querySelector('.br-toggle').addEventListener('click', async function () {
+                            try {
+                                const cur = tr.dataset.barberActive === '1';
+                                await api('/admin/barbers/' + encodeURIComponent(String(b.id)), {
+                                    method: 'PATCH',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ active: !cur })
+                                });
+                                loadBarbersAdmin();
+                                refreshBlockBarberSelect();
+                            } catch (e) { msg(e.message || 'Update failed', 'err'); }
+                        });
+                        tr.querySelector('.btn-delete').addEventListener('click', async function () {
+                            if (!window.confirm('Delete barber?')) return;
+                            try {
+                                await api('/admin/barbers/' + encodeURIComponent(String(b.id)), { method: 'DELETE' });
+                                loadBarbersAdmin();
+                                refreshBlockBarberSelect();
+                            } catch (e) { msg(e.message || 'Delete failed', 'err'); }
+                        });
+                        tbody.appendChild(tr);
+                    });
+                    if (!rows.length) tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:rgba(58,58,58,0.6)">No barbers.</td></tr>';
+                } catch (e) { msg(e.message || 'Load barbers failed', 'err'); }
+            }
+
+            document.getElementById('brAdd') && document.getElementById('brAdd').addEventListener('click', async function () {
+                const name = document.getElementById('brName').value.trim();
+                if (!name) return msg('Enter barber name', 'err');
+                try {
+                    await api('/admin/barbers', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name })
+                    });
+                    document.getElementById('brName').value = '';
+                    loadBarbersAdmin();
+                    refreshBlockBarberSelect();
+                    msg('Barber added.', 'ok');
+                } catch (e) { msg(e.message || 'Add failed', 'err'); }
+            });
+
+            async function refreshBlockBarberSelect() {
+                const sel = document.getElementById('blkBarber');
+                if (!sel) return;
+                sel.innerHTML = '';
+                const data = await publicGet('/barbers');
+                const list = (data && data.barbers) ? data.barbers : [];
+                list.forEach(function (b) {
+                    const o = document.createElement('option');
+                    o.value = b.name;
+                    o.textContent = b.name;
+                    sel.appendChild(o);
+                });
+            }
+
+            function fillBlkTimes() {
+                const sel = document.getElementById('blkTime');
+                if (!sel || sel.options.length) return;
+                SLOT_TIMES.forEach(function (t) {
+                    const o = document.createElement('option');
+                    o.value = t;
+                    o.textContent = t;
+                    sel.appendChild(o);
+                });
+            }
+
+            async function loadBlockedAdmin() {
+                fillBlkTimes();
+                const tbody = document.getElementById('blkRows');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                try {
+                    const data = await api('/admin/blocked-slots');
+                    const rows = Array.isArray(data.blocked_slots) ? data.blocked_slots : [];
+                    rows.forEach(function (r) {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML =
+                            '<td>' + (r.barber_name || '') + '</td>' +
+                            '<td>' + (r.date || '') + '</td>' +
+                            '<td>' + (r.time || '') + '</td>' +
+                            '<td><button class="btn btn-delete" type="button">Delete</button></td>';
+                        tr.querySelector('button').addEventListener('click', async function () {
+                            try {
+                                await api('/admin/blocked-slots/' + encodeURIComponent(String(r.id)), { method: 'DELETE' });
+                                loadBlockedAdmin();
+                            } catch (e) { msg(e.message || 'Delete failed', 'err'); }
+                        });
+                        tbody.appendChild(tr);
+                    });
+                    if (!rows.length) tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:rgba(58,58,58,0.6)">No blocked slots.</td></tr>';
+                } catch (e) { msg(e.message || 'Load blocked failed', 'err'); }
+            }
+
+            document.getElementById('blkAdd') && document.getElementById('blkAdd').addEventListener('click', async function () {
+                const barber_name = document.getElementById('blkBarber').value;
+                const date = document.getElementById('blkDate').value;
+                const time = document.getElementById('blkTime').value;
+                if (!date) return msg('Pick a date', 'err');
+                try {
+                    await api('/admin/blocked-slots', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ barber_name, date, time })
+                    });
+                    loadBlockedAdmin();
+                    msg('Slot blocked.', 'ok');
+                } catch (e) { msg(e.message || 'Block failed', 'err'); }
+            });
+
+            async function loadVouchersAdmin() {
+                const tbody = document.getElementById('vRows');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                try {
+                    const data = await api('/admin/vouchers');
+                    const rows = Array.isArray(data.vouchers) ? data.vouchers : [];
+                    rows.forEach(function (v) {
+                        const tr = document.createElement('tr');
+                        const active = v.active !== false;
+                        tr.dataset.voucherActive = active ? '1' : '0';
+                        tr.innerHTML =
+                            '<td>' + (v.code || '') + '</td>' +
+                            '<td>' + (v.discount_percent != null ? v.discount_percent : '') + '</td>' +
+                            '<td><button type="button" class="btn btn-save v-toggle">' + (active ? 'Active' : 'Inactive') + '</button></td>' +
+                            '<td><button class="btn btn-delete" type="button">Delete</button></td>';
+                        tr.querySelector('.v-toggle').addEventListener('click', async function () {
+                            try {
+                                const cur = tr.dataset.voucherActive === '1';
+                                await api('/admin/vouchers/' + encodeURIComponent(String(v.id)), {
+                                    method: 'PATCH',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ active: !cur })
+                                });
+                                loadVouchersAdmin();
+                            } catch (e) { msg(e.message || 'Update failed', 'err'); }
+                        });
+                        tr.querySelector('.btn-delete').addEventListener('click', async function () {
+                            if (!window.confirm('Delete voucher?')) return;
+                            try {
+                                await api('/admin/vouchers/' + encodeURIComponent(String(v.id)), { method: 'DELETE' });
+                                loadVouchersAdmin();
+                            } catch (e) { msg(e.message || 'Delete failed', 'err'); }
+                        });
+                        tbody.appendChild(tr);
+                    });
+                    if (!rows.length) tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:rgba(58,58,58,0.6)">No vouchers.</td></tr>';
+                } catch (e) { msg(e.message || 'Load vouchers failed', 'err'); }
+            }
+
+            document.getElementById('vAdd') && document.getElementById('vAdd').addEventListener('click', async function () {
+                const code = document.getElementById('vCode').value.trim();
+                const discount_percent = Number(document.getElementById('vPct').value);
+                if (!code || isNaN(discount_percent)) return msg('Code and discount % required', 'err');
+                try {
+                    await api('/admin/vouchers', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ code, discount_percent })
+                    });
+                    document.getElementById('vCode').value = '';
+                    document.getElementById('vPct').value = '';
+                    loadVouchersAdmin();
+                    msg('Voucher added.', 'ok');
+                } catch (e) { msg(e.message || 'Add failed', 'err'); }
+            });
+
             document.getElementById('adminLogout').addEventListener('click', function () {
                 localStorage.removeItem(KEY_ADMIN_SESSION);
                 window.location.href = 'login.html';
@@ -412,6 +847,7 @@
                 window.location.href = 'login.html';
                 return;
             }
+            fillBlkTimes();
             loadBookings();
         })();
     </script>

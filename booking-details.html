@@ -64,6 +64,200 @@
         .success.is-visible { display:block; }
 
         @media (max-width: 980px) { .booking2-grid { grid-template-columns: 1fr; gap: 1.5rem; } .two { grid-template-columns: 1fr; } }
+
+        /* Thank-you / confirmation (post-booking) */
+        .b2-thanks-mode .booking2-title { text-align: center; margin-bottom: 1.25rem; }
+        #b2ConfirmPanel { margin-top: 0.5rem; }
+        #b2ConfirmPanel:not([hidden]) { display: block; }
+        .b2-thanks-wrap {
+            max-width: 560px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+        .b2-thanks-hero {
+            margin-bottom: 1.25rem;
+        }
+        .b2-thanks-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgba(46, 159, 87, 0.18), rgba(46, 159, 87, 0.06));
+            border: 2px solid rgba(46, 159, 87, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            line-height: 1;
+            color: #157347;
+        }
+        .b2-thanks-head {
+            font-size: clamp(1.5rem, 4vw, 1.85rem);
+            font-weight: 900;
+            letter-spacing: 0.02em;
+            margin: 0 0 0.35rem 0;
+            color: #1a1a1a;
+        }
+        .b2-thanks-sub {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgba(58, 58, 58, 0.62);
+            line-height: 1.45;
+        }
+        .b2-thanks-card {
+            text-align: left;
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.35rem 1.5rem;
+            margin-top: 1.35rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
+        }
+        .b2-thanks-card h3 {
+            font-size: 0.78rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(58, 58, 58, 0.5);
+            margin: 0 0 0.65rem 0;
+        }
+        .b2-thanks-id {
+            font-family: ui-monospace, monospace;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--primary, #e88420);
+            letter-spacing: 0.04em;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .b2-thanks-dl {
+            display: grid;
+            gap: 0.65rem 1rem;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        .b2-thanks-dl > div {
+            display: grid;
+            grid-template-columns: 7.2rem 1fr;
+            gap: 0.5rem;
+            align-items: baseline;
+        }
+        @media (max-width: 480px) {
+            .b2-thanks-dl > div { grid-template-columns: 1fr; gap: 0.15rem; }
+        }
+        .b2-thanks-dl dt {
+            margin: 0;
+            font-weight: 800;
+            color: rgba(58, 58, 58, 0.48);
+            font-size: 0.82rem;
+        }
+        .b2-thanks-dl dd {
+            margin: 0;
+            font-weight: 800;
+            color: #2a2a2a;
+        }
+        .b2-email-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            margin-top: 1.15rem;
+            padding: 0.65rem 1.1rem;
+            border-radius: 999px;
+            background: rgba(232, 132, 32, 0.12);
+            border: 1px solid rgba(232, 132, 32, 0.35);
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #8a4a0a;
+            line-height: 1.35;
+            text-align: center;
+            max-width: 100%;
+        }
+        .b2-email-pill span { word-break: break-all; }
+        .b2-barber-box {
+            margin-top: 1.25rem;
+            padding-top: 1.15rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        .b2-barber-box .b2-barber-name {
+            font-weight: 900;
+            font-size: 1rem;
+            margin: 0 0 0.35rem 0;
+            color: #222;
+        }
+        .b2-barber-box p {
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: rgba(58, 58, 58, 0.72);
+        }
+        .b2-shop-box {
+            margin-top: 1.2rem;
+            padding: 1rem 1.1rem;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        .b2-shop-box h3 { margin-top: 0; }
+        .b2-shop-box p {
+            margin: 0.25rem 0 0 0;
+            font-size: 0.88rem;
+            font-weight: 700;
+            line-height: 1.5;
+            color: rgba(58, 58, 58, 0.75);
+        }
+        .b2-policy {
+            margin-top: 1.15rem;
+            padding: 0.9rem 1rem;
+            border-radius: 10px;
+            background: rgba(180, 35, 24, 0.06);
+            border: 1px solid rgba(180, 35, 24, 0.18);
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.5;
+            color: rgba(58, 58, 58, 0.78);
+            text-align: center;
+        }
+        .b2-policy strong { color: #7a2218; }
+        .b2-thanks-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            justify-content: center;
+        }
+        .b2-thanks-actions a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.65rem 1.15rem;
+            border-radius: 10px;
+            font-weight: 900;
+            font-size: 0.88rem;
+            text-decoration: none;
+            transition: transform 0.15s ease, background 0.2s ease;
+        }
+        .b2-thanks-actions a:first-child {
+            background: var(--primary, #e88420);
+            color: #fff;
+        }
+        .b2-thanks-actions a:first-child:hover { transform: translateY(-1px); background: #C9731A; color: #fff; }
+        .b2-thanks-actions a:last-child {
+            background: #fff;
+            color: #333;
+            border: 2px solid rgba(0, 0, 0, 0.12);
+        }
+        .b2-thanks-actions a:last-child:hover { border-color: var(--primary, #e88420); color: var(--primary, #e88420); }
+        @keyframes b2ThanksIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #b2ConfirmPanel:not([hidden]) .b2-thanks-wrap {
+            animation: b2ThanksIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
     </style>
 </head>
 <body class="booking2-page">
@@ -98,9 +292,11 @@
     </header>
 
     <main id="main-content" tabindex="-1" class="booking2-main">
-        <div class="booking2-container">
-            <h1 class="booking2-title">Booking Form</h1>
+        <div class="booking2-container" id="b2Root">
+            <h1 class="booking2-title" id="b2PageTitle">Booking Form</h1>
 
+            <div id="b2BookErr" class="error" role="alert" aria-live="polite" style="margin-bottom:0.75rem;"></div>
+            <div id="b2FormPanels">
             <div class="booking2-grid">
                 <section>
                     <h2 class="section-h">Client Details</h2>
@@ -130,6 +326,7 @@
                             <label for="b2Voucher">Voucher Code</label>
                             <input id="b2Voucher" type="text" placeholder="Optional" maxlength="8" inputmode="latin" autocomplete="off">
                             <div class="error" id="b2ErrVoucher" aria-live="polite"></div>
+                            <div id="b2VoucherMsg" style="min-height:1.1em;font-size:0.86rem;font-weight:800;" aria-live="polite"></div>
                         </div>
                         <label style="display:flex; gap:0.6rem; align-items:flex-start; cursor:pointer; user-select:none;">
                             <input id="b2Agree" type="checkbox" required style="margin-top:0.2rem;">
@@ -162,6 +359,52 @@
                     </div></div>
                     <div class="success" id="b2Success" role="status" aria-live="polite"></div>
                 </aside>
+            </div>
+            </div>
+            <div id="b2ConfirmPanel" hidden>
+                <div class="b2-thanks-wrap">
+                    <div class="b2-thanks-hero">
+                        <div class="b2-thanks-icon" aria-hidden="true">✓</div>
+                        <h2 class="b2-thanks-head" id="b2ThanksHead">Thank you</h2>
+                        <p class="b2-thanks-sub" id="b2ThanksSub">Your appointment is confirmed. We have saved your details and will see you at the shop.</p>
+                    </div>
+
+                    <div class="b2-thanks-card">
+                        <h3>Your booking</h3>
+                        <div class="b2-thanks-id" id="b2ConfirmId" aria-live="polite"></div>
+                        <dl class="b2-thanks-dl" id="b2ConfirmSummary"></dl>
+
+                        <div class="b2-email-pill" role="status">
+                            <span aria-hidden="true">✉️</span>
+                            <span id="b2ConfirmEmailLine">Confirmation sent to your email.</span>
+                        </div>
+
+                        <div class="b2-barber-box">
+                            <h3>Your barber</h3>
+                            <p class="b2-barber-name" id="b2ConfirmBarberName"></p>
+                            <p id="b2ConfirmBarberBio"></p>
+                        </div>
+
+                        <div class="b2-shop-box">
+                            <h3>The Classic Fade</h3>
+                            <p>27 Union Street, London EC1V 9LJ</p>
+                            <p>WhatsApp: 07472 840 128</p>
+                            <p>Email: team@classicfadebarbers.co.uk</p>
+                            <p>Mon–Sat: 9am–8pm · Sun: 10am–6pm</p>
+                        </div>
+
+                        <p class="b2-policy" id="b2ConfirmPolicy">
+                            <strong>Non-refundable:</strong> appointment fees and deposits are not refundable.
+                            Cancellations or changes with less than 24 hours’ notice may still be charged.
+                            Please arrive on time — late arrivals may be shortened so the next client is not delayed.
+                        </p>
+
+                        <div class="b2-thanks-actions">
+                            <a id="b2ConfirmNewBooking" href="index.html#booking">Book another visit</a>
+                            <a id="b2ConfirmLogin" href="login.html">View or manage booking</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -224,8 +467,126 @@
                     return ['http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
                 }
                 const o = (window.location.origin || '').replace(/\/$/, '');
-                return [o + '/api', '/api', 'http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+                const localApi = ['http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+                let onDevPort = false;
+                try {
+                    const u = new URL(o);
+                    const def = u.protocol === 'https:' ? '443' : '80';
+                    onDevPort = String(u.port || def) === '3000';
+                } catch (e) {}
+                /* Prefer Node on :3000 first when the page is from Live Server / another port */
+                if (!onDevPort) {
+                    return localApi.concat([o + '/api', '/api']);
+                }
+                return [o + '/api', '/api'].concat(localApi);
             }
+
+            function humanizeBookError(msg) {
+                const s = String(msg || '');
+                if (/TypeError:\s*fetch failed|fetch failed|Failed to fetch|NetworkError|Load failed/i.test(s)) {
+                    return (
+                        'Could not reach the booking API. Start the server from the project folder (npm run dev), ' +
+                        'then open this site at http://localhost:3000/… or keep the API running on port 3000. ' +
+                        'If the server is up but bookings still fail, set CLASSICFADE_USE_LOCAL_BOOKINGS=1 in .env when Supabase is unreachable.'
+                    );
+                }
+                return s;
+            }
+
+            function escHtml(s) {
+                return String(s || '')
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;');
+            }
+
+            var BARBER_NOTES = {
+                'Jordan Blake': 'Jordan specialises in sharp fades, clean tapers, and classic cuts with a polished finish.',
+                'David Wright': 'David brings precision clipper work, strong shape-ups, and attention to detail on every cut.',
+                'Simon Cesay': 'Simon focuses on natural texture, balanced silhouettes, and a relaxed, confident finish.',
+                'default': 'Your barber has your booking and will be ready for you at the time you selected.'
+            };
+
+            function barberBioFor(name) {
+                const k = String(name || '').trim();
+                return BARBER_NOTES[k] || BARBER_NOTES['default'];
+            }
+
+            function firstNameFrom(full) {
+                const p = String(full || '').trim().split(/\s+/);
+                return p[0] || 'there';
+            }
+
+            function fillThanksPanel(booking) {
+                var root = document.getElementById('b2Root');
+                var pageTitle = document.getElementById('b2PageTitle');
+                if (root) root.classList.add('b2-thanks-mode');
+                if (pageTitle) pageTitle.textContent = "You're all set";
+
+                var head = document.getElementById('b2ThanksHead');
+                var sub = document.getElementById('b2ThanksSub');
+                var fn = firstNameFrom(booking.client && booking.client.name);
+                if (head) head.textContent = 'Thank you, ' + fn + '!';
+                if (sub) {
+                    sub.textContent =
+                        'Your appointment is confirmed. A copy of everything below has been sent to your email so you can keep it handy.';
+                }
+
+                document.getElementById('b2ConfirmId').textContent = booking.id;
+
+                var dl = document.getElementById('b2ConfirmSummary');
+                if (dl) {
+                    var rows = [
+                        ['Service', booking.service],
+                        ['Barber', booking.barber],
+                        ['Date', booking.date],
+                        ['Time', booking.time],
+                        ['Total', '£' + booking.price],
+                        ['Name', (booking.client && booking.client.name) || '—'],
+                        ['Phone', (booking.client && booking.client.phone) || '—']
+                    ];
+                    dl.innerHTML = rows.map(function (r) {
+                        return '<div><dt>' + escHtml(r[0]) + '</dt><dd>' + escHtml(r[1]) + '</dd></div>';
+                    }).join('');
+                }
+
+                var emailSpan = document.querySelector('#b2ConfirmEmailLine');
+                if (emailSpan && booking.client && booking.client.email) {
+                    emailSpan.textContent = 'Confirmation sent to ' + booking.client.email;
+                }
+
+                var bn = document.getElementById('b2ConfirmBarberName');
+                var bb = document.getElementById('b2ConfirmBarberBio');
+                if (bn) bn.textContent = booking.barber || 'Your barber';
+                if (bb) bb.textContent = barberBioFor(booking.barber);
+
+                var loginA = document.getElementById('b2ConfirmLogin');
+                if (loginA) loginA.href = 'login.html?bookingId=' + encodeURIComponent(booking.id);
+
+                var confirmEl = document.getElementById('b2ConfirmPanel');
+                if (confirmEl && confirmEl.scrollIntoView) {
+                    window.setTimeout(function () {
+                        confirmEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 120);
+                }
+                document.title = 'Thank you · The Classic Fade';
+            }
+            async function fetchJsonAny(path, options) {
+                let last = null;
+                for (const base of apiBases()) {
+                    try {
+                        const resp = await fetch(base + path, options || {});
+                        const text = await resp.text();
+                        const data = text ? JSON.parse(text) : null;
+                        return { resp, data, base };
+                    } catch (e) {
+                        last = e;
+                    }
+                }
+                throw last || new Error('network');
+            }
+
             const params = new URLSearchParams(window.location.search);
             const service = (params.get('service') || 'Haircut').trim();
             const date = (params.get('date') || '').trim();
@@ -241,7 +602,9 @@
                 'Line Up Only': { price: 10 },
                 'Hot Towel Shave': { price: 22 }
             };
-            const svc = serviceData[service] || serviceData['Haircut'];
+
+            let basePrice = serviceData[service] ? serviceData[service].price : 23;
+            let discountPercent = 0;
 
             const serviceEl = document.getElementById('b2Service');
             const whenEl = document.getElementById('b2When');
@@ -249,6 +612,9 @@
             const totalEl = document.getElementById('b2Total');
             const bookBtn = document.getElementById('b2BookNow');
             const successEl = document.getElementById('b2Success');
+            const formPanels = document.getElementById('b2FormPanels');
+            const confirmPanel = document.getElementById('b2ConfirmPanel');
+            const bookErr = document.getElementById('b2BookErr');
 
             const nameEl = document.getElementById('b2Name');
             const emailEl = document.getElementById('b2Email');
@@ -256,6 +622,7 @@
             const msgEl = document.getElementById('b2Msg');
             const voucherEl = document.getElementById('b2Voucher');
             const agreeEl = document.getElementById('b2Agree');
+            const voucherMsg = document.getElementById('b2VoucherMsg');
 
             const errName = document.getElementById('b2ErrName');
             const errEmail = document.getElementById('b2ErrEmail');
@@ -275,6 +642,14 @@
             function clearErrors() {
                 setError(errName, ''); setError(errEmail, ''); setError(errPhone, '');
                 setError(errVoucher, ''); setError(errAgree, '');
+                if (bookErr) bookErr.textContent = '';
+            }
+
+            function currentTotal() {
+                const p = Number(basePrice) || 0;
+                const d = Number(discountPercent) || 0;
+                const out = Math.max(0, Math.round(p * (100 - d) / 100 * 100) / 100);
+                return out;
             }
 
             function bindLiveValidation() {
@@ -294,18 +669,77 @@
                     const v = String(voucherEl.value || '').trim();
                     if (!v) {
                         setFieldState(voucherEl, '');
+                        discountPercent = 0;
+                        if (voucherMsg) { voucherMsg.textContent = ''; voucherMsg.style.color = ''; }
+                        updateSummary();
                         return;
                     }
-                    setFieldState(voucherEl, (/^[A-Za-z0-9]{8}$/.test(v) ? 'valid' : 'invalid'));
+                    setFieldState(voucherEl, 'valid');
                 });
             }
 
             function updateSummary() {
                 serviceEl.textContent = service;
-                totalEl.textContent = '£' + svc.price;
+                totalEl.textContent = '£' + currentTotal();
                 whenEl.textContent = (date && time) ? (date + ' at ' + time) : 'Select a slot';
                 if (barberEl) barberEl.textContent = barber;
                 bookBtn.disabled = !(date && time);
+            }
+
+            async function loadCatalog() {
+                try {
+                    const { data: sData } = await fetchJsonAny('/services');
+                    if (sData && sData.ok && Array.isArray(sData.services)) {
+                        const m = sData.services.find(function (x) { return String(x.name || '').trim() === service; });
+                        if (m && m.price != null) basePrice = Number(m.price);
+                    }
+                } catch (e) {}
+                try {
+                    const { data: bData } = await fetchJsonAny('/barbers');
+                    if (bData && bData.ok && Array.isArray(bData.barbers)) {
+                        const names = bData.barbers.map(function (x) { return String(x.name || '').trim(); });
+                        if (barber && names.indexOf(barber) < 0 && bData.barbers[0]) {
+                            /* keep URL barber text; no forced change */
+                        }
+                    }
+                } catch (e) {}
+                updateSummary();
+            }
+
+            async function validateVoucherField() {
+                if (!voucherMsg || !voucherEl) return;
+                const code = String(voucherEl.value || '').trim();
+                voucherMsg.textContent = '';
+                voucherMsg.style.color = '';
+                discountPercent = 0;
+                if (!code) {
+                    updateSummary();
+                    return;
+                }
+                try {
+                    const { resp, data } = await fetchJsonAny('/validate-voucher', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ code: code })
+                    });
+                    if (resp.ok && data && data.valid) {
+                        discountPercent = Number(data.discount_percent) || 0;
+                        voucherMsg.style.color = '#157347';
+                        voucherMsg.textContent = '✓ ' + discountPercent + '% discount applied';
+                    } else {
+                        voucherMsg.style.color = '#b42318';
+                        voucherMsg.textContent = 'Invalid code';
+                    }
+                } catch (e) {
+                    voucherMsg.style.color = '#b42318';
+                    voucherMsg.textContent = 'Invalid code';
+                }
+                updateSummary();
+            }
+
+            if (voucherEl) {
+                voucherEl.addEventListener('blur', validateVoucherField);
+                voucherEl.addEventListener('change', validateVoucherField);
             }
 
             function validate() {
@@ -314,7 +748,6 @@
                 const name = (nameEl.value || '').trim();
                 const email = (emailEl.value || '').trim();
                 const phone = (phoneEl.value || '').trim();
-                const voucher = (voucherEl.value || '').trim();
 
                 if (name.length < 2) { ok = false; setError(errName, 'Please enter your name.'); }
                 setFieldState(nameEl, name.length >= 2 ? 'valid' : 'invalid');
@@ -323,17 +756,6 @@
                 if (phone.length < 8) { ok = false; setError(errPhone, 'Please enter a valid phone number.'); }
                 setFieldState(phoneEl, phone.length >= 8 ? 'valid' : 'invalid');
                 if (agreeEl && !agreeEl.checked) { ok = false; setError(errAgree, 'Please confirm you agree to be contacted.'); }
-
-                if (voucher) {
-                    const isVoucherValid = /^[A-Za-z0-9]{8}$/.test(voucher);
-                    if (!isVoucherValid) {
-                        ok = false;
-                        setError(errVoucher, 'Voucher code must be exactly 8 letters/numbers.');
-                    }
-                    setFieldState(voucherEl, isVoucherValid ? 'valid' : 'invalid');
-                } else {
-                    setFieldState(voucherEl, '');
-                }
                 return ok;
             }
 
@@ -342,11 +764,11 @@
                 if (!validate()) return;
 
                 const booking = {
-                    service,
-                    date,
-                    time,
-                    barber,
-                    price: svc.price,
+                    service: service,
+                    date: date,
+                    time: time,
+                    barber: barber,
+                    price: currentTotal(),
                     voucher: (voucherEl.value || '').trim(),
                     client: {
                         name: (nameEl.value || '').trim(),
@@ -356,9 +778,15 @@
                     }
                 };
 
+                const prevLabel = bookBtn.textContent;
+                bookBtn.disabled = true;
+                bookBtn.textContent = 'Booking...';
+                if (successEl) { successEl.classList.remove('is-visible'); successEl.innerHTML = ''; }
+
                 try {
                     let saved = false;
-                    let lastMessage = 'Could not create booking. Please try again.';
+                    let slotTaken = false;
+                    let lastMessage = 'Something went wrong. Please try again.';
 
                     for (const base of apiBases()) {
                         try {
@@ -372,48 +800,61 @@
                                 const text = await resp.text();
                                 data = text ? JSON.parse(text) : null;
                             } catch (parseErr) {
-                                lastMessage = 'Server returned an unreadable response. Is npm run start running on port 3000?';
+                                lastMessage = 'Something went wrong. Please try again.';
                                 continue;
+                            }
+                            if (resp.status === 409 && data && data.error === 'slot_taken') {
+                                slotTaken = true;
+                                break;
                             }
                             if (resp.ok && data && data.ok) {
                                 booking.id = data.bookingId;
-                                booking.createdAt = new Date().toISOString();
                                 saved = true;
                                 break;
                             }
                             lastMessage = (data && data.error) ? data.error : lastMessage;
                         } catch (err) {
-                            lastMessage = 'Could not reach the booking server (network). Run npm run start and use http://localhost:3000/… in the browser.';
+                            const em = err && err.message ? String(err.message) : '';
+                            lastMessage = em && /fetch|network|Load failed/i.test(em)
+                                ? humanizeBookError(em)
+                                : 'Something went wrong. Please try again.';
                             continue;
                         }
                     }
 
-                    if (!saved) {
-                        successEl.classList.add('is-visible');
-                        successEl.innerHTML = '<div style="font-weight:900; color:#b42318;">' + lastMessage + '</div>';
+                    bookBtn.disabled = false;
+                    bookBtn.textContent = prevLabel;
+
+                    if (slotTaken) {
+                        if (bookErr) bookErr.textContent = 'Sorry, that slot was just taken — please go back and pick another time.';
                         return;
                     }
-                } catch (e) {
-                    successEl.classList.add('is-visible');
-                    successEl.innerHTML = '<div style="font-weight:900; color:#b42318;">Something went wrong. Start the Node server (npm run start) and open this page from http://localhost:3000.</div>';
-                    return;
-                }
+                    if (!saved) {
+                        if (bookErr) bookErr.textContent = humanizeBookError(lastMessage);
+                        return;
+                    }
 
-                const loginHref = 'login.html?bookingId=' + encodeURIComponent(booking.id);
-                successEl.classList.add('is-visible');
-                successEl.innerHTML =
-                    '<div style="font-weight:900; font-size:1.15rem; margin-bottom:0.5rem;">Booked!</div>' +
-                    '<div class="muted" style="font-weight:800;">Booking ID</div>' +
-                    '<div style="font-weight:900; margin-top:0.2rem;">' + booking.id + '</div>' +
-                    '<div class="terms" style="margin-top:0.8rem;">Service: ' + booking.service + '<br>Barber: ' + booking.barber + '<br>When: ' + booking.date + ' at ' + booking.time + '</div>' +
-                    '<div style="margin-top:1rem;"><a class="btn btn-primary" href="' + loginHref + '" style="display:inline-block; text-decoration:none;">Set password and log in</a></div>' +
-                    '<p class="terms" style="margin-top:0.6rem;">Use this ID on the Login page with a password you create (same email as the booking). The shop admin can confirm or change your slot in the dashboard.</p>';
-                bookBtn.disabled = true;
-                bookBtn.style.display = 'none';
+                    if (formPanels) formPanels.hidden = true;
+                    if (bookErr) bookErr.textContent = '';
+                    if (confirmPanel) {
+                        confirmPanel.hidden = false;
+                        fillThanksPanel(booking);
+                    }
+                    bookBtn.style.display = 'none';
+                } catch (e) {
+                    bookBtn.disabled = false;
+                    bookBtn.textContent = prevLabel;
+                    if (bookErr) {
+                        bookErr.textContent =
+                            humanizeBookError(e && e.message ? e.message : '') ||
+                            'Something went wrong. Please try again.';
+                    }
+                }
             });
 
-            updateSummary();
+            loadCatalog();
             bindLiveValidation();
+            updateSummary();
         })();
     </script>
 
