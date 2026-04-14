@@ -398,7 +398,14 @@
         (function () {
             const KEY_ADMIN_SESSION = 'classicfade_admin_session';
             const KEY_CUSTOMER_SESSION = 'classicfade_customer_session';
-            const API_BASE = (window.location.protocol === 'file:') ? 'http://localhost:3000/api' : '/api';
+
+            function apiBases() {
+                if (window.location.protocol === 'file:') {
+                    return ['http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+                }
+                const o = (window.location.origin || '').replace(/\/$/, '');
+                return [o + '/api', '/api', 'http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+            }
 
             function safeJsonParse(raw, fallback) {
                 try {
@@ -408,14 +415,28 @@
             }
 
             async function api(path, options) {
-                const resp = await fetch(API_BASE + path, options || {});
-                let data = null;
-                try { data = await resp.json(); } catch (e) {}
-                if (!resp.ok || !data || data.ok === false) {
-                    const error = (data && data.error) ? data.error : 'Request failed.';
-                    throw new Error(error);
+                let lastErr = 'Could not reach the booking server. Run npm run start and open the site from http://localhost:3000.';
+                for (const base of apiBases()) {
+                    try {
+                        const resp = await fetch(base + path, options || {});
+                        let data = null;
+                        try {
+                            const text = await resp.text();
+                            data = text ? JSON.parse(text) : null;
+                        } catch (e) {
+                            lastErr = 'Invalid response from server.';
+                            continue;
+                        }
+                        if (!resp.ok || !data || data.ok === false) {
+                            lastErr = (data && data.error) ? data.error : 'Request failed.';
+                            continue;
+                        }
+                        return data;
+                    } catch (e) {
+                        lastErr = (e && e.message) ? e.message : lastErr;
+                    }
                 }
-                return data;
+                throw new Error(lastErr);
             }
 
             function msg(el, text, type) {
@@ -584,11 +605,16 @@
                 const card = document.getElementById('customerCard');
                 if (!card || !booking) return;
                 customerDashboard.classList.remove('hidden');
+                const c = booking.client || {};
+                const name = c.name || booking.client_name || '-';
+                const email = c.email || booking.client_email || '-';
+                const phone = c.phone || booking.client_phone || '-';
+                const bid = booking.id || booking.booking_id || '-';
                 card.innerHTML =
-                    '<div><strong>Booking ID:</strong> ' + booking.id + '</div>' +
-                    '<div><strong>Name:</strong> ' + (booking.client && booking.client.name || '-') + '</div>' +
-                    '<div><strong>Email:</strong> ' + (booking.client && booking.client.email || '-') + '</div>' +
-                    '<div><strong>Phone:</strong> ' + (booking.client && booking.client.phone || '-') + '</div>' +
+                    '<div><strong>Booking ID:</strong> ' + bid + '</div>' +
+                    '<div><strong>Name:</strong> ' + name + '</div>' +
+                    '<div><strong>Email:</strong> ' + email + '</div>' +
+                    '<div><strong>Phone:</strong> ' + phone + '</div>' +
                     '<hr>' +
                     '<div><strong>Service:</strong> ' + (booking.service || '-') + '</div>' +
                     '<div><strong>Date:</strong> ' + (booking.date || '-') + '</div>' +
@@ -683,24 +709,11 @@
                 if (!emailRegex.test(ident)) return msg(aMsg, 'Enter a valid admin email address.', 'err');
                 if (pass.length < 8) return msg(aMsg, 'Password must be at least 8 characters.', 'err');
                 try {
-                    let data = null;
-                    try {
-                        data = await api('/admin/login', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ identifier: ident, password: pass })
-                        });
-                    } catch (firstErr) {
-                        const isRequestedAdmin =
-                            ident === 'dolapade747@gmail.com' &&
-                            pass === 'Hush3838!';
-                        if (!isRequestedAdmin) throw firstErr;
-                        data = await api('/admin/login', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ identifier: 'admin@classicfadebarbers.co.uk', password: 'Admin123!' })
-                        });
-                    }
+                    const data = await api('/admin/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ identifier: ident, password: pass })
+                    });
 
                     localStorage.setItem(KEY_ADMIN_SESSION, JSON.stringify({ at: Date.now(), token: data.token }));
                     setFieldState(aIdEmailEl, 'valid');
@@ -722,6 +735,14 @@
             if (cSession && cSession.bookingId) {
                 cBookingIdEl.value = cSession.bookingId;
             }
+            try {
+                const qs = new URLSearchParams(window.location.search);
+                const bid = normalizeId(qs.get('bookingId') || '');
+                if (bid && isValidBookingIdFormat(bid)) {
+                    cBookingIdEl.value = bid;
+                    sBookingIdEl.value = bid;
+                }
+            } catch (e) {}
 
             const loader = document.getElementById('loaderScreen');
             window.setTimeout(function () { loader.classList.add('is-hidden'); }, 550);

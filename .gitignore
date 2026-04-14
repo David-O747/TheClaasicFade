@@ -22,3 +22,6 @@ dist/
 build/
 coverage/
 renders/
+
+# Local dev booking store (no Supabase)
+data/

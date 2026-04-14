@@ -234,7 +234,10 @@
         <section class="admin-main">
             <div class="admin-top">
                 <h1 class="admin-title">Availability Manager</h1>
-                <span class="admin-badge">Site Live</span>
+                <div style="display:flex; align-items:center; gap:0.5rem;">
+                    <span id="adminPendingBadge" class="admin-badge" style="display:none; background:rgba(224,132,32,0.2); color:#a65a0f;">New</span>
+                    <span class="admin-badge">Site Live</span>
+                </div>
             </div>
             <div id="adminMsg" class="admin-msg"></div>
             <div class="admin-grid">
@@ -273,6 +276,7 @@
             const dDesc = document.getElementById('dDesc');
             const dPrice = document.getElementById('dPrice');
             const dStatus = document.getElementById('dStatus');
+            const pendingBadge = document.getElementById('adminPendingBadge');
 
             function msg(text, type) {
                 msgEl.textContent = text || '';
@@ -283,7 +287,13 @@
                 try { return JSON.parse(localStorage.getItem(KEY_ADMIN_SESSION) || 'null'); } catch (e) { return null; }
             }
 
-            const API_BASE = (window.location.protocol === 'file:') ? 'http://localhost:3000/api' : '/api';
+            function apiBases() {
+                if (window.location.protocol === 'file:') {
+                    return ['http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+                }
+                const o = (window.location.origin || '').replace(/\/$/, '');
+                return [o + '/api', '/api', 'http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+            }
 
             async function api(path, options) {
                 const s = session();
@@ -291,12 +301,30 @@
                     window.location.href = 'login.html';
                     throw new Error('Session missing');
                 }
-                const opts = options || {};
-                opts.headers = Object.assign({}, opts.headers || {}, { Authorization: 'Bearer ' + s.token });
-                const resp = await fetch(API_BASE + path, opts);
-                const data = await resp.json();
-                if (!resp.ok || !data || data.ok === false) throw new Error((data && data.error) || 'Request failed');
-                return data;
+                let lastErr = 'Could not reach the booking server.';
+                for (const base of apiBases()) {
+                    try {
+                        const opts = options || {};
+                        opts.headers = Object.assign({}, opts.headers || {}, { Authorization: 'Bearer ' + s.token });
+                        const resp = await fetch(base + path, opts);
+                        let data = null;
+                        try {
+                            const text = await resp.text();
+                            data = text ? JSON.parse(text) : null;
+                        } catch (e) {
+                            lastErr = 'Invalid server response.';
+                            continue;
+                        }
+                        if (!resp.ok || !data || data.ok === false) {
+                            lastErr = (data && data.error) ? data.error : 'Request failed';
+                            continue;
+                        }
+                        return data;
+                    } catch (e) {
+                        lastErr = (e && e.message) ? e.message : lastErr;
+                    }
+                }
+                throw new Error(lastErr);
             }
 
             function renderPreview(b) {
@@ -316,6 +344,15 @@
                     return;
                 }
                 rowsEl.innerHTML = '';
+                const pendingCount = rows.filter(function (b) { return String(b.status || 'pending').toLowerCase() === 'pending'; }).length;
+                if (pendingBadge) {
+                    if (pendingCount > 0) {
+                        pendingBadge.style.display = 'inline-block';
+                        pendingBadge.textContent = pendingCount + ' pending';
+                    } else {
+                        pendingBadge.style.display = 'none';
+                    }
+                }
                 if (!rows.length) {
                     rowsEl.innerHTML = '<tr><td colspan="8" style="text-align:center; color:rgba(58,58,58,0.65);">No bookings yet.</td></tr>';
                     msg('0 bookings loaded.', '');

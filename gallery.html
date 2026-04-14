@@ -13,6 +13,12 @@
             font-family: 'Proxima Nova', Arial, sans-serif;
         }
 
+        .gallery-page .contact-section {
+            padding: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+        }
+
         .gallery-page #main-content {
             padding-top: clamp(78px, 9.2vh, 104px);
         }
@@ -261,70 +267,6 @@
             font-weight: 600;
         }
 
-        .gallery-highlights {
-            max-width: 1260px;
-            margin: 2.2rem auto 0;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1rem;
-        }
-
-        .gallery-highlight-card {
-            border-radius: 14px;
-            border: 1px solid rgba(232,132,32,0.28);
-            background: linear-gradient(180deg, #fffdf8 0%, #fff5e8 100%);
-            padding: 1rem 1.1rem;
-            box-shadow: 0 12px 26px rgba(58,58,58,0.09);
-        }
-
-        .gallery-highlight-card h4 {
-            margin: 0 0 0.35rem 0;
-            font-size: 1.02rem;
-            letter-spacing: 0.01em;
-        }
-
-        .gallery-highlight-card p {
-            margin: 0;
-            color: rgba(58,58,58,0.66);
-            font-size: 0.9rem;
-            line-height: 1.45;
-            font-weight: 600;
-        }
-
-        .gallery-quick-facts {
-            max-width: 1260px;
-            margin: 1.6rem auto 0;
-            border: 1px solid rgba(58,58,58,0.12);
-            border-radius: 14px;
-            background: #fffaf3;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            overflow: hidden;
-        }
-
-        .gallery-fact {
-            padding: 0.95rem 1rem;
-            text-align: center;
-            border-right: 1px solid rgba(58,58,58,0.12);
-        }
-
-        .gallery-fact:last-child {
-            border-right: none;
-        }
-
-        .gallery-fact strong {
-            display: block;
-            font-size: 1.08rem;
-            margin-bottom: 0.2rem;
-            color: #2b2b2b;
-        }
-
-        .gallery-fact span {
-            color: rgba(58,58,58,0.62);
-            font-weight: 700;
-            font-size: 0.86rem;
-            letter-spacing: 0.02em;
-        }
 
         .gallery-row {
             display: flex;
@@ -356,19 +298,6 @@
                 height: 0;
             }
 
-            .gallery-highlights,
-            .gallery-quick-facts {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-fact {
-                border-right: none;
-                border-bottom: 1px solid rgba(58,58,58,0.12);
-            }
-
-            .gallery-fact:last-child {
-                border-bottom: none;
-            }
         }
 
         .gallery-row .gallery-card {
@@ -720,27 +649,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="gallery-highlights" aria-label="Style highlights">
-                <article class="gallery-highlight-card">
-                    <h4>Face-shape matched cuts</h4>
-                    <p>Every style is adapted to head shape and hair texture, so the result feels personal and lasts longer.</p>
-                </article>
-                <article class="gallery-highlight-card">
-                    <h4>Sharp details, clean finish</h4>
-                    <p>Temple lines, neckline cleanup and beard blend are refined as one final look instead of separate steps.</p>
-                </article>
-                <article class="gallery-highlight-card">
-                    <h4>Book by style, not guesswork</h4>
-                    <p>Use this gallery to pick the closest look, then jump to booking with confidence about the final result.</p>
-                </article>
-            </div>
-
-            <div class="gallery-quick-facts" aria-label="Classic Fade quick facts">
-                <div class="gallery-fact"><strong>20-40 min</strong><span>Most appointments</span></div>
-                <div class="gallery-fact"><strong>7+ signature looks</strong><span>Taper, clipper, beard and more</span></div>
-                <div class="gallery-fact"><strong>Central London</strong><span>27 Union Street, EC1V 9LJ</span></div>
             </div>
 
             <div class="gallery-category" id="clipper-cuts">

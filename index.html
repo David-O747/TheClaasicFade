@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Classic Fade - Barbershop</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Proxima+Nova:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css?v=20260410p">
+    <link rel="stylesheet" href="css/main.css?v=20260414b">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -1029,7 +1029,6 @@
             document.querySelectorAll('.testimonial-video-wrap').forEach(function (wrap) {
                 var video = wrap.querySelector('video.testimonial-video');
                 var btn = wrap.querySelector('.testimonial-play-toggle');
-                var controlsTimer = null;
                 if (!video) return;
 
                 video.muted = false;
@@ -1037,20 +1036,6 @@
                 video.setAttribute('playsinline', '');
                 video.playsInline = true;
                 setUiState(wrap, video, false);
-                wrap.classList.add('show-controls');
-
-                function clearControlsTimer() {
-                    if (controlsTimer) window.clearTimeout(controlsTimer);
-                    controlsTimer = null;
-                }
-
-                function showControlsTemporarily() {
-                    clearControlsTimer();
-                    wrap.classList.add('show-controls');
-                    controlsTimer = window.setTimeout(function () {
-                        if (!video.paused) wrap.classList.remove('show-controls');
-                    }, 1200);
-                }
 
                 function toggle() {
                     if (video.paused || video.ended) {
@@ -1074,14 +1059,6 @@
                     toggle();
                 });
 
-                wrap.addEventListener('mousemove', function () {
-                    if (!video.paused) showControlsTemporarily();
-                });
-
-                wrap.addEventListener('touchstart', function () {
-                    if (!video.paused) showControlsTemporarily();
-                }, { passive: true });
-
                 if (btn) {
                     btn.addEventListener('click', function (e) {
                         e.stopPropagation();
@@ -1091,17 +1068,12 @@
 
                 video.addEventListener('play', function () {
                     setUiState(wrap, video, true);
-                    showControlsTemporarily();
                 });
                 video.addEventListener('pause', function () {
-                    clearControlsTimer();
-                    wrap.classList.add('show-controls');
                     setUiState(wrap, video, false);
                 });
                 video.addEventListener('ended', function () {
                     try { video.currentTime = 0; } catch (err) {}
-                    clearControlsTimer();
-                    wrap.classList.add('show-controls');
                     setUiState(wrap, video, false);
                 });
             });

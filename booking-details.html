@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Booking Form - The Classic Fade</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Proxima+Nova:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css?v=20260410p">
+    <link rel="stylesheet" href="css/main.css?v=20260414a">
     <style>
         .booking2-page { background: #ffffff; color: var(--bg-dark); font-family: 'Proxima Nova', Arial, sans-serif; }
         .booking2-main { margin-top: 11vh; padding: 3.2vh 3vw 5.2vh; }
@@ -219,7 +219,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         (function () {
-            const API_BASE = (window.location.protocol === 'file:') ? 'http://localhost:3000/api' : '/api';
+            function apiBases() {
+                if (window.location.protocol === 'file:') {
+                    return ['http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+                }
+                const o = (window.location.origin || '').replace(/\/$/, '');
+                return [o + '/api', '/api', 'http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+            }
             const params = new URLSearchParams(window.location.search);
             const service = (params.get('service') || 'Haircut').trim();
             const date = (params.get('date') || '').trim();
@@ -351,33 +357,59 @@
                 };
 
                 try {
-                    const resp = await fetch(API_BASE + '/bookings', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(booking)
-                    });
-                    const data = await resp.json();
-                    if (!resp.ok || !data || !data.ok) {
-                        const message = (data && data.error) ? data.error : 'Could not create booking. Please try again.';
+                    let saved = false;
+                    let lastMessage = 'Could not create booking. Please try again.';
+
+                    for (const base of apiBases()) {
+                        try {
+                            const resp = await fetch(base + '/bookings', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(booking)
+                            });
+                            let data = null;
+                            try {
+                                const text = await resp.text();
+                                data = text ? JSON.parse(text) : null;
+                            } catch (parseErr) {
+                                lastMessage = 'Server returned an unreadable response. Is npm run start running on port 3000?';
+                                continue;
+                            }
+                            if (resp.ok && data && data.ok) {
+                                booking.id = data.bookingId;
+                                booking.createdAt = new Date().toISOString();
+                                saved = true;
+                                break;
+                            }
+                            lastMessage = (data && data.error) ? data.error : lastMessage;
+                        } catch (err) {
+                            lastMessage = 'Could not reach the booking server (network). Run npm run start and use http://localhost:3000/… in the browser.';
+                            continue;
+                        }
+                    }
+
+                    if (!saved) {
                         successEl.classList.add('is-visible');
-                        successEl.innerHTML = '<div style="font-weight:900; color:#b42318;">' + message + '</div>';
+                        successEl.innerHTML = '<div style="font-weight:900; color:#b42318;">' + lastMessage + '</div>';
                         return;
                     }
-                    booking.id = data.bookingId;
-                    booking.createdAt = new Date().toISOString();
                 } catch (e) {
                     successEl.classList.add('is-visible');
-                    successEl.innerHTML = '<div style="font-weight:900; color:#b42318;">Network error. Start the Node server and try again.</div>';
+                    successEl.innerHTML = '<div style="font-weight:900; color:#b42318;">Something went wrong. Start the Node server (npm run start) and open this page from http://localhost:3000.</div>';
                     return;
                 }
 
+                const loginHref = 'login.html?bookingId=' + encodeURIComponent(booking.id);
                 successEl.classList.add('is-visible');
                 successEl.innerHTML =
                     '<div style="font-weight:900; font-size:1.15rem; margin-bottom:0.5rem;">Booked!</div>' +
                     '<div class="muted" style="font-weight:800;">Booking ID</div>' +
                     '<div style="font-weight:900; margin-top:0.2rem;">' + booking.id + '</div>' +
-                    '<div class="terms" style="margin-top:0.8rem;">Service: ' + booking.service + '<br>Barber: ' + booking.barber + '<br>When: ' + booking.date + ' at ' + booking.time + '</div>';
+                    '<div class="terms" style="margin-top:0.8rem;">Service: ' + booking.service + '<br>Barber: ' + booking.barber + '<br>When: ' + booking.date + ' at ' + booking.time + '</div>' +
+                    '<div style="margin-top:1rem;"><a class="btn btn-primary" href="' + loginHref + '" style="display:inline-block; text-decoration:none;">Set password and log in</a></div>' +
+                    '<p class="terms" style="margin-top:0.6rem;">Use this ID on the Login page with a password you create (same email as the booking). The shop admin can confirm or change your slot in the dashboard.</p>';
                 bookBtn.disabled = true;
+                bookBtn.style.display = 'none';
             });
 
             updateSummary();
