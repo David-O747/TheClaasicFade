@@ -45,8 +45,18 @@ create table if not exists public.vouchers (
   created_at timestamptz default now()
 );
 
+create table if not exists public.contact_messages (
+  id uuid default gen_random_uuid() primary key,
+  name text not null,
+  email text not null,
+  subject text not null,
+  message text not null,
+  created_at timestamptz default now()
+);
+
 alter table public.services enable row level security;
 alter table public.barbers enable row level security;
+alter table public.contact_messages enable row level security;
 
 drop policy if exists "public read services" on public.services;
 create policy "public read services"
@@ -57,6 +67,12 @@ drop policy if exists "public read barbers" on public.barbers;
 create policy "public read barbers"
   on public.barbers for select
   using (active = true);
+
+drop policy if exists "no public access contact_messages" on public.contact_messages;
+create policy "no public access contact_messages"
+  on public.contact_messages for all
+  using (false)
+  with check (false);
 
 -- Seed (idempotent)
 insert into public.services (name, description, price, duration_minutes, active)

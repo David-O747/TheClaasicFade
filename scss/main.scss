@@ -13,6 +13,10 @@
   --service-frame: #e8c4a4;
   --service-peach: #fff2e8;
   --welcome-text: #333333;
+  /* Contact strip + copyright bar: charcoal-blue, lighter than pure black. */
+  --surface-contact-strip: #3d4654;
+  --surface-contact-strip-text: rgba(255, 255, 255, 0.88);
+  --surface-contact-strip-muted: rgba(255, 255, 255, 0.72);
 }
 
 * {
@@ -146,7 +150,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: clamp(0.4rem, 0.95vw, 1rem);
   width: 100%;
-  max-width: min(99vw, 1860px);
+  max-width: min(96vw, 1520px);
   margin: 0 auto;
 }
 
@@ -616,6 +620,37 @@ h1, h2, h3, h4, h5, h6 {
         }
       }
   }
+}
+
+/* Strip + map only (booking, gallery, etc.): same vertical rhythm as home after the form. */
+.contact-section.contact-section--footer-only {
+  padding: clamp(2.25rem, 5vh, 3.5rem) 0 0;
+}
+
+.contact-section.contact-section--footer-only .contact-info-strip {
+  margin-top: 0;
+}
+
+/* Inner pages: map + strip + footer edge-to-edge (no max-width box on .contact-content) */
+.contact-section.contact-section--footer-only .contact-content {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-section.contact-section--footer-only .contact-info-strip,
+.contact-section.contact-section--footer-only .contact-map {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.contact-section.contact-section--footer-only .contact-info-grid {
+  max-width: min(1100px, 100%);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .footer {
@@ -1227,6 +1262,29 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--primary);
     color: var(--bg-light);
   }
+}
+
+/* Homepage services row: reference uses a text link, not the bordered CTA used elsewhere. */
+.haircut-styles .service-card .view-btn {
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  padding: 0.35rem 0.4rem;
+  font-weight: 700;
+}
+
+.haircut-styles .service-card .view-btn::after {
+  content: ' >';
+}
+
+.haircut-styles .service-card.popular .view-btn {
+  background: transparent;
+}
+
+.haircut-styles .service-card .view-btn:hover {
+  background: transparent;
+  color: var(--primary-hover);
+  text-decoration: underline;
 }
 
 .haircut-styles .other-services-wrap {
@@ -1866,8 +1924,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact-info-strip {
   margin-top: 2.75rem;
-  padding: 1.75rem 0 0.5rem;
-  border-top: 3px solid rgba(255, 255, 255, 0.35);
+  padding: 1.75rem clamp(1rem, 4vw, 2.5rem) 1.75rem;
+  background: var(--surface-contact-strip);
+  border-top: 3px solid var(--primary);
+  /* Full-bleed from .contact-content (or section): works the same on index and inner pages. */
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  box-sizing: border-box;
+  position: relative;
 }
 
 .contact-section .contact-info-grid {
@@ -1906,11 +1972,14 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Bebas Neue', Arial, sans-serif;
   margin: 0 0 0.5rem;
   font-size: 1.25rem;
+  color: var(--surface-contact-strip-text);
+  letter-spacing: 0.06em;
 }
 
 .contact-section .c-text {
   margin: 0.2rem 0;
   font-size: 0.95rem;
+  color: var(--surface-contact-strip-muted);
 }
 
 .contact-section .c-social {
@@ -1920,20 +1989,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .contact-section .c-social-link {
-  color: var(--bg-light);
+  color: var(--surface-contact-strip-text);
   display: inline-flex;
 }
 
 .contact-map {
-  margin-top: 2rem;
-  border-radius: 12px;
+  margin-top: 0;
+  border-radius: 0;
   overflow: hidden;
-  min-height: 280px;
+  min-height: 360px;
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  box-sizing: border-box;
+  position: relative;
 }
 
 .contact-map iframe {
   width: 100%;
-  height: 320px;
+  height: 420px;
   border: 0;
   display: block;
   filter: grayscale(1);
@@ -1941,10 +2016,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .site-footer {
-  background: var(--bg-dark);
-  color: var(--light-grey);
+  display: block;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  background: var(--surface-contact-strip);
+  color: var(--surface-contact-strip-muted);
   text-align: center;
-  padding: 1.25rem 1rem;
+  padding: 1.1rem 1rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .site-footer-copy {
@@ -1952,6 +2032,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.92rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  color: var(--surface-contact-strip-muted);
 }
 
 .video-modal-apple .video-modal-dialog {
@@ -2013,6 +2094,33 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Service modal: preview is an <img>; without these rules the left pane cannot match the split layout reference. */
+.video-modal-apple .video-modal-left {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.video-modal-apple .video-modal-left .promo-video-wrap {
+  flex: 1 1 auto;
+  width: 100%;
+  aspect-ratio: auto;
+  max-height: none;
+  min-height: min(52vh, 420px);
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.video-modal-apple .promo-video-wrap img {
+  width: 100%;
+  height: 100%;
+  min-height: min(52vh, 360px);
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
 }
 
 .promo-video-wrap video {

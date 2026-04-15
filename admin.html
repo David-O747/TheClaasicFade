@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Admin Dashboard - The Classic Fade</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Proxima+Nova:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css?v=20260410p">
+    <link rel="stylesheet" href="css/main.css?v=4">
     <style>
         .admin-page {
             font-family: 'Proxima Nova', Arial, sans-serif;
@@ -161,6 +164,25 @@
             min-width: 10.5rem;
             max-width: 100%;
         }
+
+        .status-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 7.25rem;
+            border-radius: 999px;
+            padding: 0.28rem 0.62rem;
+            font-size: 0.76rem;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+        }
+        .status-chip.confirmed { background: rgba(46, 159, 87, 0.14); color: #1f7d46; border-color: rgba(46, 159, 87, 0.32); }
+        .status-chip.active { background: rgba(232, 132, 32, 0.16); color: #9a5209; border-color: rgba(232, 132, 32, 0.35); }
+        .status-chip.completed { background: rgba(58, 58, 58, 0.1); color: rgba(58, 58, 58, 0.78); border-color: rgba(58, 58, 58, 0.22); }
+        .status-chip.cancelled { background: rgba(180, 35, 24, 0.08); color: #9f2b1f; border-color: rgba(180, 35, 24, 0.25); }
+        .status-chip.pending { background: rgba(39, 94, 213, 0.09); color: #1f4fa8; border-color: rgba(39, 94, 213, 0.24); }
 
         .btn {
             border: 1px solid transparent;
@@ -364,6 +386,7 @@
             const BOOKING_STATUS_OPTS = [
                 ['pending', 'Pending'],
                 ['confirmed', 'Confirmed'],
+                ['active', 'Active now'],
                 ['completed', 'Completed'],
                 ['cancelled', 'Cancelled']
             ];
@@ -426,6 +449,19 @@
                 return '<select class="small-input" data-k="status">' + inner + '</select>';
             }
 
+            function statusLabel(status) {
+                const sv = normalizeBookingStatus(status);
+                for (var i = 0; i < BOOKING_STATUS_OPTS.length; i++) {
+                    if (BOOKING_STATUS_OPTS[i][0] === sv) return BOOKING_STATUS_OPTS[i][1];
+                }
+                return sv || 'Pending';
+            }
+
+            function statusChipHtml(status) {
+                const sv = normalizeBookingStatus(status);
+                return '<span class="status-chip ' + sv + '">' + escHtml(statusLabel(sv)) + '</span>';
+            }
+
             function msg(text, type) {
                 msgEl.textContent = text || '';
                 msgEl.className = 'admin-msg' + (type ? ' ' + type : '');
@@ -479,15 +515,7 @@
                 dService.textContent = b.service || '-';
                 dDesc.textContent = (b.client_message && String(b.client_message).trim()) || 'No client note.';
                 dPrice.textContent = (b.price != null && b.price !== '') ? String(b.price) : '-';
-                const sn = normalizeBookingStatus(b.status);
-                var sl = '';
-                for (var si = 0; si < BOOKING_STATUS_OPTS.length; si++) {
-                    if (BOOKING_STATUS_OPTS[si][0] === sn) {
-                        sl = BOOKING_STATUS_OPTS[si][1];
-                        break;
-                    }
-                }
-                dStatus.textContent = sl || sn;
+                dStatus.textContent = statusLabel(b.status);
             }
 
             async function loadBookings() {
@@ -500,11 +528,11 @@
                     return;
                 }
                 rowsEl.innerHTML = '';
-                const pendingCount = rows.filter(function (b) { return String(b.status || 'pending').toLowerCase() === 'pending'; }).length;
+                const activeCount = rows.filter(function (b) { return normalizeBookingStatus(b.status) === 'active'; }).length;
                 if (pendingBadge) {
-                    if (pendingCount > 0) {
+                    if (activeCount > 0) {
                         pendingBadge.style.display = 'inline-block';
-                        pendingBadge.textContent = pendingCount + ' pending';
+                        pendingBadge.textContent = activeCount + ' active now';
                     } else {
                         pendingBadge.style.display = 'none';
                     }
@@ -532,7 +560,7 @@
                         '<td><input class="small-input" type="date" data-k="date" value="' + escAttr(normalizeDateInput(b.date)) + '"></td>' +
                         '<td>' + timeSelectHtml(b.time) + '</td>' +
                         '<td>' + barberSelectHtml(b.barber, barberNames) + '</td>' +
-                        '<td>' + statusSelectHtml(b.status) + '</td>' +
+                        '<td>' + statusChipHtml(b.status) + '</td>' +
                         '<td><button class="btn btn-save" data-act="save">Save</button> <button class="btn btn-delete" data-act="delete">Delete</button></td>';
                     tr.addEventListener('click', function () { renderPreview(b); });
                     tr.querySelector('[data-act="save"]').addEventListener('click', async function (e) {
@@ -544,8 +572,7 @@
                                 body: JSON.stringify({
                                     date: tr.querySelector('input[data-k="date"]').value.trim(),
                                     time: tr.querySelector('select[data-k="time"]').value.trim(),
-                                    barber: tr.querySelector('select[data-k="barber"]').value.trim(),
-                                    status: tr.querySelector('select[data-k="status"]').value
+                                    barber: tr.querySelector('select[data-k="barber"]').value.trim()
                                 })
                             });
                             msg('Booking ' + (b.booking_id || '') + ' updated.', 'ok');

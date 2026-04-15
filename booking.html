@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Schedule Your Service - The Classic Fade</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Proxima+Nova:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css?v=20260414a">
+    <link rel="stylesheet" href="css/main.css?v=4">
     <style>
         .booking-page {
             background: #ffffff;
@@ -15,12 +18,15 @@
 
         .booking-main {
             margin-top: 11vh;
-            padding: 3.2vh 3vw 5.2vh;
+            padding: 3.2vh 0 5.2vh;
         }
 
         .booking-container {
             max-width: 1150px;
             margin: 0 auto;
+            padding-left: 3vw;
+            padding-right: 3vw;
+            box-sizing: border-box;
         }
 
         .booking-back {
@@ -453,8 +459,9 @@
 
         </div>
 
-        <!-- Site-wide contact + map (starting from "Say hello", like index) -->
-        <section id="contact" class="contact-section">
+        <!-- Site-wide contact + map (same structure as index.html for layout parity) -->
+        <section id="contact" class="contact-section contact-section--footer-only">
+            <div class="contact-content">
                 <div class="contact-info-strip" aria-label="Classic Fade contact details">
                     <div class="contact-info-grid">
                         <div class="c-box">
@@ -498,6 +505,7 @@
                         src="https://www.google.com/maps?q=27%20Union%20Street%2C%20London%20EC1V%209LJ&output=embed">
                     </iframe>
                 </div>
+            </div>
         </section>
 
         <footer class="site-footer" aria-label="Footer">
@@ -505,7 +513,7 @@
         </footer>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js?v=2"></script>
     <script>
         (function () {
             const params = new URLSearchParams(window.location.search);

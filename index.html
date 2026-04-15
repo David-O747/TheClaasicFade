@@ -3,9 +3,549 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>The Classic Fade - Barbershop</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Proxima+Nova:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css?v=20260414b">
+    <link rel="stylesheet" href="css/main.css?v=4">
+    <style>
+        .login-icon {
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: transform 180ms ease, box-shadow 220ms ease, background-color 220ms ease;
+        }
+
+        .login-icon:hover,
+        .login-icon:focus-visible {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 26px rgba(232, 132, 32, 0.22);
+        }
+
+        .login-icon.is-pressing {
+            transform: translateY(0) scale(0.985);
+        }
+
+        .login-icon::after {
+            content: "";
+            position: absolute;
+            left: var(--mx, 50%);
+            top: var(--my, 50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(232, 132, 32, 0.42) 0%, rgba(232, 132, 32, 0) 70%);
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+        }
+
+        .login-icon.is-ripple::after {
+            animation: loginRipple 420ms ease-out forwards;
+        }
+
+        @keyframes loginRipple {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(16);
+                opacity: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .login-icon,
+            .login-icon::after {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+
+        /* About section redesign (reference-inspired) */
+        #services.haircut-styles {
+            padding-top: 0.35rem !important;
+            padding-bottom: 0.85rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        #services.haircut-styles .container,
+        #services.haircut-styles .services-grid {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        #services.haircut-styles .services-grid {
+            gap: 0 !important;
+        }
+
+        /* Hero dots: move from left toward center */
+        .carousel-indicators.carousel-indicators-custom {
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            justify-content: center !important;
+            width: auto !important;
+            max-width: none !important;
+        }
+
+        /* Keep hero service title styling (orange first letter) */
+        .carousel-item .service-name-animation {
+            font-weight: 900 !important;
+            letter-spacing: 0.01em;
+            color: #111317 !important;
+            text-transform: none !important;
+            display: inline-flex !important;
+            align-items: baseline !important;
+            gap: 0.06em !important;
+            white-space: nowrap !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            z-index: 6 !important;
+            background: transparent !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+        }
+
+        .carousel-item .service-name-animation .letter-large {
+            color: #e88420 !important;
+            font-size: clamp(2rem, 4.2vw, 3.25rem) !important;
+            font-weight: 900 !important;
+            line-height: 1 !important;
+            text-transform: none !important;
+            font-family: 'Archivo Black', 'Proxima Nova', Arial, sans-serif !important;
+            display: inline-block !important;
+        }
+
+        .carousel-item .service-name-animation .letter-rest {
+            color: #111317 !important;
+            font-size: clamp(1.45rem, 3.2vw, 2.6rem) !important;
+            font-weight: 900 !important;
+            line-height: 1 !important;
+            text-transform: none !important;
+            font-family: 'Proxima Nova', Arial, sans-serif !important;
+            display: inline-block !important;
+        }
+
+        /* Hero: centered strip (max-width), same as before full-bleed experiment */
+        .hero-section .carousel-container {
+            max-width: min(96vw, 1520px) !important;
+            width: 100% !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        .hero-section .carousel-item img {
+            width: 100% !important;
+            object-fit: cover !important;
+            image-rendering: auto;
+            -webkit-optimize-contrast: auto;
+        }
+
+        .about-section.about-future {
+            max-width: 1220px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1.05rem 1.2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .about-future-copy {
+            max-width: 760px;
+            margin: 0 auto 1rem;
+        }
+
+        .about-future-copy .our-story-kicker {
+            display: block;
+            margin: 0 0 0.45rem;
+            padding: 0;
+            border-radius: 0;
+            background: transparent;
+            border: none;
+            color: #9a5209;
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .about-future-copy h2 {
+            margin: 0 0 0.4rem;
+            font-size: clamp(2rem, 5vw, 4.1rem);
+            line-height: 1.04;
+            font-weight: 900;
+            letter-spacing: -0.01em;
+            color: #111317;
+            text-shadow: none;
+        }
+
+        .about-future-copy .line-accent {
+            color: #e88420;
+        }
+
+        .about-future-sub {
+            font-size: 1.02rem;
+            font-weight: 800;
+            color: rgba(25, 29, 37, 0.95);
+            margin: 0.35rem 0;
+        }
+
+        .about-future-text {
+            margin: 0.4rem auto 1.1rem;
+            max-width: 700px;
+            font-size: 0.97rem;
+            color: rgba(34, 38, 46, 0.88);
+            line-height: 1.5;
+            font-weight: 700;
+        }
+
+        .about-future-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--primary, #e88420);
+            color: #fff;
+            border-radius: 12px;
+            padding: 0.72rem 1.3rem;
+            font-weight: 900;
+            text-decoration: none;
+            box-shadow: 0 10px 24px rgba(232, 132, 32, 0.35);
+            transition: transform 180ms ease, background-color 200ms ease;
+        }
+
+        .about-future-cta:hover {
+            color: #fff;
+            background: #c9731a;
+            transform: translateY(-1px);
+        }
+
+        .about-future-video-shell {
+            position: relative;
+            margin-top: 0.95rem;
+            overflow: visible;
+        }
+
+        .about-future-wave {
+            position: absolute;
+            top: -0.65rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(900px, 98%);
+            height: 132px;
+            border-radius: 999px;
+            background:
+                radial-gradient(closest-side, rgba(86, 125, 229, 0.24), rgba(86, 125, 229, 0.06) 72%, rgba(86, 125, 229, 0) 100%) 10% 60% / 38% 90% no-repeat,
+                radial-gradient(closest-side, rgba(86, 125, 229, 0.22), rgba(86, 125, 229, 0.06) 72%, rgba(86, 125, 229, 0) 100%) 50% 45% / 48% 90% no-repeat,
+                radial-gradient(closest-side, rgba(86, 125, 229, 0.2), rgba(86, 125, 229, 0.05) 72%, rgba(86, 125, 229, 0) 100%) 92% 60% / 38% 92% no-repeat;
+            filter: blur(0.5px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .about-future .our-story-video-wrap {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 22px 60px rgba(19, 22, 31, 0.26);
+            border: 1px solid rgba(20, 22, 30, 0.26);
+            max-width: 1120px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-future .our-story-video-wrap::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(8, 10, 16, 0.28) 0%, rgba(8, 10, 16, 0.12) 58%, rgba(8, 10, 16, 0.36) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Mask bottom-right watermark (e.g. Veo) — sized so logo stays hidden across clips */
+        .about-future .our-story-video-wrap::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: min(220px, 38vw);
+            height: min(88px, 14vw);
+            min-width: 140px;
+            min-height: 56px;
+            border-radius: 14px 0 0 0;
+            background: rgba(8, 10, 14, 0.97);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .about-future #ourStoryVideo {
+            position: relative;
+            z-index: 0;
+            display: block;
+            width: 100%;
+            aspect-ratio: 16/9;
+            min-height: 200px;
+            object-fit: cover;
+            object-position: 44% center;
+        }
+
+        .about-future .our-story-overlay {
+            position: absolute;
+            left: 1rem;
+            right: 1rem;
+            bottom: 1rem;
+            z-index: 2;
+            text-align: left;
+            pointer-events: none;
+            transition: opacity 260ms ease, transform 280ms ease;
+        }
+
+        .about-future .our-story-overlay-content {
+            max-width: 480px;
+            background: rgba(10, 12, 18, 0.62);
+            border: none;
+            border-radius: 14px;
+            padding: 0.75rem 0.9rem;
+            backdrop-filter: blur(4px);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+        }
+
+        .about-future .our-story-overlay .ov-kicker {
+            margin: 0 0 0.2rem;
+            font-size: 0.74rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 214, 172, 0.95);
+        }
+
+        .about-future .our-story-overlay .ov-title {
+            margin: 0 0 0.22rem;
+            font-size: 1.05rem;
+            font-weight: 900;
+            line-height: 1.2;
+            color: #fff;
+        }
+
+        .about-future .our-story-overlay .ov-text {
+            margin: 0;
+            font-size: 0.83rem;
+            font-weight: 700;
+            line-height: 1.42;
+            color: rgba(244, 246, 250, 0.92);
+        }
+
+        .about-future .our-story-play-btn {
+            position: absolute;
+            z-index: 2;
+            top: 1rem;
+            left: 1rem;
+            right: auto;
+            bottom: auto;
+            transform: none;
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+            min-width: 88px;
+            height: auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.94);
+            color: #232833;
+            font-weight: 800;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+        }
+
+        .about-future .our-story-play-btn::after {
+            content: attr(data-label);
+            font-size: 0.9rem;
+        }
+
+        .about-future-next-top {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 2;
+            border: none;
+            background: rgba(12, 14, 19, 0.42);
+            color: #fff;
+            font-size: 0.88rem;
+            font-weight: 900;
+            letter-spacing: 0.03em;
+            padding: 0.44rem 0.7rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 160ms ease, background-color 180ms ease, opacity 180ms ease;
+            opacity: 0.95;
+        }
+
+        .about-future-next-top:hover {
+            transform: translateY(-1px);
+            background: rgba(232, 132, 32, 0.9);
+        }
+
+        .about-future-next-top:focus-visible {
+            outline: 2px solid #e88420;
+            outline-offset: 2px;
+        }
+
+        .about-future .our-story-video-wrap.is-page-flipping #ourStoryVideo {
+            transition: transform 0.45s ease, opacity 0.45s ease, filter 0.45s ease;
+            transform: scale(0.98);
+            opacity: 0.72;
+            filter: brightness(0.88);
+        }
+
+        .about-future .our-story-overlay.is-switching {
+            transition: opacity 0.35s ease;
+            opacity: 0.35;
+        }
+
+        .about-future-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            width: 60px;
+            height: 28px;
+            border-radius: 0;
+            border: none;
+            background: transparent;
+            color: transparent;
+            font-size: 0;
+            cursor: pointer;
+            transition: transform 160ms ease, opacity 180ms ease;
+            opacity: 0.9;
+        }
+
+        .about-future-nav::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 42px;
+            height: 2.5px;
+            background: rgba(255, 255, 255, 0.92);
+            transform: translateY(-50%);
+            border-radius: 999px;
+        }
+
+        .about-future-nav::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 11px;
+            height: 11px;
+            border-top: 2.5px solid rgba(255, 255, 255, 0.92);
+            border-right: 2.5px solid rgba(255, 255, 255, 0.92);
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .about-future-nav:hover {
+            transform: translateY(-50%) scale(1.06);
+            opacity: 1;
+        }
+
+        .about-future-nav.prev { left: -74px; }
+        .about-future-nav.prev::before { right: 10px; }
+        .about-future-nav.prev::after {
+            left: 1px;
+            transform: translateY(-50%) rotate(-135deg);
+        }
+
+        .about-future-nav.next { right: -74px; }
+        .about-future-nav.next::before { left: 10px; }
+        .about-future-nav.next::after { right: 1px; }
+
+        @media (max-width: 1100px) {
+            .about-future-nav.prev { left: 10px; }
+            .about-future-nav.next { right: 10px; }
+        }
+
+        .about-future-down {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: -1.35rem auto 0;
+            background: linear-gradient(180deg, #f29b3f 0%, #e88420 100%);
+            color: #fff;
+            font-size: 1.9rem;
+            font-weight: 900;
+            text-decoration: none;
+            box-shadow: 0 10px 24px rgba(232, 132, 32, 0.45);
+            position: relative;
+            z-index: 3;
+        }
+
+        .about-future-down:hover {
+            color: #fff;
+            transform: translateY(1px);
+        }
+
+        .about-future .our-story-video-wrap.overlay-hidden .our-story-overlay {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .about-future .our-story-video-wrap.overlay-reveal .our-story-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .review-star {
+            transition: transform 140ms ease, color 160ms ease, text-shadow 160ms ease;
+        }
+
+        .review-star:hover {
+            color: #f4a33e;
+            transform: translateY(-1px);
+        }
+
+        .review-star.is-filled {
+            color: #e88420;
+            text-shadow: 0 2px 10px rgba(232, 132, 32, 0.3);
+        }
+
+        /* Nav micro-marker (orange vertical line) */
+        .navbar .nav-link {
+            position: relative;
+            padding-left: 0 !important;
+            padding-top: 0.55rem;
+        }
+
+        .navbar .nav-link::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 3px;
+            border-radius: 999px;
+            background: #e88420;
+            transform: scaleX(0);
+            transform-origin: left center;
+            opacity: 0;
+            transition: opacity 170ms ease, transform 170ms ease, width 170ms ease;
+        }
+
+        .navbar .nav-link:hover::before,
+        .navbar .nav-link.is-active-section::before {
+            opacity: 1;
+            width: 100%;
+            transform: scaleX(1);
+        }
+    </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -56,7 +596,7 @@
         <section id="home" class="hero-section">
             <div class="carousel-container">
                 <div class="carousel-side-image left">
-                    <img src="landing_images/istockphoto-1441549387-612x612.jpg" alt="Barbershop interior">
+                    <img src="landing_images/hero-new-3.png" alt="Barbershop interior">
                 </div>
                 <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500" data-bs-pause="false">
                     <div class="carousel-inner">
@@ -68,19 +608,16 @@
                             <div class="new-badge">New</div>
                         </div>
                         <div class="carousel-item">
-                            <img src="landing_images/istockphoto-1441549387-612x612.jpg" alt="Haircut">
-                            <div class="service-name-animation">
-                                <span class="letter-large">H</span><span class="letter-rest">aircut</span>
-                            </div>
+                            <img src="landing_images/hero-new-1.png" alt="Haircut">
                         </div>
                         <div class="carousel-item">
-                            <img src="landing_images/istockphoto-937443868-612x612.jpg" alt="Clipper Cut">
+                            <img src="landing_images/hero-new-2.png" alt="Clipper Cut">
                             <div class="service-name-animation">
                                 <span class="letter-large">C</span><span class="letter-rest">lipper Cut</span>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="landing_images/barbershop-interior-new.png" alt="Barbershop interior chairs and mirrors">
+                            <img src="landing_images/hero-new-3.png" alt="Barbershop interior chairs and mirrors">
                         </div>
                     </div>
                     <div class="carousel-indicators carousel-indicators-custom" role="tablist">
@@ -91,7 +628,7 @@
                     </div>
                 </div>
                 <div class="carousel-side-image right">
-                    <img src="landing_images/istockphoto-937443868-612x612.jpg" alt="Barbershop service">
+                    <img src="landing_images/hero-new-1.png" alt="Barbershop service">
                 </div>
             </div>
         </section>
@@ -112,7 +649,7 @@
                     <div class="service-card popular">
                         <div class="service-card-top service-card-top--badged">
                             <div class="service-icon-wrap">
-                                <div class="service-icon">
+                        <div class="service-icon">
                                     <img src="Images/haircut.png" alt="Haircut icon">
                                 </div>
                                 <span class="popular-badge">Most Popular</span>
@@ -205,29 +742,43 @@
                             </div>
                             <a href="booking.html?service=Hot%20Towel%20Shave" class="other-service-book">Book Now</a>
                         </article>
-                    </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="about-section reveal-on-scroll" id="about">
-            <div class="our-story-video-wrap our-story-video-wrap--hero overlay-hidden">
+        <section class="about-section about-future reveal-on-scroll" id="about">
+            <div class="about-future-copy">
+                <p class="our-story-kicker">About Us</p>
+                <h2>Sharp Styles London Energy</h2>
+                <p class="about-future-sub">The Classic Fade Studio</p>
+                <p class="about-future-text">Premium cuts, clean finishes, and a relaxed barbershop experience built around quality and consistency.</p>
+                <a href="#contact" class="about-future-cta">Get in touch <span aria-hidden="true">→</span></a>
+            </div>
+
+            <div class="about-future-video-shell">
+                <div class="about-future-wave" aria-hidden="true"></div>
+                <div class="our-story-video-wrap our-story-video-wrap--hero overlay-hidden">
                 <video id="ourStoryVideo" muted playsinline preload="metadata" aria-label="Classic Fade introduction video">
-                    <source src="Images/Barbershop_Video_Classic_Fade_Haircut.mov" type="video/quicktime">
                     <source src="Images/Barber_Shop_Video_Request.mp4" type="video/mp4">
+                    <source src="Images/Barbershop_Video_Classic_Fade_Haircut.mov" type="video/quicktime">
                 </video>
-                <button type="button" class="our-story-play-btn" id="ourStoryPlayBtn" aria-label="Play introduction video">
-                    <svg class="our-story-play-icon our-story-play-icon--play" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
-                    <svg class="our-story-play-icon our-story-play-icon--pause" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                    <button type="button" class="our-story-play-btn" id="ourStoryPlayBtn" aria-label="Play introduction video" data-label="Play">
+                        <svg class="our-story-play-icon our-story-play-icon--play" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+                        <svg class="our-story-play-icon our-story-play-icon--pause" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
                 </button>
-                <div class="our-story-overlay" id="ourStoryOverlay">
-                    <p class="our-story-kicker" id="ourStoryKicker">Our Story</p>
-                    <h2 id="ourStoryTitle">Sharp Clean Cuts</h2>
-                    <p class="our-story-brand" id="ourStoryBrand">The Classic Fade</p>
-                    <p class="our-story-text" id="ourStoryText">The Classic Fade is a London barbershop where skilled barbers deliver sharp cuts and a welcoming atmosphere. We blend tradition with modern style to give every client a look they love.</p>
+                    <button type="button" class="about-future-next-top" id="ourStoryNextBtn" aria-label="Next video">Next</button>
+                    <div class="our-story-overlay" id="ourStoryOverlay">
+                        <div class="our-story-overlay-content">
+                            <p class="ov-kicker" id="ourStoryOverlayKicker">Our Story</p>
+                            <h3 class="ov-title" id="ourStoryOverlayTitle">Sharp Clean Cuts</h3>
+                            <p class="ov-text" id="ourStoryOverlayText">The Classic Fade blends modern skill with old-school care for every client.</p>
+            </div>
+                    </div>
                 </div>
             </div>
+            <a class="about-future-down" href="#testimonials" aria-label="Scroll to testimonials">↓</a>
         </section>
 
         <section class="testimonials-section reveal-on-scroll" id="testimonials">
@@ -445,19 +996,19 @@
         </div>
     </aside>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js?v=2"></script>
+    <script src="js/main.js?v=2"></script>
     <script>
         (function () {
-            const wrap = document.querySelector('.our-story-video-wrap');
+            const wrap = document.querySelector('#about .our-story-video-wrap');
             const ourStoryVideo = document.getElementById('ourStoryVideo');
             const playBtn = document.getElementById('ourStoryPlayBtn');
+            const nextBtn = document.getElementById('ourStoryNextBtn');
             const storyOverlay = document.getElementById('ourStoryOverlay');
-            const storyKicker = document.getElementById('ourStoryKicker');
-            const storyTitle = document.getElementById('ourStoryTitle');
-            const storyBrand = document.getElementById('ourStoryBrand');
-            const storyText = document.getElementById('ourStoryText');
-            if (!wrap || !ourStoryVideo || !playBtn || !storyKicker || !storyTitle || !storyBrand || !storyText) return;
+            const overlayKicker = document.getElementById('ourStoryOverlayKicker');
+            const overlayTitle = document.getElementById('ourStoryOverlayTitle');
+            const overlayText = document.getElementById('ourStoryOverlayText');
+            if (!wrap || !ourStoryVideo || !playBtn || !storyOverlay || !overlayKicker || !overlayTitle || !overlayText) return;
 
             let revealTimer = null;
             let hideTimer = null;
@@ -469,22 +1020,19 @@
                     src: 'Images/Barber_Shop_Video_Request.mp4',
                     kicker: 'Our Story',
                     title: 'Sharp Clean Cuts',
-                    brand: 'The Classic Fade',
-                    text: 'The Classic Fade is a London barbershop where skilled barbers deliver sharp cuts and a welcoming atmosphere. We blend tradition with modern style to give every client a look they love.'
+                    text: 'The Classic Fade blends modern technique with old-school barber care for every client.'
                 },
                 {
                     src: 'Images/hero-pageflip-3.mp4',
-                    kicker: 'Location & History',
-                    title: 'London Roots, Modern Craft',
-                    brand: 'The Classic Fade',
-                    text: 'Located on Union Street in London, The Classic Fade grew from a local vision to deliver consistent, premium grooming. Every cut reflects our barbershop heritage and city energy.'
+                    kicker: 'In the chair',
+                    title: 'Precision & pace',
+                    text: 'Clean fades, sharp lineups, and a relaxed shop floor — every visit feels considered.'
                 },
                 {
                     src: 'Images/hero-pageflip-2.mp4',
-                    kicker: 'Website Benefits',
-                    title: 'Book Faster Online',
-                    brand: 'The Classic Fade',
-                    text: 'Use the Classic Fade website to choose your service, pick your barber, and secure your slot in minutes. Quick online booking means less waiting and a smoother client experience.'
+                    kicker: 'The vibe',
+                    title: 'London energy',
+                    text: 'Good music, honest chat, and cuts that hold shape long after you leave the chair.'
                 }
             ];
             setHeroVideoSource(heroSlides[activeVideoIndex].src, false);
@@ -497,10 +1045,9 @@
             function setStoryCopy(index) {
                 const slide = heroSlides[index];
                 if (!slide) return;
-                storyKicker.textContent = slide.kicker;
-                storyTitle.textContent = slide.title;
-                storyBrand.textContent = slide.brand;
-                storyText.textContent = slide.text;
+                overlayKicker.textContent = slide.kicker;
+                overlayTitle.textContent = slide.title;
+                overlayText.textContent = slide.text;
             }
 
             function clearOverlayTimers() {
@@ -523,15 +1070,15 @@
                 }
             }
 
-            function flipToNextVideo() {
+            function flipToVideo(delta) {
                 if (isFlipping || !heroSlides.length) return;
                 isFlipping = true;
-                const nextIndex = (activeVideoIndex + 1) % heroSlides.length;
+                const nextIndex = (activeVideoIndex + delta + heroSlides.length) % heroSlides.length;
                 const keepPlaying = !ourStoryVideo.paused;
                 preloader.src = heroSlides[nextIndex].src;
                 preloader.load();
                 wrap.classList.add('is-page-flipping');
-                storyOverlay.classList.add('is-switching');
+                if (storyOverlay) storyOverlay.classList.add('is-switching');
 
                 window.setTimeout(function () {
                     activeVideoIndex = nextIndex;
@@ -541,7 +1088,7 @@
 
                 window.setTimeout(function () {
                     wrap.classList.remove('is-page-flipping');
-                    storyOverlay.classList.remove('is-switching');
+                    if (storyOverlay) storyOverlay.classList.remove('is-switching');
                     isFlipping = false;
                 }, 1200);
             }
@@ -565,9 +1112,11 @@
 
             function setPlayButtonLabel(isPlaying) {
                 playBtn.setAttribute('aria-label', isPlaying ? 'Pause introduction video' : 'Play introduction video');
+                playBtn.setAttribute('data-label', isPlaying ? 'Pause' : 'Play');
             }
 
             function startOverlaySequence() {
+                if (!storyOverlay) return;
                 clearOverlayTimers();
                 wrap.classList.add('overlay-hidden');
                 wrap.classList.remove('overlay-reveal');
@@ -616,8 +1165,25 @@
                 else ourStoryVideo.pause();
             });
 
+            if (nextBtn && heroSlides.length > 1) {
+                nextBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (isFlipping) return;
+                    hasCompletedCycle = false;
+                    const wasPlaying = !ourStoryVideo.paused && !ourStoryVideo.ended;
+                    flipToVideo(1);
+                    if (wasPlaying) {
+                        window.setTimeout(function () {
+                            startWithSound();
+                        }, 620);
+                    }
+                });
+            }
+
             wrap.addEventListener('click', function (e) {
-                if (e.target.closest( '#ourStoryPlayBtn')) return;
+                if (e.target.closest('#ourStoryPlayBtn')) return;
+                if (e.target.closest('#ourStoryNextBtn')) return;
                 if (hasCompletedCycle) {
                     resetCycleToFirstSlide();
                 }
@@ -645,7 +1211,7 @@
             ourStoryVideo.addEventListener('ended', function () {
                 clearOverlayTimers();
                 if (activeVideoIndex < heroSlides.length - 1) {
-                    flipToNextVideo();
+                    flipToVideo(1);
                     window.setTimeout(function () {
                         startWithSound();
                     }, 720);
@@ -794,6 +1360,40 @@
 
             const nameRegex = /^[A-Za-z][A-Za-z\s'-]{1,48}$/;
 
+            function apiBases() {
+                if (window.location.protocol === 'file:') {
+                    return ['http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+                }
+                const o = (window.location.origin || '').replace(/\/$/, '');
+                return [o + '/api', '/api', 'http://127.0.0.1:3000/api', 'http://localhost:3000/api'];
+            }
+
+            async function postAny(path, payload) {
+                let lastErr = 'Could not reach the booking server.';
+                for (const base of apiBases()) {
+                    try {
+                        const resp = await fetch(base + path, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload || {})
+                        });
+                        let data = null;
+                        try {
+                            const text = await resp.text();
+                            data = text ? JSON.parse(text) : null;
+                        } catch (e) {
+                            lastErr = 'Invalid server response.';
+                            continue;
+                        }
+                        if (resp.ok && data && data.ok !== false) return data;
+                        lastErr = (data && data.error) ? data.error : 'Request failed.';
+                    } catch (e) {
+                        lastErr = (e && e.message) ? e.message : lastErr;
+                    }
+                }
+                throw new Error(lastErr);
+            }
+
             function setError(inputEl, errorEl, message) {
                 if (inputEl) inputEl.classList.add('is-invalid');
                 if (errorEl) errorEl.textContent = message;
@@ -812,7 +1412,7 @@
                     ok = false;
                     setError(nameEl, errorName, 'Please enter a valid name (2–50 characters, starting with a letter).');
                 } else {
-                    clearError(nameEl, errorName);
+                clearError(nameEl, errorName);
                 }
 
                 const email = emailEl.value.trim();
@@ -851,7 +1451,7 @@
                     if (!nameRegex.test(value)) {
                         setError(nameEl, errorName, 'Please enter a valid name (2–50 characters, starting with a letter).');
                     } else {
-                        clearError(nameEl, errorName);
+                    clearError(nameEl, errorName);
                     }
                 } else if (id === 'cEmail') {
                     const value = emailEl.value.trim();
@@ -902,22 +1502,33 @@
                     submitBtn.textContent = 'Sending...';
                 }
 
-                window.setTimeout(function () {
+                const payload = {
+                    name: nameEl ? nameEl.value.trim() : '',
+                    email: emailEl ? emailEl.value.trim() : '',
+                    subject: subjectEl ? subjectEl.value.trim() : '',
+                    message: messageEl ? messageEl.value.trim() : ''
+                };
+
+                postAny('/contact', payload).then(function () {
                     if (submitBtn) {
                         submitBtn.disabled = false;
                         submitBtn.textContent = prevText;
                     }
-
                     if (successEl) {
                         successEl.hidden = false;
                     }
                     form.reset();
-
                     clearError(nameEl, errorName);
                     clearError(emailEl, errorEmail);
                     clearError(subjectEl, errorSubject);
                     clearError(messageEl, errorMessage);
-                }, 800);
+                }).catch(function (err) {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = prevText;
+                    }
+                    setError(messageEl, errorMessage, (err && err.message) ? err.message : 'Could not send message.');
+                });
             });
         })();
     </script>
@@ -1012,6 +1623,8 @@
                 var btn = wrap.querySelector('.testimonial-play-toggle');
                 if (btn) {
                     btn.setAttribute('aria-label', playing ? 'Pause review video' : 'Play review video');
+                    var lbl = btn.querySelector('.play-label');
+                    if (lbl) lbl.textContent = playing ? 'Pause' : 'Play';
                 }
             }
 
@@ -1061,7 +1674,7 @@
 
                 if (btn) {
                     btn.addEventListener('click', function (e) {
-                        e.stopPropagation();
+                    e.stopPropagation();
                         toggle();
                     });
                 }
@@ -1105,6 +1718,79 @@
 
     <script>
         (function () {
+            const links = Array.from(document.querySelectorAll('.navbar .nav-link[href^="#"]'));
+            const map = new Map();
+            links.forEach(function (a) {
+                const id = (a.getAttribute('href') || '').slice(1);
+                if (!id) return;
+                var sec = document.getElementById(id);
+                if (!sec) return;
+                /* #booking points to an anchor div; track the full services section instead */
+                if (id === 'booking') {
+                    var servicesSec = document.getElementById('services');
+                    if (servicesSec) sec = servicesSec;
+                } else if (sec.tagName !== 'SECTION') {
+                    var nearestSection = sec.closest ? sec.closest('section') : null;
+                    if (nearestSection) sec = nearestSection;
+                }
+                map.set(sec, a);
+            });
+            if (map.size) {
+                const pairs = Array.from(map.entries()).sort(function (a, b) {
+                    return a[0].offsetTop - b[0].offsetTop;
+                });
+                function setActive(linkEl) {
+                    links.forEach(function (x) { x.classList.remove('is-active-section'); });
+                    if (linkEl) linkEl.classList.add('is-active-section');
+                }
+
+                function updateActiveByScroll() {
+                    const nav = document.querySelector('.navbar');
+                    const navH = nav ? nav.offsetHeight : 0;
+                    const markerDocY = window.scrollY + navH + 130;
+                    let chosen = pairs[0][1];
+                    for (let i = 0; i < pairs.length; i++) {
+                        const sec = pairs[i][0];
+                        const a = pairs[i][1];
+                        if (sec.offsetTop <= markerDocY) {
+                            chosen = a;
+                        } else {
+                            break;
+                        }
+                    }
+                    setActive(chosen);
+                }
+
+                window.addEventListener('scroll', updateActiveByScroll, { passive: true });
+                window.addEventListener('resize', updateActiveByScroll);
+                updateActiveByScroll();
+            }
+
+            var loginCta = document.querySelector('.login-icon');
+            if (loginCta) {
+                loginCta.addEventListener('pointerdown', function (e) {
+                    var rect = loginCta.getBoundingClientRect();
+                    var x = (e.clientX || rect.left + rect.width / 2) - rect.left;
+                    var y = (e.clientY || rect.top + rect.height / 2) - rect.top;
+                    loginCta.style.setProperty('--mx', x + 'px');
+                    loginCta.style.setProperty('--my', y + 'px');
+                    loginCta.classList.remove('is-ripple');
+                    loginCta.classList.add('is-pressing');
+                    window.requestAnimationFrame(function () {
+                        loginCta.classList.add('is-ripple');
+                    });
+                });
+                loginCta.addEventListener('pointerup', function () {
+                    loginCta.classList.remove('is-pressing');
+                });
+                loginCta.addEventListener('pointerleave', function () {
+                    loginCta.classList.remove('is-pressing');
+                });
+                loginCta.addEventListener('animationend', function () {
+                    loginCta.classList.remove('is-ripple');
+                });
+            }
+
             document.body && document.body.classList.remove('page-leaving');
 
             function shouldFade(linkEl) {

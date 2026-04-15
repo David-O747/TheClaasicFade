@@ -271,6 +271,34 @@ function randomBookingId() {
   return 'CF-' + crypto.randomBytes(3).toString('hex').toUpperCase();
 }
 
+function parseBookingStartMs(dateStr, timeStr) {
+  const d = String(dateStr || '').trim();
+  const t = String(timeStr || '').trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) return NaN;
+  if (!/^\d{2}:\d{2}$/.test(t)) return NaN;
+  const ms = new Date(`${d}T${t}:00`).getTime();
+  return Number.isFinite(ms) ? ms : NaN;
+}
+
+/** Booking lifecycle based on slot time; cancellation stays manual. */
+function autoStatusForBooking(row, nowMs) {
+  const current = String((row && row.status) || 'pending').toLowerCase().trim();
+  if (current === 'cancelled') return 'cancelled';
+  const startMs = parseBookingStartMs(row && row.date, row && row.time);
+  if (!Number.isFinite(startMs)) return current || 'pending';
+  const durationMs = 45 * 60 * 1000;
+  const endMs = startMs + durationMs;
+  if (nowMs < startMs) return 'confirmed';
+  if (nowMs >= startMs && nowMs < endMs) return 'active';
+  return 'completed';
+}
+
+function normalizeStatusValue(s) {
+  const v = String(s || '').toLowerCase().trim();
+  if (['pending', 'confirmed', 'active', 'completed', 'cancelled'].indexOf(v) >= 0) return v;
+  return '';
+}
+
 function signToken(payloadObj) {
   const payload = Buffer.from(JSON.stringify(payloadObj)).toString('base64url');
   const sig = crypto.createHmac('sha256', APP_SECRET).update(payload).digest('base64url');
@@ -327,6 +355,39 @@ app.get('/api/health/db', async (_req, res) => {
     const msg = e && e.message ? String(e.message) : 'Unknown error';
     const cause = e && e.cause && e.cause.message ? String(e.cause.message) : '';
     return res.status(500).json({ ok: false, error: msg + (cause ? ' (' + cause + ')' : '') });
+  }
+});
+
+app.post('/api/contact', async (req, res) => {
+  try {
+    const b = req.body || {};
+    const name = String(b.name || '').trim();
+    const email = String(b.email || '').trim().toLowerCase();
+    const subject = String(b.subject || '').trim();
+    const message = String(b.message || '').trim();
+
+    if (!name || !email || !subject || !message) {
+      return res.status(400).json({ ok: false, error: 'name, email, subject and message are required.' });
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ ok: false, error: 'Invalid email format.' });
+    }
+    if (message.length < 10 || message.length > 500) {
+      return res.status(400).json({ ok: false, error: 'Message must be between 10 and 500 characters.' });
+    }
+
+    if (!ensureSupabaseReady(res)) return;
+    const { error } = await supabase.from('contact_messages').insert({
+      name,
+      email,
+      subject,
+      message
+    });
+    if (error) return res.status(500).json({ ok: false, error: error.message || 'Could not save message.' });
+    return res.json({ ok: true });
+  } catch (e) {
+    const msg = e && e.message ? String(e.message) : 'Server error saving contact message.';
+    return res.status(500).json({ ok: false, error: msg });
   }
 });
 
@@ -695,6 +756,16 @@ app.post('/api/admin/login', async (req, res) => {
 app.get('/api/admin/bookings', ensureAdmin, async (_req, res) => {
   if (useLocalDb()) {
     const store = getLocalStore();
+    const nowMs = Date.now();
+    let changed = false;
+    (store.bookings || []).forEach(row => {
+      const next = autoStatusForBooking(row, nowMs);
+      if (next && String(row.status || '').toLowerCase() !== next) {
+        row.status = next;
+        changed = true;
+      }
+    });
+    if (changed) saveLocalStore();
     const rows = [...store.bookings].sort((a, b) => {
       const ta = new Date(a.created_at || 0).getTime();
       const tb = new Date(b.created_at || 0).getTime();
@@ -708,18 +779,37 @@ app.get('/api/admin/bookings', ensureAdmin, async (_req, res) => {
     .select('*')
     .order('created_at', { ascending: false });
   if (error) return res.status(500).json({ ok: false, error: error.message });
-  return res.json({ ok: true, bookings: data || [] });
+  const rows = data || [];
+  const nowMs = Date.now();
+  const updates = [];
+  rows.forEach(row => {
+    const next = autoStatusForBooking(row, nowMs);
+    if (next && String(row.status || '').toLowerCase() !== next) {
+      row.status = next;
+      updates.push({ booking_id: row.booking_id, status: next });
+    }
+  });
+  for (const u of updates) {
+    await supabase.from('bookings').update({ status: u.status }).eq('booking_id', u.booking_id);
+  }
+  return res.json({ ok: true, bookings: rows });
 });
 
 app.patch('/api/admin/bookings/:bookingId', ensureAdmin, async (req, res) => {
   const bookingId = String(req.params.bookingId || '').trim().toUpperCase();
   const body = req.body || {};
-  const patch = {
-    date: String(body.date || '').trim(),
-    time: String(body.time || '').trim(),
-    barber: String(body.barber || '').trim(),
-    status: String(body.status || '').trim() || 'pending'
-  };
+  const patch = {};
+  if (body.date != null) patch.date = String(body.date || '').trim();
+  if (body.time != null) patch.time = String(body.time || '').trim();
+  if (body.barber != null) patch.barber = String(body.barber || '').trim();
+  if (body.status != null) {
+    const st = normalizeStatusValue(body.status);
+    if (!st) return res.status(400).json({ ok: false, error: 'Invalid status.' });
+    patch.status = st;
+  }
+  if (!Object.keys(patch).length) {
+    return res.status(400).json({ ok: false, error: 'No fields to update.' });
+  }
 
   let prevRow = null;
   if (useLocalDb()) {
@@ -739,7 +829,7 @@ app.patch('/api/admin/bookings/:bookingId', ensureAdmin, async (req, res) => {
     if (error) return res.status(500).json({ ok: false, error: error.message });
   }
 
-  const newSt = String(patch.status || '').toLowerCase();
+  const newSt = String((patch.status != null ? patch.status : (prevRow && prevRow.status)) || '').toLowerCase();
   const oldSt = String((prevRow && prevRow.status) || 'pending').toLowerCase();
   if (newSt === 'cancelled' && oldSt !== 'cancelled' && prevRow) {
     sendCancellationEmail({
