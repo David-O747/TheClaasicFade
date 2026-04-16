@@ -267,20 +267,21 @@
             z-index: 1;
         }
 
-        /* Mask bottom-right watermark (e.g. Veo) — sized so logo stays hidden across clips */
+        /* Mask bottom-right watermark (e.g. Veo) */
         .about-future .our-story-video-wrap::after {
             content: "";
             position: absolute;
             right: 0;
             bottom: 0;
-            width: min(220px, 38vw);
-            height: min(88px, 14vw);
-            min-width: 140px;
-            min-height: 56px;
-            border-radius: 14px 0 0 0;
-            background: rgba(8, 10, 14, 0.97);
+            width: min(280px, 46vw);
+            height: min(110px, 18vw);
+            min-width: 180px;
+            min-height: 72px;
+            border-radius: 18px 0 0 0;
+            background: #05070b;
+            opacity: 1;
             pointer-events: none;
-            z-index: 2;
+            z-index: 5;
         }
 
         .about-future #ourStoryVideo {

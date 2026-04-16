@@ -459,7 +459,6 @@
 
         </div>
 
-        <!-- Site-wide contact + map (same structure as index.html for layout parity) -->
         <section id="contact" class="contact-section contact-section--footer-only">
             <div class="contact-content">
                 <div class="contact-info-strip" aria-label="Classic Fade contact details">
@@ -647,7 +646,6 @@
                 return decodeURIComponent(String(key || '')).trim();
             }
 
-            // Allow both “Haircut” and “Wash and Cut” variants from querystring.
             activeServiceKey = normaliseServiceKey(initialService) || 'Haircut';
             const currentService = serviceData[activeServiceKey] || serviceData['Haircut'];
 
@@ -687,7 +685,6 @@
                 updateBookButton();
             }
 
-            // Calendar rendering
             let viewDate = new Date();
             viewDate.setDate(1);
 
@@ -699,14 +696,11 @@
                 const first = new Date(year, month, 1);
                 const last = new Date(year, month + 1, 0);
 
-                // Monday-first index: convert JS Sunday=0..Saturday=6 to Monday-first.
                 const jsDay = first.getDay(); // 0..6
                 const mondayFirstIndex = (jsDay + 6) % 7; // Monday=0
 
-                // Month label
                 monthLabel.textContent = viewDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
 
-                // Leading blanks
                 for (let i = 0; i < mondayFirstIndex; i++) {
                     const blank = document.createElement('div');
                     blank.style.height = '44px';
@@ -908,18 +902,14 @@
                 }, 220);
             });
 
-            // Init
             setServiceUI();
             setBarberSelectionUI(selectedBarber);
             renderCalendar();
             void renderTimes();
             updateSummary();
-
-            // If service is missing in URL, we keep default.
         })();
     </script>
 
-    <!-- Smooth page switch when navigating to other .html pages -->
     <script>
         (function () {
             document.body && document.body.classList.remove('page-leaving');
