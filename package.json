@@ -5,9 +5,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "css:build": "sass scss/main.scss css/main.css --no-source-map",
-    "sass": "sass scss:css --watch --no-source-map",
-    "sass:build": "sass scss/main.scss css/main.css --style compressed --no-source-map",
+    "css:build": "sass scss/main.scss public/css/main.css --no-source-map",
+    "sass": "sass scss/main.scss public/css/main.css --watch --no-source-map",
+    "sass:build": "sass scss/main.scss public/css/main.css --style compressed --no-source-map",
     "sync:bookings": "node scripts/sync-local-bookings-to-supabase.js"
   },
   "dependencies": {

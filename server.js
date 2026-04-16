@@ -1138,11 +1138,18 @@ app.delete('/api/admin/vouchers/:id', ensureAdmin, async (req, res) => {
   return res.json({ ok: true });
 });
 
-app.use(express.static(path.join(__dirname)));
+const publicDir = path.join(__dirname, 'public');
+app.use(express.static(publicDir));
 
 app.use((req, res) => {
-  const safePath = req.path === '/' ? '/index.html' : req.path;
-  const file = path.join(__dirname, safePath);
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    return res.status(404).send('Not found');
+  }
+  const rel = req.path === '/' || req.path === '' ? 'index.html' : req.path.replace(/^\//, '');
+  const file = path.resolve(publicDir, rel);
+  if (!file.startsWith(path.resolve(publicDir))) {
+    return res.status(403).send('Forbidden');
+  }
   res.sendFile(file, err => {
     if (err) res.status(404).send('Not found');
   });

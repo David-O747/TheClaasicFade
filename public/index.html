@@ -267,21 +267,23 @@
             z-index: 1;
         }
 
-        /* Mask bottom-right watermark (e.g. Veo) */
+        /* Smaller corner fade that cleanly covers the Veo mark */
         .about-future .our-story-video-wrap::after {
             content: "";
             position: absolute;
             right: 0;
             bottom: 0;
-            width: min(280px, 46vw);
-            height: min(110px, 18vw);
-            min-width: 180px;
-            min-height: 72px;
-            border-radius: 18px 0 0 0;
-            background: #05070b;
-            opacity: 1;
+            width: min(190px, 32vw);
+            height: min(76px, 13vw);
             pointer-events: none;
-            z-index: 5;
+            z-index: 2;
+            background: radial-gradient(
+               118% 118% at 100% 100%,
+                rgba(8, 10, 16, 0.98) 0%,
+                rgba(8, 10, 16, 0.64) 35%,
+                rgba(8, 10, 16, 0.22) 56%,
+                rgba(8, 10, 16, 0) 74%
+            );
         }
 
         .about-future #ourStoryVideo {
@@ -300,7 +302,7 @@
             left: 1rem;
             right: 1rem;
             bottom: 1rem;
-            z-index: 2;
+            z-index: 4;
             text-align: left;
             pointer-events: none;
             transition: opacity 260ms ease, transform 280ms ease;

@@ -1,12 +1,15 @@
 import os
 import math
+from pathlib import Path
+
 import cv2
 import numpy as np
 
+_REPO_ROOT = Path(__file__).resolve().parent.parent
 
 SRC_A = "/Users/davidolapade/Downloads/Barber_Shop_Website_Video_Generation.mp4"
 SRC_B = "/Users/davidolapade/Downloads/Black_Man_Enters_Classic_Fade_Barber_Shop.mp4"
-OUT_DIR = "/Users/davidolapade/advanced_project/renders/pageflip_book"
+OUT_DIR = str(_REPO_ROOT / "renders" / "pageflip_book")
 
 W, H = 1920, 1080
 FPS = 60
