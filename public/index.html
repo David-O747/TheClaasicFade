@@ -267,22 +267,24 @@
             z-index: 1;
         }
 
-        /* Smaller corner fade that cleanly covers the Veo mark */
+        /* Aggressive corner mask to fully hide Veo watermark */
         .about-future .our-story-video-wrap::after {
             content: "";
             position: absolute;
             right: 0;
             bottom: 0;
-            width: min(190px, 32vw);
-            height: min(76px, 13vw);
+            width: min(340px, 56vw);
+            height: min(132px, 24vw);
             pointer-events: none;
             z-index: 2;
             background: radial-gradient(
-               118% 118% at 100% 100%,
-                rgba(8, 10, 16, 0.98) 0%,
-                rgba(8, 10, 16, 0.64) 35%,
-                rgba(8, 10, 16, 0.22) 56%,
-                rgba(8, 10, 16, 0) 74%
+               130% 130% at 100% 100%,
+                rgba(8, 10, 16, 1) 0%,
+                rgba(8, 10, 16, 0.98) 24%,
+                rgba(8, 10, 16, 0.88) 44%,
+                rgba(8, 10, 16, 0.62) 60%,
+                rgba(8, 10, 16, 0.28) 74%,
+                rgba(8, 10, 16, 0) 86%
             );
         }
 
