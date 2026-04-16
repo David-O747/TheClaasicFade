@@ -11,6 +11,8 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.run-dev.log
+.run-dev.pid
 
 # OS / editor
 .DS_Store
