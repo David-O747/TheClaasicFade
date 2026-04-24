@@ -1,102 +1,33 @@
-# TheClaasicFade
+<div align="center">
+TheClassicFade
+Barbershop booking platform — live at theclassicfadee.netlify.app
 
-Classic Fade barbershop website and booking platform built with Express, vanilla JS, Bootstrap, and Supabase-ready APIs.
+<img width="894" height="709" alt="Screenshot 2026-04-24 at 08 44 34" src="https://github.com/user-attachments/assets/21fcbe61-586a-4431-bcb0-b023bffea781" />
 
-## Features
 
-- Responsive marketing pages (`Home`, `Gallery`, `Booking`, `Login`, `Admin`).
-- Booking flow with barber/service/time-slot selection.
-- Admin endpoints for bookings, services, barbers, blocked slots, and vouchers.
-- Dual persistence mode:
-  - Supabase (preferred production mode)
-  - Local JSON fallback in `data/bookings-store.json`
-- Optional email notifications through Resend.
+  
+</div>
 
-## Tech Stack
+A full stack barbershop website with online booking, admin management and email notifications.
+Features
 
-- Node.js + Express
-- Vanilla JavaScript + Bootstrap 5
-- Sass (`scss/main.scss` -> `public/css/main.css`)
-- Supabase (`@supabase/supabase-js`)
+Responsive pages — Home, Gallery, Booking, Login and Admin
+Booking flow with barber, service and time slot selection
+Admin dashboard for managing bookings, services, barbers, blocked slots and vouchers
+Email confirmations and cancellations via Resend
+Supabase backend with local JSON fallback
 
-## Project Structure
+Tech Stack
 
-```text
-.
-├── public/                 # Static site files served by Express
-│   ├── index.html
-│   ├── booking.html
-│   ├── booking-details.html
-│   ├── admin.html
-│   ├── login.html
-│   ├── gallery.html
-│   ├── css/
-│   ├── js/
-│   ├── Images/
-│   ├── gallery_images/
-│   └── landing_images/
-├── server.js               # API + static file server
-├── scss/                   # Sass source
-├── scripts/                # Utility scripts
-├── sql/                    # Supabase schema
-├── lib/                    # Server helpers (email)
-└── data/                   # Local booking store fallback
-```
+Node.js + Express — backend server
+Vanilla JavaScript + Bootstrap 5 — frontend
+Sass — styling
+Supabase — database and auth
 
-## Local Setup
 
-1. Install dependencies:
-
-```bash
-npm install
-```
-
-2. Create env file:
-
-```bash
-cp .env.example .env
-```
-
-3. Run the app:
-
-```bash
-npm run dev
-```
-
-4. Open:
-
-```text
-http://localhost:3000
-```
-
-## Environment Variables
-
-See `.env.example` for defaults.
-
-- `PORT` - server port (default `3000`)
-- `SUPABASE_URL` - Supabase project URL
-- `SUPABASE_SERVICE_ROLE_KEY` - server-side Supabase key (recommended for backend)
-- `SUPABASE_PUBLISHABLE_KEY` - fallback key used in this project
-- `APP_SECRET` - token/signing secret for internal auth flow
-- `ADMIN_IDENTIFIER`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` - admin credentials
-- `RESEND_API_KEY`, `FROM_EMAIL` - optional email confirmation/cancellation sender
-- `CLASSICFADE_USE_LOCAL_BOOKINGS`
-  - `0` (default): use Supabase when available
-  - `1`: force local JSON mode in `data/bookings-store.json`
-
-## Scripts
-
-- `npm run dev` - start server
-- `npm start` - start server
-- `npm run css:build` - compile Sass once
-- `npm run sass` - watch Sass and recompile on changes
-- `npm run sass:build` - compile compressed CSS
-- `npm run sync:bookings` - one-way sync local bookings to Supabase
-
-## API Overview
-
-### Health
-
+<div align="center">
+Built by David-O747
+</div>
 - `GET /api/health`
 - `GET /api/health/db`
 
