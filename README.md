@@ -1,18 +1,20 @@
-<div align="center">
+
+
 TheClassicFade
 Barbershop booking platform — live at https://theclassicfadee.netlify.app/
 
 
 
-
 <table>
   <tr>
-    <td><img width="420" alt="Screenshot 2026-04-24 at 09 43 40" src="https://github.com/user-attachments/assets/68db2c49-d120-4b7c-b975-52ab3b9779ef" /></td>
-    <td><img width="420" alt="Screenshot 2026-04-24 at 09 43 58" src="https://github.com/user-attachments/assets/065d7538-4cf8-4ede-84bf-d7aad28ddced" /></td>
+    <td><img width="280" alt="Screenshot 2026-04-24 at 09 43 40" src="https://github.com/user-attachments/assets/68db2c49-d120-4b7c-b975-52ab3b9779ef" /></td>
+    <td><img width="280" alt="Screenshot 2026-04-24 at 09 43 58" src="https://github.com/user-attachments/assets/065d7538-4cf8-4ede-84bf-d7aad28ddced" /></td>
+    <td><img width="280" alt="Screenshot-2026-04-09-at-01 51 54" src="https://github.com/user-attachments/assets/990a10f0-3e26-440d-8acd-446ad6b76606" /></td>
   </tr>
   <tr>
-    <td><img width="420" alt="Screenshot 2026-04-24 at 09 45 54" src="https://github.com/user-attachments/assets/8f707acc-657c-4238-8b68-18d07cfec534" /></td>
-    <td><img width="420" alt="Screenshot 2026-04-24 at 09 46 17" src="https://github.com/user-attachments/assets/809a11c4-03df-446b-97d4-4d9de2fc62f4" /></td>
+    <td><img width="280" alt="Screenshot 2026-04-24 at 09 45 54" src="https://github.com/user-attachments/assets/8f707acc-657c-4238-8b68-18d07cfec534" /></td>
+    <td><img width="280" alt="Screenshot 2026-04-24 at 09 46 17" src="https://github.com/user-attachments/assets/809a11c4-03df-446b-97d4-4d9de2fc62f4" /></td>
+    <td><img width="280" alt="Screenshot-2026-04-09-at-01 51 34" src="https://github.com/user-attachments/assets/27950006-a73a-4e03-a59c-3b9a34ff8902" /></td>
   </tr>
 </table>
 
