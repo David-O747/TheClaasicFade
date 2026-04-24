@@ -2,6 +2,9 @@
 TheClassicFade
 Barbershop booking platform — live at https://theclassicfadee.netlify.app/
 
+
+
+
 <table>
   <tr>
     <td><img width="420" alt="Screenshot 2026-04-24 at 09 43 40" src="https://github.com/user-attachments/assets/68db2c49-d120-4b7c-b975-52ab3b9779ef" /></td>
