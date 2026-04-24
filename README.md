@@ -1,8 +1,17 @@
 <div align="center">
 TheClassicFade
-Barbershop booking platform — live at theclassicfadee.netlify.app
+Barbershop booking platform — live at https://theclassicfadee.netlify.app/
 
-<img width="894" height="709" alt="Screenshot 2026-04-24 at 08 44 34" src="https://github.com/user-attachments/assets/21fcbe61-586a-4431-bcb0-b023bffea781" />
+<table>
+  <tr>
+    <td><img width="420" alt="Screenshot 2026-04-24 at 09 43 40" src="https://github.com/user-attachments/assets/68db2c49-d120-4b7c-b975-52ab3b9779ef" /></td>
+    <td><img width="420" alt="Screenshot 2026-04-24 at 09 43 58" src="https://github.com/user-attachments/assets/065d7538-4cf8-4ede-84bf-d7aad28ddced" /></td>
+  </tr>
+  <tr>
+    <td><img width="420" alt="Screenshot 2026-04-24 at 09 45 54" src="https://github.com/user-attachments/assets/8f707acc-657c-4238-8b68-18d07cfec534" /></td>
+    <td><img width="420" alt="Screenshot 2026-04-24 at 09 46 17" src="https://github.com/user-attachments/assets/809a11c4-03df-446b-97d4-4d9de2fc62f4" /></td>
+  </tr>
+</table>
 
 
   
